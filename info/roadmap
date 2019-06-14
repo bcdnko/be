@@ -1,0 +1,20 @@
+RELEASES:
+    Milestone 1
+        KEY GOAL: Implement application base (just for reading the Bible)
+        Imports RST and KJV from BQ into json:
+          - parsers
+          - import script
+        Basic views:
+          - books and chapters list with filtration
+          - verses
+
+    Milestone 2
+        KEY GOAL: Provide key functional for researches
+        Marks
+        Integrate Strong Dictionary
+        Strong highlights
+        Strong search
+        Fix registration issues
+        Verse tags
+
+TASKS:

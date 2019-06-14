@@ -1,0 +1,25 @@
+IDEAS:
+    Reading bookmarks and marks
+    Highglight verse by URL
+    Highlight words like God's name
+    Widgets on user's page (like favorite verse or random verse)
+    Reading plan with or without time assignment
+    Go to the last reading verse
+    Quick collection
+    Configurable interface (place widgets anywhere), change column sizes, etc
+    Verse comments
+    Side comments
+    Verse marks
+    Verse tags
+    Changeable books list view
+    Ability to switch between books names (native or user default language)
+    Import books with special remarks (like was added)
+    Highlight and search what a person said
+    VIM keys
+    Canvas - dragging verse opens a menu of choices to drop to,
+      moving over a choice in some cases opens a component, like canvas where
+      you can drop verse anywhere, connect verses with lines and arrows,
+      draw other stuff and save it
+
+TECHNICAL TODOs:
+

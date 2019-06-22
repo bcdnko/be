@@ -23,6 +23,11 @@ export interface BibleVersion {
   updated: string;
 }
 
+export interface BibleBooksByTestament {
+  old: BibleBook[];
+  new: BibleBook[];
+}
+
 export interface BibleBook {
   id: BibleBookId;
   cvId: CrossVersionId;

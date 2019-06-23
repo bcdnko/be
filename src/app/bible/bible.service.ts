@@ -5,6 +5,7 @@ import { map } from 'rxjs/operators';
 import { HttpService } from '../core/http.service';
 
 import {
+  BibleVersion,
   BibleBook,
   BibleBooksByTestament,
 } from './bible.interfaces';
@@ -13,15 +14,19 @@ import {
   providedIn: 'root',
 })
 export class BibleService {
-  private _baseUrl = 'assets/bible/versions/';
+  private baseUrl = 'assets/bible/';
 
   constructor(
     private http: HttpService,
   ) {
   }
 
+  getVersion(versionId: string): Observable<BibleVersion> {
+    return this.http.get<BibleVersion>(`${this.baseUrl}/versions/${encodeURIComponent(versionId)}.json`);
+  }
+
   getBooks(versionId: string): Observable<BibleBook[]> {
-    return this.http.get<BibleBook[]>(this._baseUrl + '/' + encodeURIComponent(versionId) + '/books.json');
+    return this.http.get<BibleBook[]>(`${this.baseUrl}/versions/${encodeURIComponent(versionId)}/books.json`);
   }
 
   getBooksByTestament(versionId: string): Observable<BibleBooksByTestament> {

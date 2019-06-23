@@ -4,7 +4,7 @@ import { Routes, RouterModule } from '@angular/router';
 const routes: Routes = [
   {
     path: '',
-    redirectTo: 'bible/books',
+    redirectTo: 'bible/kjv/books',
     pathMatch: 'full',
   },
 ];

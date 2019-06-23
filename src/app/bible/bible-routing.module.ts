@@ -5,7 +5,7 @@ import { BibleIndexComponent } from './bible-index/bible-index.component';
 
 const routes: Routes = [
   {
-    path: 'bible/books',
+    path: 'bible/:versionId/books',
     component: BibleIndexComponent,
   },
 ];

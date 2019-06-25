@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 
-import { HttpService } from '../core/http.service';
+import { HttpService } from '../core/services/http.service';
 
 import {
   BibleVersion,

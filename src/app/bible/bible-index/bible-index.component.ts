@@ -12,8 +12,8 @@ import {
   BibleBooksByTestament,
 } from '../bible.interfaces';
 import { BibleService } from '../bible.service';
-import { ConfigService } from '../../core/config.service';
-import { Config } from '../../core/common.interfaces';
+import { ConfigService } from '../../core/services/config.service';
+import { Config } from '../../core/interfaces/common.interfaces';
 
 @Component({
   selector: 'app-bible-index',

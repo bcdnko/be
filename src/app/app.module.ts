@@ -4,8 +4,8 @@ import { HttpClientModule } from '@angular/common/http';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { HttpService } from './core/http.service';
-import { ConfigService } from './core/config.service';
+import { HttpService } from './core/services/http.service';
+import { ConfigService } from './core/services/config.service';
 
 import { BibleModule } from './bible/bible.module';
 import { BibleService } from './bible/bible.service';

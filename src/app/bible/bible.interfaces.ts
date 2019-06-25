@@ -1,7 +1,7 @@
 import {
   Language,
   LanguageId,
-} from '../core/language.interfaces';
+} from '../core/interfaces/language.interfaces';
 
 export type BibleVersionId = string;
 export type BibleBookId = number;

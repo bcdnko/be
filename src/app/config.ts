@@ -1,4 +1,4 @@
-import { Config } from './core/common.interfaces';
+import { Config } from './core/interfaces/common.interfaces';
 
 export const config: Config = {
   defaultVersionId: 'kjv',

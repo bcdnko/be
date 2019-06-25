@@ -4,8 +4,8 @@ import {
   map,
 } from 'rxjs/operators';
 
-import { Config } from './common.interfaces';
-import { config } from '../config';
+import { Config } from '../interfaces/common.interfaces';
+import { config } from '../../config';
 
 @Injectable()
 export class ConfigService {

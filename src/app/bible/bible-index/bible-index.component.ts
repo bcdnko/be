@@ -1,8 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, ParamMap } from '@angular/router';
-import { Observable } from 'rxjs';
+import { Observable, of } from 'rxjs';
 import {
   switchMap,
+  map,
+  tap,
 } from 'rxjs/operators';
 
 import {
@@ -10,6 +12,8 @@ import {
   BibleBooksByTestament,
 } from '../bible.interfaces';
 import { BibleService } from '../bible.service';
+import { ConfigService } from '../../core/config.service';
+import { Config } from '../../core/common.interfaces';
 
 @Component({
   selector: 'app-bible-index',
@@ -18,28 +22,64 @@ import { BibleService } from '../bible.service';
 })
 export class BibleIndexComponent implements OnInit {
 
-  protected books$: Observable<BibleBooksByTestament>;
-  protected version: BibleVersion;
+  protected config: Config = null;
+  protected version: BibleVersion = null;
+  protected books: BibleBooksByTestament = null;
+
+  protected load$: Observable<BibleBooksByTestament>;
+
+  private params: ParamMap = null;
 
   constructor(
     private route: ActivatedRoute,
     private bibleService: BibleService,
+    private configService: ConfigService,
   ) {
   }
 
   ngOnInit(): void {
-    this._loadData();
+    this.load$ = this._loadData();
   }
 
-  private _loadData(): void {
-    this.books$ = this.route.paramMap.pipe(
-      switchMap((params: ParamMap) => {
-        return this.bibleService.getVersion(params.get('versionId'));
+  private _loadData(): Observable<BibleBooksByTestament> {
+    const config$ = this._loadConfig();
+    const version$ = this._loadVersion(config$);
+
+    return this._loadBooks(version$);
+  }
+
+  private _loadConfig(): Observable<Config> {
+    return this.route.paramMap.pipe(
+      tap((params: ParamMap) => {
+        this.params = params;
+        this.config = null;
+        this.version = null;
+        this.books = null;
       }),
-      switchMap(version => {
-        this.version = version;
+      switchMap((params: ParamMap) => this.configService.getConfig()),
+      tap(config => this.config = config),
+    );
+  }
+
+  private _loadVersion(config$: Observable<Config>): Observable<BibleVersion> {
+    return config$.pipe(
+      switchMap((config: Config) => {
+        const versionId = this.params.get('versionId');
+        return of(versionId || config.defaultVersionId);
+      }),
+      switchMap((versionId: string) => {
+        return this.bibleService.getVersion(versionId);
+      }),
+      tap((version: BibleVersion) => this.version = version),
+    );
+  }
+
+  private _loadBooks(version$: Observable<BibleVersion>): Observable<BibleBooksByTestament> {
+    return version$.pipe(
+      switchMap((version: BibleVersion) => {
         return this.bibleService.getBooksByTestament(version.id);
       }),
+      tap((books: BibleBooksByTestament) => this.books = books),
     );
   }
 }

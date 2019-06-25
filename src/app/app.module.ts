@@ -6,6 +6,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { HttpService } from './core/services/http.service';
 import { ConfigService } from './core/services/config.service';
+import { UrlService } from './core/services/url.service';
 
 import { BibleModule } from './bible/bible.module';
 import { BibleService } from './bible/bible.service';
@@ -24,6 +25,7 @@ import { BibleService } from './bible/bible.service';
     BibleService,
     HttpService,
     ConfigService,
+    UrlService,
   ],
   bootstrap: [AppComponent]
 })

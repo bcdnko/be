@@ -9,10 +9,12 @@ import {
 
 import {
   BibleVersion,
+  BibleVersionId,
   BibleBooksByTestament,
 } from '../bible.interfaces';
 import { BibleService } from '../bible.service';
 import { ConfigService } from '../../core/services/config.service';
+import { UrlService } from '../../core/services/url.service';
 import { Config } from '../../core/interfaces/common.interfaces';
 
 @Component({
@@ -31,6 +33,7 @@ export class BibleIndexComponent implements OnInit {
   private params: ParamMap = null;
 
   constructor(
+    public urlService: UrlService,
     private route: ActivatedRoute,
     private bibleService: BibleService,
     private configService: ConfigService,
@@ -64,10 +67,10 @@ export class BibleIndexComponent implements OnInit {
   private _loadVersion(config$: Observable<Config>): Observable<BibleVersion> {
     return config$.pipe(
       switchMap((config: Config) => {
-        const versionId = this.params.get('versionId');
+        const versionId: BibleVersionId = this.params.get('versionId');
         return of(versionId || config.defaultVersionId);
       }),
-      switchMap((versionId: string) => {
+      switchMap((versionId: BibleVersionId) => {
         return this.bibleService.getVersion(versionId);
       }),
       tap((version: BibleVersion) => this.version = version),

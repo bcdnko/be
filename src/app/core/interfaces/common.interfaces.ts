@@ -1,4 +1,6 @@
+import { BibleVersionId } from '../../bible/bible.interfaces';
+
 export interface Config {
-  defaultVersionId: string;
+  defaultVersionId: BibleVersionId;
   defaultLanguage: string;
 }

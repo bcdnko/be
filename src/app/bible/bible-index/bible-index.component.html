@@ -8,7 +8,9 @@
       <h2>Old Testament</h2>
       <ul>
         <li *ngFor="let book of books.old">
-          {{book.title}}
+          <a [routerLink]="urlService.bibleBook(version.id, book.id)">
+            {{book.title}}
+          </a>
         </li>
       </ul>
     </div>
@@ -17,7 +19,9 @@
       <h2>New Testament</h2>
       <ul>
         <li *ngFor="let book of books.new">
-          {{book.title}}
+          <a [routerLink]="urlService.bibleBook(version.id, book.id)">
+            {{book.title}}
+          </a>
         </li>
       </ul>
     </div>

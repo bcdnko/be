@@ -8,13 +8,14 @@ import {
   BibleVersion,
   BibleBook,
   BibleBooksByTestament,
+  BibleVerse,
 } from './bible.interfaces';
 
 @Injectable({
   providedIn: 'root',
 })
 export class BibleService {
-  private baseUrl = 'assets/bible/';
+  private baseUrl = 'assets/bible';
 
   constructor(
     private http: HttpService,
@@ -40,5 +41,10 @@ export class BibleService {
           }, { old: [], new: []});
         })
       );
+  }
+
+  getVersesByChapter(versionId: string, bookId: number, chapter: number): Observable<BibleVerse[]> {
+    const url = `${this.baseUrl}/versions/${encodeURIComponent(versionId)}/books/${bookId}/${chapter}.json`;
+    return this.http.get<BibleVerse[]>(url);
   }
 }

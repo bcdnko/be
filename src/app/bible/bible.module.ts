@@ -2,10 +2,18 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 import { BibleRoutingModule } from './bible-routing.module';
-import { BibleIndexComponent } from './bible-index/bible-index.component';
+import { BibleIndexComponent } from './index/bible-index.component';
+import { BibleChapterComponent } from './chapter/bible-chapter.component';
+import { BibleBookSelectorComponent } from './book-selector/bible-book-selector.component';
+import { BibleBookSelectorColumnsComponent } from './book-selector/columns/bible-book-selector-columns.component';
 
 @NgModule({
-  declarations: [BibleIndexComponent],
+  declarations: [
+    BibleIndexComponent,
+    BibleChapterComponent,
+    BibleBookSelectorComponent,
+    BibleBookSelectorColumnsComponent
+  ],
   imports: [
     CommonModule,
     BibleRoutingModule

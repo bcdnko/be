@@ -8,10 +8,10 @@ import {
 @Injectable()
 export class UrlService {
   bibleVersion(versionId: BibleVersionId): string[] {
-    return ['bible', versionId];
+    return ['/bible', versionId];
   }
 
   bibleBook(versionId: BibleVersionId, bookId: BibleBookId): string[] {
-    return ['bible', versionId, bookId.toString()];
+    return ['/bible', versionId, bookId.toString()];
   }
 }

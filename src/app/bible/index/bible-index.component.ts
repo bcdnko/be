@@ -23,7 +23,6 @@ import { Config } from '../../core/interfaces/common.interfaces';
   styleUrls: ['./bible-index.component.scss']
 })
 export class BibleIndexComponent implements OnInit {
-
   protected config: Config = null;
   protected version: BibleVersion = null;
   protected books: BibleBooksByTestament = null;

@@ -1,0 +1,11 @@
+<app-bible-book-selector></app-bible-book-selector>
+
+<div *ngIf="state">
+  <p>{{state.version.title}}</p>
+  <h1>{{state.book.title}}</h1>
+  <h2>Chapter {{state.chapter}}</h2>
+  <p *ngFor="let verse of state.verses">
+    <span>{{verse.no}}.</span> {{verse.text}}
+  </p>
+</div>
+

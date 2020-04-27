@@ -6,13 +6,15 @@ import { BibleIndexComponent } from './index/bible-index.component';
 import { BibleChapterComponent } from './chapter/bible-chapter.component';
 import { BibleBookSelectorComponent } from './book-selector/bible-book-selector.component';
 import { BibleBookSelectorColumnsComponent } from './book-selector/columns/bible-book-selector-columns.component';
+import { BibleComponent } from './bible/bible.component';
 
 @NgModule({
   declarations: [
     BibleIndexComponent,
     BibleChapterComponent,
     BibleBookSelectorComponent,
-    BibleBookSelectorColumnsComponent
+    BibleBookSelectorColumnsComponent,
+    BibleComponent
   ],
   imports: [
     CommonModule,

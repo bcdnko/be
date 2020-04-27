@@ -49,3 +49,10 @@ export interface BibleVerse {
   text: string;
 }
 
+export interface BibleState {
+  version: BibleVersion;
+  book: BibleBook;
+  chapter: number;
+  selectedVerses: BibleVerse[];
+}
+

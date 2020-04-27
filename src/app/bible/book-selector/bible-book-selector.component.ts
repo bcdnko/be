@@ -28,7 +28,7 @@ export class BibleBookSelectorComponent implements OnInit {
   protected version: BibleVersion = null;
   protected books: BibleBooksByTestament = null;
 
-  protected load$: Observable<BibleBooksByTestament>;
+  load$: Observable<BibleBooksByTestament>;
   private params: ParamMap = null;
 
   constructor(

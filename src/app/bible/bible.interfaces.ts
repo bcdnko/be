@@ -44,6 +44,7 @@ export interface BibleBook {
   testament: TestamentId;
   description?: string;
   aliases?: BibleBookAlias[];
+  route: any[];
 }
 
 export interface BibleVerse {

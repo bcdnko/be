@@ -1,15 +1,15 @@
-<app-bible-book-selector></app-bible-book-selector>
+<div class="bible-layout">
+  <div class="sidebar">
+    <app-bible-book-selector></app-bible-book-selector>
+  </div>
 
-<div *ngIf="bibleState">
-  <p>{{bibleState.version.title}}</p>
-  <h1>{{bibleState.book.title}}</h1>
-  <a [routerLink]="'../../../rst/2/2'">Ver</a>
-  <a [routerLink]="'../../2/2'">Book</a>
-  <a [routerLink]="'../45'">Prev</a>
-  <a [routerLink]="'../47'">Next</a>
-  <h2>Chapter {{bibleState.chapter}}</h2>
-  <p *ngFor="let verse of verses">
-    <span>{{verse.no}}.</span> {{verse.text}}
-  </p>
+  <div *ngIf="bibleState" class="chapter-text">
+    <p>{{bibleState.version.title}}</p>
+    <h1>{{bibleState.book.title}}</h1>
+    <h2>Chapter {{bibleState.chapter}}</h2>
+    <p *ngFor="let verse of verses">
+      <span>{{verse.no}}.</span> {{verse.text}}
+    </p>
+  </div>
 </div>
 

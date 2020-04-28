@@ -27,10 +27,17 @@ export class BibleService {
   }
 
   getBooks(versionId: string): Observable<BibleBook[]> {
+    // TODO move book mapper into a different class
     return this.http.get<BibleBook[]>(`${this.baseUrl}/versions/${encodeURIComponent(versionId)}/books.json`).pipe(
       map(books => books.map(book => {
         return {
           ...book,
+          route: [
+            '/bible',
+            versionId,
+            book.id,
+            1,
+          ],
           chaptersArray: new Array(book.chapters)
             .fill(1)
             .map((v, i) => {

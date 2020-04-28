@@ -1,10 +1,10 @@
 <ng-container *ngIf="bibleState && books">
-  <ul>
-    <li *ngFor="let book of books">
-      {{book.title}}
-      <ul>
-        <li *ngFor="let chapter of book.chaptersArray">
-          <a [routerLink]="chapter.route">
+  <ul class="book-list">
+    <li *ngFor="let book of books" class="book">
+      <a [routerLink]="book.route">{{book.title}}</a>
+      <ul class="chapter-list">
+        <li *ngFor="let chapter of book.chaptersArray" class="chapter">
+          <a [routerLink]="chapter.route" (click)="onClick()">
             {{chapter.number}}
           </a>
         </li>

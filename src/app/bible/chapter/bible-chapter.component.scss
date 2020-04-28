@@ -1,0 +1,16 @@
+.bible-layout {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+}
+
+.chapter-text {
+  flex-grow: 8;
+  width: 200px;
+}
+
+.sidebar {
+  flex-grow: 1;
+  display: block;
+  width: 200px;
+}

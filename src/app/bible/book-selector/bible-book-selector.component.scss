@@ -1,0 +1,31 @@
+.book-list {
+  list-style: none;
+  padding-left: 0;
+
+  >li .chapter-list {
+    background: silver;
+    display: none;
+    position: absolute;
+    margin-left: 50px;
+    width: 200px;
+    padding: 10px;
+  }
+
+  >li:hover {
+    background: silver;
+
+    .chapter-list {
+      display: block;
+    }
+  }
+}
+
+.chapter-list {
+  padding-left: 0;
+
+  >li {
+    display: inline;
+    list-style: none;
+  }
+}
+

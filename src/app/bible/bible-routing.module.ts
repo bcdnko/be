@@ -5,21 +5,28 @@ import { BibleComponent } from './bible/bible.component';
 import { BibleIndexComponent } from './index/bible-index.component';
 import { BibleChapterComponent } from './chapter/bible-chapter.component';
 
+import { config } from '../config';
+
 const routes: Routes = [
   {
     path: 'bible',
     component: BibleComponent,
     children: [
       {
-        path: 'books',
-        component: BibleIndexComponent,
+        path: '',
+        pathMatch: 'full',
+        redirectTo: `${config.defaultVersionId}/1/1`,
       },
       {
-        path: ':versionId/books',
-        component: BibleIndexComponent,
+        path: ':versionId',
+        redirectTo: ':versionId/1/1',
       },
       {
         path: ':versionId/:bookId',
+        redirectTo: ':versionId/:bookId/1',
+      },
+      {
+        path: ':versionId/:bookId/:chapter',
         component: BibleChapterComponent,
       },
     ],

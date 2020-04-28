@@ -3,6 +3,8 @@
 <div *ngIf="state">
   <p>{{state.version.title}}</p>
   <h1>{{state.book.title}}</h1>
+  <a [routerLink]="'../45'">Prev</a>
+  <a [routerLink]="'../47'">Next</a>
   <h2>Chapter {{state.chapter}}</h2>
   <p *ngFor="let verse of state.verses">
     <span>{{verse.no}}.</span> {{verse.text}}

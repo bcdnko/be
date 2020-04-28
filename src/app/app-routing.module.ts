@@ -1,10 +1,12 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 
+import { config } from './config';
+
 const routes: Routes = [
   {
     path: '',
-    redirectTo: 'bible/kjv/books',
+    redirectTo: `bible/${config.defaultVersionId}`,
     pathMatch: 'full',
   },
 ];

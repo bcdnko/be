@@ -7,6 +7,7 @@ import { BibleChapterComponent } from './chapter/bible-chapter.component';
 import { BibleBookSelectorComponent } from './book-selector/bible-book-selector.component';
 import { BibleBookSelectorColumnsComponent } from './book-selector/columns/bible-book-selector-columns.component';
 import { BibleComponent } from './bible/bible.component';
+import { BibleService } from './bible.service';
 
 @NgModule({
   declarations: [
@@ -19,6 +20,9 @@ import { BibleComponent } from './bible/bible.component';
   imports: [
     CommonModule,
     BibleRoutingModule
+  ],
+  providers: [
+    BibleService,
   ],
 })
 export class BibleModule { }

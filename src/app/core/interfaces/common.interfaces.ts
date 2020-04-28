@@ -4,3 +4,6 @@ export interface Config {
   defaultVersionId: BibleVersionId;
   defaultLanguage: string;
 }
+
+export interface User extends Config {
+}

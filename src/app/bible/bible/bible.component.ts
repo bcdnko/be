@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { Router, ActivatedRoute } from '@angular/router';
+
+import { BibleStateService } from '../bible-state.service';
 
 @Component({
   selector: 'app-bible',
@@ -7,9 +10,23 @@ import { Component, OnInit } from '@angular/core';
 })
 export class BibleComponent implements OnInit {
 
-  constructor() { }
+  constructor(
+    private route: ActivatedRoute,
+    private router: Router,
+    private bibleStateService: BibleStateService,
+  ) {
+    // TODO take until
+    route.firstChild.params.subscribe((params) => {
+      bibleStateService.setState({
+        version: params.version,
+        book: params.book,
+        chapter: params.chapter,
+        selectedVerses: [],
+      });
+    });
+  }
 
-  ngOnInit() {
+  ngOnInit(): void {
   }
 
 }

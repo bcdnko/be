@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
 
 import { BibleState } from './bible.interfaces';
+
 @Injectable({
   providedIn: 'root',
 })
@@ -10,6 +11,7 @@ export class BibleStateService {
   state = this.stateSource$.asObservable();
 
   setState(state: BibleState): void {
+    console.log('new state', state);
     this.stateSource$.next(state);
   }
 }

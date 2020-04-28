@@ -1,10 +1,12 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 
-import { Subject } from 'rxjs';
-import { takeUntil } from 'rxjs/operators';
+import { Subject, forkJoin, of } from 'rxjs';
+import { takeUntil, switchMap, tap } from 'rxjs/operators';
 
+import { BibleService } from '../bible.service';
 import { BibleStateService } from '../bible-state.service';
+import { BibleState } from '../bible.interfaces';
 
 @Component({
   selector: 'app-bible',
@@ -14,21 +16,14 @@ import { BibleStateService } from '../bible-state.service';
 export class BibleComponent implements OnInit, OnDestroy {
 
   private destroy$: Subject<void> = new Subject();
+  private bibleState: BibleState;
 
   constructor(
-    route: ActivatedRoute,
-    bibleStateService: BibleStateService,
+    private bibleService: BibleService,
+    private route: ActivatedRoute,
+    private bibleStateService: BibleStateService,
   ) {
-    route.firstChild.params
-      .pipe(takeUntil(this.destroy$))
-      .subscribe((params) => {
-        bibleStateService.setState({
-          version: params.version,
-          book: params.book,
-          chapter: params.chapter,
-          selectedVerses: [],
-        });
-      });
+    this.handleParamsChange();
   }
 
   ngOnInit(): void {
@@ -37,6 +32,45 @@ export class BibleComponent implements OnInit, OnDestroy {
   ngOnDestroy(): void {
     this.destroy$.next();
     this.destroy$.complete();
+  }
+
+  private handleParamsChange(): void {
+    this.route.firstChild.params.pipe(
+      takeUntil(this.destroy$),
+      switchMap((params) => {
+        // TODO add checks
+        const versionId = params.versionId;
+        const bookId = parseInt(params.bookId, 10);
+        const chapter = parseInt(params.chapter || 1, 10);
+
+        const oldState = this.bibleState;
+        const isNewVersion = oldState?.version.id !== versionId;
+        console.log(isNewVersion);
+
+        const loadVersion$ = isNewVersion
+          ? this.bibleService.getVersion(versionId)
+          : of(oldState.version);
+
+        const loadBooks$ = isNewVersion
+          ? this.bibleService.getBooks(versionId)
+          : of(oldState.versionBooks);
+
+        return forkJoin([loadVersion$, loadBooks$]).pipe(
+          tap(([version, books]) => {
+            const state = {
+              version,
+              versionBooks: books,
+              book: books.find(item => item.id === bookId) || null,
+              chapter,
+              selectedVerses: [],
+            };
+            this.bibleStateService.setState(state);
+            this.bibleState = state;
+          }),
+        );
+
+      }),
+    ).subscribe();
   }
 
 }

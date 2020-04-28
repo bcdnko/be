@@ -28,6 +28,11 @@ export interface BibleBooksByTestament {
   new: BibleBook[];
 }
 
+export interface BibleBookChapter {
+  number: number;
+  route: any[];
+}
+
 export interface BibleBook {
   id: BibleBookId;
   cvId: CrossVersionId;
@@ -35,6 +40,7 @@ export interface BibleBook {
   title: string;
   titleShort?: string;
   chapters: number;
+  chaptersArray: BibleBookChapter[];
   testament: TestamentId;
   description?: string;
   aliases?: BibleBookAlias[];
@@ -51,6 +57,7 @@ export interface BibleVerse {
 
 export interface BibleState {
   version: BibleVersion;
+  versionBooks: BibleBook[];
   book: BibleBook;
   chapter: number;
   selectedVerses: BibleVerse[];

@@ -36,7 +36,7 @@ export class BqParser extends BibleParser {
         versionId: version.id,
         title: this.module['FullName'][i],
         titleShort: this.module['FullName'][i],
-        chapters: this.module['ChapterQty'][i],
+        chapters: parseInt(this.module['ChapterQty'][i], 10),
         aliases: this._parseAliases(this.module['ShortName'][i]),
         testament: i + 1 < 40 ? 'old' : 'new',
       };

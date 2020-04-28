@@ -1,60 +1,37 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { Component, OnDestroy } from '@angular/core';
 
-import { Subject, forkJoin } from 'rxjs';
-import { switchMap, tap, takeUntil } from 'rxjs/operators';
+import { Subject, Observable } from 'rxjs';
+import { tap, takeUntil, switchMap, filter } from 'rxjs/operators';
 
 import { BibleService } from '../bible.service';
-import { BibleVersion, BibleBook, BibleVerse } from '../bible.interfaces';
-
-interface ChapterState {
-  version: BibleVersion;
-  book: BibleBook;
-  chapter: number;
-  verses: BibleVerse[];
-}
+import { BibleState, BibleVerse } from '../bible.interfaces';
+import { BibleStateService } from '../bible-state.service';
 
 @Component({
   selector: 'app-bible-chapter',
   templateUrl: './bible-chapter.component.html',
   styleUrls: ['./bible-chapter.component.scss']
 })
-export class BibleChapterComponent implements OnInit, OnDestroy {
+export class BibleChapterComponent implements OnDestroy {
+
+  public bibleState: BibleState;
+  public verses: BibleVerse[];
 
   private destroy$: Subject<void> = new Subject();
 
-  public state: ChapterState;
-
   constructor(
-    private route: ActivatedRoute,
     private bibleService: BibleService,
+    private bibleStateService: BibleStateService,
   ) {
-  }
-
-  ngOnInit(): void {
-    this.route.params.pipe(
+    this.bibleStateService.state.pipe(
       takeUntil(this.destroy$),
-      switchMap((params) => {
-        const versionId = params.versionId;
-        const bookId = parseInt(params.bookId, 10);
-        const chapter = parseInt(params.chapter || 1, 10);
-
-        return forkJoin([
-          this.bibleService.getVersion(versionId),
-          this.bibleService.getBooks(versionId),
-          this.bibleService.getVersesByChapter(versionId, bookId, chapter),
-        ]).pipe(
-          tap(([version, books, verses]) => {
-            this.state = {
-              version,
-              book: books.find(item => item.id === bookId),
-              chapter,
-              verses,
-            };
-            console.log(this.state)
-          }),
-        );
-
+      filter(state => !!state),
+      tap(state => {
+        this.onBibleStateChange(state);
+      }),
+      switchMap(state => this.onLoadVerses(state)),
+      tap(verses => {
+        this.verses = verses;
       }),
     ).subscribe();
   }
@@ -64,4 +41,15 @@ export class BibleChapterComponent implements OnInit, OnDestroy {
     this.destroy$.complete();
   }
 
+  private onBibleStateChange(state: BibleState): void {
+    this.bibleState = state;
+  }
+
+  private onLoadVerses(state: BibleState): Observable<BibleVerse[]> {
+    return this.bibleService.getVersesByChapter(
+      state.version.id,
+      state.book.id,
+      state.chapter,
+    );
+  }
 }

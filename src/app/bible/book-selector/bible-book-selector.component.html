@@ -1,6 +1,14 @@
-<ng-container *ngIf="load$ | async">
+<ng-container *ngIf="bibleState && books">
+  <ul>
+    <li *ngFor="let book of books">
+      {{book.title}}
+      <ul>
+        <li *ngFor="let chapter of book.chaptersArray">
+          <a [routerLink]="chapter.route">
+            {{chapter.number}}
+          </a>
+        </li>
+      </ul>
+    </li>
+  </ul>
 </ng-container>
-
-<p>
-  bible-book-selector works!
-</p>

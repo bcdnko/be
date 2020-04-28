@@ -27,7 +27,28 @@ export class BibleService {
   }
 
   getBooks(versionId: string): Observable<BibleBook[]> {
-    return this.http.get<BibleBook[]>(`${this.baseUrl}/versions/${encodeURIComponent(versionId)}/books.json`);
+    return this.http.get<BibleBook[]>(`${this.baseUrl}/versions/${encodeURIComponent(versionId)}/books.json`).pipe(
+      map(books => books.map(book => {
+        return {
+          ...book,
+          chaptersArray: new Array(book.chapters)
+            .fill(1)
+            .map((v, i) => {
+              const number = i + 1;
+              return {
+                number: number,
+                route: [
+                  '/bible',
+                  versionId,
+                  book.id,
+                  number,
+                ],
+              };
+            }),
+        };
+      })
+     )
+    );
   }
 
   getBooksByTestament(versionId: string): Observable<BibleBooksByTestament> {

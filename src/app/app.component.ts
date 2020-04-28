@@ -12,6 +12,7 @@ export class AppComponent {
 
   constructor(public userService: UserService) {
     userService.setUser({
+      name: null,
       defaultVersionId: 'kjv',
       defaultLanguage: 'en',
     });

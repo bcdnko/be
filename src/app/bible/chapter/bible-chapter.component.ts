@@ -1,8 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { OnDestroy } from '@angular/core/core';
 
-import { Subject, forkJoin, Observable } from 'rxjs';
+import { Subject, forkJoin } from 'rxjs';
 import { switchMap, tap, takeUntil } from 'rxjs/operators';
 
 import { BibleService } from '../bible.service';
@@ -37,8 +36,8 @@ export class BibleChapterComponent implements OnInit, OnDestroy {
       takeUntil(this.destroy$),
       switchMap((params) => {
         const versionId = params.versionId;
-        const bookId = parseInt(params.bookId);
-        const chapter = parseInt(params.chapter || 1);
+        const bookId = parseInt(params.bookId, 10);
+        const chapter = parseInt(params.chapter || 1, 10);
 
         return forkJoin([
           this.bibleService.getVersion(versionId),
@@ -47,10 +46,10 @@ export class BibleChapterComponent implements OnInit, OnDestroy {
         ]).pipe(
           tap(([version, books, verses]) => {
             this.state = {
-              version: version,
+              version,
               book: books.find(item => item.id === bookId),
-              chapter: chapter,
-              verses: verses,
+              chapter,
+              verses,
             };
             console.log(this.state)
           }),

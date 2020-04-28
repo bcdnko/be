@@ -6,4 +6,5 @@ export interface Config {
 }
 
 export interface User extends Config {
+  name: string;
 }

@@ -1,5 +1,8 @@
-import { Component, OnInit } from '@angular/core';
-import { Router, ActivatedRoute } from '@angular/router';
+import { Component, OnInit, OnDestroy } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
+
+import { Subject } from 'rxjs';
+import { takeUntil } from 'rxjs/operators';
 
 import { BibleStateService } from '../bible-state.service';
 
@@ -8,25 +11,32 @@ import { BibleStateService } from '../bible-state.service';
   templateUrl: './bible.component.html',
   styleUrls: ['./bible.component.scss']
 })
-export class BibleComponent implements OnInit {
+export class BibleComponent implements OnInit, OnDestroy {
+
+  private destroy$: Subject<void> = new Subject();
 
   constructor(
-    private route: ActivatedRoute,
-    private router: Router,
-    private bibleStateService: BibleStateService,
+    route: ActivatedRoute,
+    bibleStateService: BibleStateService,
   ) {
-    // TODO take until
-    route.firstChild.params.subscribe((params) => {
-      bibleStateService.setState({
-        version: params.version,
-        book: params.book,
-        chapter: params.chapter,
-        selectedVerses: [],
+    route.firstChild.params
+      .pipe(takeUntil(this.destroy$))
+      .subscribe((params) => {
+        bibleStateService.setState({
+          version: params.version,
+          book: params.book,
+          chapter: params.chapter,
+          selectedVerses: [],
+        });
       });
-    });
   }
 
   ngOnInit(): void {
+  }
+
+  ngOnDestroy(): void {
+    this.destroy$.next();
+    this.destroy$.complete();
   }
 
 }

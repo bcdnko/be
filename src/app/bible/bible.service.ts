@@ -34,14 +34,14 @@ export class BibleService {
           chaptersArray: new Array(book.chapters)
             .fill(1)
             .map((v, i) => {
-              const number = i + 1;
+              const num = i + 1;
               return {
-                number: number,
+                number: num,
                 route: [
                   '/bible',
                   versionId,
                   book.id,
-                  number,
+                  num,
                 ],
               };
             }),

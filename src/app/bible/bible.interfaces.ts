@@ -7,7 +7,7 @@ export type BibleVersionId = string;
 export type BibleBookId = number;
 export type BibleBookAlias = string;
 export type TestamentId = 'old' | 'new';
-export type CrossVersionId = number;
+export type CrossVersionId = string;
 
 export interface BibleLanguage extends Language {
   defaultVersionId: BibleVersionId;
@@ -33,17 +33,21 @@ export interface BibleBookChapter {
   route: any[];
 }
 
-export interface BibleBook {
+export interface BibleBookStored {
   id: BibleBookId;
   cvId: CrossVersionId;
   versionId: BibleVersionId;
   title: string;
-  titleShort?: string;
+  titleShort: string;
   chapters: number;
-  chaptersArray: BibleBookChapter[];
   testament: TestamentId;
   description?: string;
-  aliases?: BibleBookAlias[];
+  aliases: BibleBookAlias[];
+}
+
+export interface BibleBook extends BibleBookStored {
+  chaptersArray: BibleBookChapter[];
+  aliasesIndex: string[];
   route: any[];
 }
 

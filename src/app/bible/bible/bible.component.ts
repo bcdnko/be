@@ -6,7 +6,7 @@ import { takeUntil, switchMap, tap } from 'rxjs/operators';
 
 import { BibleService } from '../bible.service';
 import { BibleStateService } from '../bible-state.service';
-import { BibleState } from '../bible.interfaces';
+import { BibleState, BibleBook } from '../bible.interfaces';
 
 @Component({
   selector: 'app-bible',
@@ -34,13 +34,25 @@ export class BibleComponent implements OnInit, OnDestroy {
     this.destroy$.complete();
   }
 
+  private findBook(books: BibleBook[], bookRequest: string): BibleBook {
+    let book;
+    if (!isNaN(Number(bookRequest))) {
+      const bookId = parseInt(bookRequest, 10);
+      book = books.find(item => item.id === bookId);
+    } else {
+      book = books.find(_ =>  _.aliasesIndex.includes(bookRequest));
+    }
+
+    return book || null;
+  }
+
   private handleParamsChange(): void {
     this.route.firstChild.params.pipe(
       takeUntil(this.destroy$),
       switchMap((params) => {
         // TODO add checks
         const versionId = params.versionId;
-        const bookId = parseInt(params.bookId, 10);
+        const bookId = params.bookId;
         const chapter = parseInt(params.chapter || 1, 10);
 
         const oldState = this.bibleState;
@@ -57,10 +69,11 @@ export class BibleComponent implements OnInit, OnDestroy {
 
         return forkJoin([loadVersion$, loadBooks$]).pipe(
           tap(([version, books]) => {
+            const book = this.findBook(books, bookId);
             const state = {
               version,
               versionBooks: books,
-              book: books.find(item => item.id === bookId) || null,
+              book,
               chapter,
               selectedVerses: [],
             };

@@ -1,8 +1,9 @@
 import { BibleParser } from './parser';
 import {
   BibleVersion,
-  BibleBook,
+  BibleBookStored,
   BibleVerse,
+  BibleBookId,
 } from '../../src/app/bible/bible.interfaces';
 import { parseBqIni } from '../parse-bq-ini';
 
@@ -27,25 +28,29 @@ export class BqParser extends BibleParser {
     };
   }
 
-  parseBooks(): BibleBook[] {
+  parseBooks(): BibleBookStored {
     const version = this.parseVersion();
-    const books = this.module['PathName'].map((_, i): BibleBook => {
+    const books = this.module['PathName'].map((_, i) => {
+      const id = i + 1;
+      const defaults = this._defaults && this._defaults.books.find(_ => _.id === id) || {};
+
       return {
-        id: i + 1,
-        cvId: i + 1,
+        ...defaults,
+        id: id,
+        cvId: new String(id),
         versionId: version.id,
         title: this.module['FullName'][i],
         titleShort: this.module['FullName'][i],
         chapters: parseInt(this.module['ChapterQty'][i], 10),
-        aliases: this._parseAliases(this.module['ShortName'][i]),
-        testament: i + 1 < 40 ? 'old' : 'new',
+        aliases: this._parseAliases(this.module['ShortName'][i], defaults.aliases || []),
+        testament: id < 40 ? 'old' : 'new',
       };
     });
 
     return books;
   }
 
-  parseBookVerses(book: BibleBook): BibleVerse[] {
+  parseBookVerses(book: BibleBookStored): BibleVerse[] {
     const file = this.module['PathName'][book.id - 1];
     const rawVerses = fs.readFileSync(path.join(this._path, file));
     this._currentChapter = null;
@@ -69,12 +74,19 @@ export class BqParser extends BibleParser {
     return this._module;
   }
 
-  private _parseAliases(aliases: string): string[] {
-    return aliases.split(' ');
+  private _parseAliases(aliases: string, defaults: string[]): string[] {
+    const result = [...defaults];
+
+    for (let alias of aliases.split(' ')) {
+      if (!result.includes(alias))
+      result.push(alias);
+    }
+
+    return result;
   }
 
   private _parseVerse(
-    book: BibleBook,
+    book: BibleBookStored,
     row: string,
     acc: BibleVerse[],
   ): BibleVerse[] {
@@ -101,7 +113,7 @@ export class BqParser extends BibleParser {
 
       acc.push({
         id: null,
-        cvId: verseNo,
+        cvId: '' + verseNo,
         bookId: book.id,
         chapter: this._currentChapter,
         no: verseNo,

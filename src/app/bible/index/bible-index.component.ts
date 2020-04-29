@@ -13,7 +13,6 @@ import {
 } from '../bible.interfaces';
 import { BibleService } from '../bible.service';
 import { ConfigService } from '../../core/services/config.service';
-import { UrlService } from '../../core/services/url.service';
 import { Config } from '../../core/interfaces/common.interfaces';
 
 @Component({
@@ -31,7 +30,6 @@ export class BibleIndexComponent implements OnInit {
   private params: ParamMap = null;
 
   constructor(
-    public urlService: UrlService,
     private route: ActivatedRoute,
     private bibleService: BibleService,
     private configService: ConfigService,

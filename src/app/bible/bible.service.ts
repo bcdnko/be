@@ -6,6 +6,7 @@ import { HttpService } from '../core/services/http.service';
 
 import {
   BibleVersion,
+  BibleBookStored,
   BibleBook,
   BibleBooksByTestament,
   BibleVerse,
@@ -28,14 +29,15 @@ export class BibleService {
 
   getBooks(versionId: string): Observable<BibleBook[]> {
     // TODO move book mapper into a different class
-    return this.http.get<BibleBook[]>(`${this.baseUrl}/versions/${encodeURIComponent(versionId)}/books.json`).pipe(
+    return this.http.get<BibleBookStored[]>(`${this.baseUrl}/versions/${encodeURIComponent(versionId)}/books.json`).pipe(
       map(books => books.map(book => {
         return {
           ...book,
+          aliasesIndex: book.aliases.map(alias => alias.toLowerCase()),
           route: [
             '/bible',
             versionId,
-            book.id,
+            book.aliases[0].toLowerCase(),
             1,
           ],
           chaptersArray: new Array(book.chapters)
@@ -47,7 +49,7 @@ export class BibleService {
                 route: [
                   '/bible',
                   versionId,
-                  book.id,
+                  book.aliases[0].toLowerCase(),
                   num,
                 ],
               };

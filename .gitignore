@@ -46,7 +46,8 @@ testem.log
 Thumbs.db
 
 # project files
-imports/*
-!imports/read.me
+imports/*/*
+!imports/bq-kjv/defaults.json
+!imports/bq-rst/defaults.json
 
 src/assets/bible/*

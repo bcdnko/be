@@ -8,6 +8,7 @@ import {
 const appRoot = require('app-root-path').toString();
 const path = require('path');
 const fs = require('fs');
+const fsExtra = require('fs-extra');
 const ProgressBar = require('progress');
 const mkdirp = require('mkdirp');
 
@@ -15,11 +16,16 @@ const importPath = path.join(appRoot, 'imports');
 const targetPath = path.join(appRoot, 'src', 'assets', 'bible', 'versions');
 
 function saveVersion(version: BibleVersion): void {
-  // todo clean
   const versionPath = path.join(targetPath, version.id);
+  const versionFilePath = versionPath + '.json';
+
+  // Clean
+  fsExtra.removeSync(versionPath);
+  fsExtra.removeSync(versionFilePath);
+
   mkdirp.sync(versionPath);
   fs.writeFileSync(
-    path.join(targetPath, version.id + '.json'),
+    versionFilePath,
     JSON.stringify(version),
   );
 }

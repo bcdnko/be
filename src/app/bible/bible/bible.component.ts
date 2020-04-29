@@ -57,7 +57,6 @@ export class BibleComponent implements OnInit, OnDestroy {
 
         const oldState = this.bibleState;
         const isNewVersion = oldState?.version.id !== versionId;
-        console.log(isNewVersion);
 
         const loadVersion$ = isNewVersion
           ? this.bibleService.getVersion(versionId)

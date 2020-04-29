@@ -8,9 +8,12 @@ import {
   BibleVersion,
   BibleBookStored,
   BibleBook,
+  BibleBookId,
+  BibleVersionId,
   BibleBooksByTestament,
   BibleVerse,
 } from './bible.interfaces';
+import { bibleBookMapper } from './mappers/book.mapper';
 
 @Injectable({
   providedIn: 'root',
@@ -23,44 +26,19 @@ export class BibleService {
   ) {
   }
 
-  getVersion(versionId: string): Observable<BibleVersion> {
+  getVersion(versionId: BibleVersionId): Observable<BibleVersion> {
     return this.http.get<BibleVersion>(`${this.baseUrl}/versions/${encodeURIComponent(versionId)}.json`);
   }
 
-  getBooks(versionId: string): Observable<BibleBook[]> {
+  getBooks(versionId: BibleVersionId): Observable<BibleBook[]> {
     // TODO move book mapper into a different class
     return this.http.get<BibleBookStored[]>(`${this.baseUrl}/versions/${encodeURIComponent(versionId)}/books.json`).pipe(
-      map(books => books.map(book => {
-        return {
-          ...book,
-          aliasesIndex: book.aliases.map(alias => alias.toLowerCase()),
-          route: [
-            '/bible',
-            versionId,
-            book.aliases[0].toLowerCase(),
-            1,
-          ],
-          chaptersArray: new Array(book.chapters)
-            .fill(1)
-            .map((v, i) => {
-              const num = i + 1;
-              return {
-                number: num,
-                route: [
-                  '/bible',
-                  versionId,
-                  book.aliases[0].toLowerCase(),
-                  num,
-                ],
-              };
-            }),
-        };
-      })
+      map(books => books.map(book => bibleBookMapper(versionId, book))
      )
     );
   }
 
-  getBooksByTestament(versionId: string): Observable<BibleBooksByTestament> {
+  getBooksByTestament(versionId: BibleVersionId): Observable<BibleBooksByTestament> {
     return this
       .getBooks(versionId)
       .pipe(
@@ -73,7 +51,7 @@ export class BibleService {
       );
   }
 
-  getVersesByChapter(versionId: string, bookId: number, chapter: number): Observable<BibleVerse[]> {
+  getVersesByChapter(versionId: BibleVersionId, bookId: BibleBookId, chapter: number): Observable<BibleVerse[]> {
     const url = `${this.baseUrl}/versions/${encodeURIComponent(versionId)}/books/${bookId}/${chapter}.json`;
     return this.http.get<BibleVerse[]>(url);
   }

@@ -11,7 +11,7 @@ export class BibleStateService {
   state = this.stateSource$.asObservable();
 
   setState(state: BibleState): void {
-    console.log('new state', state);
+    window.scrollTo(0, 0);
     this.stateSource$.next(state);
   }
 }

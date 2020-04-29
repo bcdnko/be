@@ -37,14 +37,8 @@ export class BibleBookSelectorComponent implements OnInit, OnDestroy {
     this.destroy$.complete();
   }
 
-  public onClick(): void {
-    window.scrollTo(0, 0);
-  }
-
   private onBibleStateChange(state: BibleState): void {
     this.bibleState = state;
     this.books = state.versionBooks;
-
-    console.log(this.books);
   }
 }

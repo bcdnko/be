@@ -8,6 +8,7 @@ import { HttpService } from './core/services/http.service';
 import { ConfigService } from './core/services/config.service';
 import { UserService } from './core/services/user.service';
 import { UrlService } from './core/services/url.service';
+import { AppStateService } from './core/services/app-state.service';
 
 import { BibleModule } from './bible/bible.module';
 
@@ -26,6 +27,7 @@ import { BibleModule } from './bible/bible.module';
     ConfigService,
     UrlService,
     UserService,
+    AppStateService,
   ],
   bootstrap: [AppComponent]
 })

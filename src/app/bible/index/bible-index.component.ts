@@ -1,84 +1,48 @@
-import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, ParamMap } from '@angular/router';
-import { Observable, of } from 'rxjs';
+import { Component, OnDestroy } from '@angular/core';
+
+import { Subject } from 'rxjs';
 import {
-  switchMap,
-  tap,
+  filter,
+  takeUntil,
 } from 'rxjs/operators';
 
 import {
-  BibleVersion,
-  BibleVersionId,
   BibleBooksByTestament,
+  BibleState,
 } from '../bible.interfaces';
+import { BibleStateService } from '../bible-state.service';
 import { BibleService } from '../bible.service';
-import { ConfigService } from '../../core/services/config.service';
-import { Config } from '../../core/interfaces/common.interfaces';
 
 @Component({
   selector: 'app-bible-index',
   templateUrl: './bible-index.component.html',
   styleUrls: ['./bible-index.component.scss']
 })
-export class BibleIndexComponent implements OnInit {
-  protected config: Config = null;
-  protected version: BibleVersion = null;
-  protected books: BibleBooksByTestament = null;
+export class BibleIndexComponent implements OnDestroy {
+  bibleState: BibleState = null;
+  books: BibleBooksByTestament = null;
 
-  load$: Observable<BibleBooksByTestament>;
-
-  private params: ParamMap = null;
+  private destroy$: Subject<void> = new Subject();
 
   constructor(
-    private route: ActivatedRoute,
-    private bibleService: BibleService,
-    private configService: ConfigService,
+    bibleService: BibleService,
+    bibleStateService: BibleStateService,
   ) {
+    bibleStateService.state
+      .pipe(
+        takeUntil(this.destroy$),
+        filter(state => !!state),
+      )
+      .subscribe(state => {
+        this.bibleState = state;
+        this.books = bibleService.groupBooksByTestament(state.versionBooks);
+      });
   }
 
-  ngOnInit(): void {
-    this.load$ = this._loadData();
+  ngOnDestroy(): void {
+    this.destroy$.next();
+    this.destroy$.complete();
   }
 
-  private _loadData(): Observable<BibleBooksByTestament> {
-    const config$ = this._loadConfig();
-    const version$ = this._loadVersion(config$);
-
-    return this._loadBooks(version$);
-  }
-
-  private _loadConfig(): Observable<Config> {
-    return this.route.paramMap.pipe(
-      tap((params: ParamMap) => {
-        this.params = params;
-        this.config = null;
-        this.version = null;
-        this.books = null;
-      }),
-      switchMap((params: ParamMap) => this.configService.getConfig()),
-      tap(config => this.config = config),
-    );
-  }
-
-  private _loadVersion(config$: Observable<Config>): Observable<BibleVersion> {
-    return config$.pipe(
-      switchMap((config: Config) => {
-        const versionId: BibleVersionId = this.params.get('versionId');
-        return of(versionId || config.defaultVersionId);
-      }),
-      switchMap((versionId: BibleVersionId) => {
-        return this.bibleService.getVersion(versionId);
-      }),
-      tap((version: BibleVersion) => this.version = version),
-    );
-  }
-
-  private _loadBooks(version$: Observable<BibleVersion>): Observable<BibleBooksByTestament> {
-    return version$.pipe(
-      switchMap((version: BibleVersion) => {
-        return this.bibleService.getBooksByTestament(version.id);
-      }),
-      tap((books: BibleBooksByTestament) => this.books = books),
-    );
-  }
 }
+

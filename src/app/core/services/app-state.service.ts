@@ -1,22 +1,18 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
 
-import {
-  BibleState,
-} from './bible.interfaces';
+import { AppState } from '../interfaces/common.interfaces';
 
-@Injectable({
-  providedIn: 'root',
-})
-export class BibleStateService {
+@Injectable()
+export class AppStateService {
   private stateSource$ = new BehaviorSubject(null);
 
-  get state(): Observable<BibleState> {
+  get state(): Observable<AppState> {
     return this.stateSource$.asObservable();
   }
 
-  setState(state: BibleState): void {
-    window.scrollTo(0, 0);
+  setState(state: AppState): void {
     this.stateSource$.next(state);
   }
 }
+

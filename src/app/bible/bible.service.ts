@@ -31,24 +31,17 @@ export class BibleService {
   }
 
   getBooks(versionId: BibleVersionId): Observable<BibleBook[]> {
-    // TODO move book mapper into a different class
     return this.http.get<BibleBookStored[]>(`${this.baseUrl}/versions/${encodeURIComponent(versionId)}/books.json`).pipe(
       map(books => books.map(book => bibleBookMapper(versionId, book))
      )
     );
   }
 
-  getBooksByTestament(versionId: BibleVersionId): Observable<BibleBooksByTestament> {
-    return this
-      .getBooks(versionId)
-      .pipe(
-        map(_ => {
-          return _.reduce((acc, item) => {
-            acc[item.testament].push(item);
-            return acc;
-          }, { old: [], new: []});
-        })
-      );
+  groupBooksByTestament(books: BibleBook[]): BibleBooksByTestament {
+    return books.reduce((acc, item) => {
+      acc[item.testament].push(item);
+      return acc;
+    }, { old: [], new: []});
   }
 
   getVersesByChapter(versionId: BibleVersionId, bookId: BibleBookId, chapter: number): Observable<BibleVerse[]> {
@@ -56,3 +49,4 @@ export class BibleService {
     return this.http.get<BibleVerse[]>(url);
   }
 }
+

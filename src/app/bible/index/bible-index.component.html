@@ -1,7 +1,7 @@
 <h1>Bible</h1>
 
-<ng-container *ngIf="load$ | async">
-  <h2>{{version.title}}</h2>
+<ng-container *ngIf="books">
+  <h2>{{bibleState.version.title}}</h2>
 
   <div class="row">
     <div class="col-xs-12 col-md-6">

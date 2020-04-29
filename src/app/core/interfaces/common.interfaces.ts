@@ -5,6 +5,11 @@ export interface Config {
   defaultLanguage: string;
 }
 
+export interface AppState {
+  config: Config;
+}
+
 export interface User extends Config {
   name: string;
 }
+

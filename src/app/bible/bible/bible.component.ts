@@ -1,8 +1,8 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router, NavigationEnd } from '@angular/router';
 
 import { Subject, forkJoin, of } from 'rxjs';
-import { takeUntil, switchMap, tap } from 'rxjs/operators';
+import { takeUntil, switchMap, tap, filter } from 'rxjs/operators';
 
 import { BibleService } from '../bible.service';
 import { BibleStateService } from '../bible-state.service';
@@ -21,6 +21,7 @@ export class BibleComponent implements OnInit, OnDestroy {
   constructor(
     private bibleService: BibleService,
     private route: ActivatedRoute,
+    private router: Router,
     private bibleStateService: BibleStateService,
   ) {
     this.handleParamsChange();
@@ -47,9 +48,11 @@ export class BibleComponent implements OnInit, OnDestroy {
   }
 
   private handleParamsChange(): void {
-    this.route.firstChild.params.pipe(
+    this.router.events.pipe(
       takeUntil(this.destroy$),
-      switchMap((params) => {
+      filter(event => event instanceof NavigationEnd),
+      switchMap(() => {
+        const params = this.route.firstChild.snapshot.params;
         // TODO add checks
         const versionId = params.versionId;
         const bookId = params.bookId;
@@ -80,7 +83,6 @@ export class BibleComponent implements OnInit, OnDestroy {
             this.bibleState = state;
           }),
         );
-
       }),
     ).subscribe();
   }

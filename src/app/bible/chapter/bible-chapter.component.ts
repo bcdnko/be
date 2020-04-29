@@ -27,7 +27,6 @@ export class BibleChapterComponent implements OnDestroy {
       takeUntil(this.destroy$),
       filter(state => Boolean(state && state.book)),
       tap(state => {
-        console.log(state)
         this.onBibleStateChange(state);
       }),
       switchMap(state => this.onLoadVerses(state)),

@@ -15,9 +15,10 @@ export class BqParser extends BibleParser {
   protected _module: any;
   protected _currentChapter: number;
   protected _currentVerseNo: number;
-  protected _chapterRegex = /^<h4>(\d+)<\/h4>$/;
-  protected _verseRegex = /^(<p><sup>(\d+)<\/sup> (.+)$)/;
+  protected _chapterRegex = null;
+  protected _verseRegex = null;
   protected _verseNewLineRegex = /^(?!.*<.*?>).*$/;
+  protected _jesusWordsRegex = null;
 
   parseVersion(): BibleVersion {
     return {
@@ -84,8 +85,8 @@ export class BqParser extends BibleParser {
     this._currentChapter = null;
     this._currentVerseNo = null;
 
-    const verses = rawVerses
-      .toString()
+    const verses = rawVerses.toString()
+      .split('<p>').join('\n<p>')
       .split('\n')
       .map(row => row.trim())
       .reduce(

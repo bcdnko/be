@@ -80,7 +80,7 @@ export class BqParser extends BibleParser {
   }
 
   parseBookVerses(book: BibleBookStored): BibleVerse[] {
-    const file = this.module['PathName'][book.id - 1];
+    const file = this.module['PathName'].sort()[book.id - 1];
     const rawVerses = fs.readFileSync(path.join(this._path, file));
     this._currentChapter = null;
     this._currentVerseNo = null;

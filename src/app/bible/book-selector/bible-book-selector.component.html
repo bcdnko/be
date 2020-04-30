@@ -5,7 +5,7 @@
 
       <ul class="book-list">
         <li *ngFor="let book of item.books" class="book">
-          <a [routerLink]="book.route">{{book.title}}</a>
+          <a [routerLink]="book.route">{{book.titleShort}}</a>
           <ul class="chapter-list">
             <li *ngFor="let chapter of book.chaptersArray" class="chapter">
               <a [routerLink]="chapter.route">

@@ -45,15 +45,15 @@ export class BqParser extends BibleParser {
         const defaults = this._defaults && this._defaults.books.find(_ => _.id === id) || {};
 
         return {
-          ...defaults,
           id: id,
           cvId: null,
           versionId: version.id,
           title: this.module['FullName'][i],
           titleShort: this.module['FullName'][i],
           chapters: parseInt(this.module['ChapterQty'][i], 10),
-          aliases: this._parseAliases(this.module['ShortName'][i], defaults.aliases || []),
           testament: id < 40 ? 'old' : 'new',
+          ...defaults,
+          aliases: this._parseAliases(this.module['ShortName'][i], defaults.aliases || []),
         };
       })
       .sort((a, b) => a.id - b.id);

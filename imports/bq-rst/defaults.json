@@ -2,75 +2,93 @@
   "books": [
     {
       "id": 1,
-      "aliases": ["Gen"]
+      "aliases": ["Gen"],
+      "title": "Первая Книга Моисеева: Бытие"
     },
     {
       "id": 2,
-      "aliases": ["Ex"]
+      "aliases": ["Ex"],
+      "title": "Вторая Книга Моисеева: Исход"
     },
     {
       "id": 3,
-      "aliases": ["Lev"]
+      "aliases": ["Lev"],
+      "title": "Третья Книга Моисеева: Левит"
     },
     {
       "id": 4,
-      "aliases": ["Num"]
+      "aliases": ["Num"],
+      "title": "Четвертая Книга Моисеева: Числа"
     },
     {
       "id": 5,
-      "aliases": ["Deut"]
+      "aliases": ["Deut"],
+      "title": "Пятая Книга Моисеева: Второзаконие"
     },
     {
       "id": 6,
-      "aliases": ["Josh"]
+      "aliases": ["Josh"],
+      "title": "Книга Иисуса Навина"
     },
     {
       "id": 7,
-      "aliases": ["Judg"]
+      "aliases": ["Judg"],
+      "title": "Книга Судей Израилевых"
     },
     {
       "id": 8,
-      "aliases": ["Ruth"]
+      "aliases": ["Ruth"],
+      "title": "Книга Руфи"
     },
     {
       "id": 9,
-      "aliases": ["1Sam"]
+      "aliases": ["1Sam"],
+      "title": "Первая Книга Царств"
     },
     {
       "id": 10,
-      "aliases": ["2Sam"]
+      "aliases": ["2Sam"],
+      "title": "Вторая Книга Царств"
     },
     {
       "id": 11,
-      "aliases": ["1Ki"]
+      "aliases": ["1Ki"],
+      "title": "Третья Книга Царств"
     },
     {
       "id": 12,
-      "aliases": ["2Ki"]
+      "aliases": ["2Ki"],
+      "title": "Четвёртая Книга Царств"
     },
     {
       "id": 13,
-      "aliases": ["1Chr"]
+      "aliases": ["1Chr"],
+      "title": "Первая Книга Паралипоменон"
     },
     {
       "id": 14,
-      "aliases": ["2Chr"]
+      "aliases": ["2Chr"],
+      "title": "Вторая Книга Паралипоменон"
     },
     {
       "id": 15,
-      "aliases": ["Ezr"]
+      "aliases": ["Ezr"],
+      "title": "Первая Книга Ездры"
     },
     {
       "id": 16,
-      "aliases": ["Neh"]
+      "aliases": ["Neh"],
+      "title": "Книга Неемии"
     },
     {
       "id": 17,
-      "aliases": ["Est"]
+      "aliases": ["Est"],
+      "title": "Книга Есфири"
     },
     {
       "id": 18,
-      "aliases": ["Job"]
+      "aliases": ["Job"],
+      "title": "Книга Иова"
     },
     {
       "id": 19,
@@ -78,191 +96,242 @@
     },
     {
       "id": 20,
-      "aliases": ["Prov"]
+      "aliases": ["Prov"],
+      "title": "Книга Притчей Соломоновых"
     },
     {
       "id": 21,
-      "aliases": ["Ecc"]
+      "aliases": ["Ecc"],
+      "title": "Книга Екклеcиаста Или Проповедника"
     },
     {
       "id": 22,
-      "aliases": ["Song"]
+      "aliases": ["Song"],
+      "title": "Книга Песни Песней Соломона"
     },
     {
       "id": 23,
-      "aliases": ["Isa"]
+      "aliases": ["Isa"],
+      "title": "Книга Пророка Исаии"
     },
     {
       "id": 24,
-      "aliases": ["Jer"]
+      "aliases": ["Jer"],
+      "title": "Книга Пророка Иеремии"
     },
     {
       "id": 25,
-      "aliases": ["Lam"]
+      "aliases": ["Lam"],
+      "title": "Книга Плач Иеремии"
     },
     {
       "id": 26,
-      "aliases": ["Eze"]
+      "aliases": ["Eze"],
+      "title": "Книга Пророка Иезекииля"
     },
     {
       "id": 27,
-      "aliases": ["Dan"]
+      "aliases": ["Dan"],
+      "title": "Книга Пророка Даниила"
     },
     {
       "id": 28,
-      "aliases": ["Hos"]
+      "aliases": ["Hos"],
+      "title": "Книга Пророка Осии"
     },
     {
       "id": 29,
-      "aliases": ["Joel"]
+      "aliases": ["Joel"],
+      "title": "Книга Пророка Иоиля"
     },
     {
       "id": 30,
-      "aliases": ["Amos"]
+      "aliases": ["Amos"],
+      "title": "Книга Пророка Амоса"
     },
     {
       "id": 31,
-      "aliases": ["Ob"]
+      "aliases": ["Ob"],
+      "title": "Книга Пророка Авдия"
     },
     {
       "id": 32,
-      "aliases": ["Jon"]
+      "aliases": ["Jon"],
+      "title": "Книга Пророка Ионы"
     },
     {
       "id": 33,
-      "aliases": ["Mic"]
+      "aliases": ["Mic"],
+      "title": "Книга Пророка Михея"
     },
     {
       "id": 34,
-      "aliases": ["Nah"]
+      "aliases": ["Nah"],
+      "title": "Книга Пророка Наума"
     },
     {
       "id": 35,
-      "aliases": ["Hab"]
+      "aliases": ["Hab"],
+      "title": "Книга Пророка Аввакума"
     },
     {
       "id": 36,
-      "aliases": ["Zep"]
+      "aliases": ["Zep"],
+      "title": "Книга Пророка Софонии"
     },
     {
       "id": 37,
-      "aliases": ["Hag"]
+      "aliases": ["Hag"],
+      "title": "Книга Пророка Аггея"
     },
     {
       "id": 38,
-      "aliases": ["Zech"]
+      "aliases": ["Zech"],
+      "title": "Книга Пророка Захарии"
     },
     {
       "id": 39,
-      "aliases": ["Mal"]
+      "aliases": ["Mal"],
+      "title": "Книга Пророка Малахии"
     },
     {
       "id": 40,
-      "aliases": ["Mat"]
+      "aliases": ["Mat"],
+      "title": "От Матфея Святое Благовествование",
+      "titleShort": "От Матфея"
     },
     {
       "id": 41,
-      "aliases": ["Mar"]
+      "aliases": ["Mar"],
+      "title": "От Марка Святое Благовествование",
+      "titleShort": "От Марка"
     },
     {
       "id": 42,
-      "aliases": ["Luk"]
+      "aliases": ["Luk"],
+      "title": "От Луки Святое Благовествование",
+      "titleShort": "От Луки"
     },
     {
       "id": 43,
-      "aliases": ["Joh"]
+      "aliases": ["Joh"],
+      "title": "От Иоанна Святое Благовествование",
+      "titleShort": "От Иоанна"
     },
     {
       "id": 44,
-      "aliases": ["Act"]
+      "aliases": ["Act"],
+      "title": "Деяния Святых Апостолов"
     },
     {
       "id": 45,
-      "aliases": ["Jas"]
+      "aliases": ["Jas"],
+      "title": "Послание Иакова"
     },
     {
       "id": 46,
-      "aliases": ["1Pet"]
+      "aliases": ["1Pet"],
+      "title": "Первое Послание Петра"
     },
     {
       "id": 47,
-      "aliases": ["2Pet"]
+      "aliases": ["2Pet"],
+      "title": "Второе Послание Петра"
     },
     {
       "id": 48,
-      "aliases": ["1Jn"]
+      "aliases": ["1Jn"],
+      "title": "Первое Послание Иоанна"
     },
     {
       "id": 49,
-      "aliases": ["2Jn"]
+      "aliases": ["2Jn"],
+      "title": "Второе Послание Иоанна"
     },
     {
       "id": 50,
-      "aliases": ["3Jn"]
+      "aliases": ["3Jn"],
+      "title": "Третье Послание Иоанна"
     },
     {
       "id": 51,
-      "aliases": ["Jud"]
+      "aliases": ["Jud"],
+      "title": "Послание Иуды"
     },
     {
       "id": 52,
-      "aliases": ["Rom"]
+      "aliases": ["Rom"],
+      "title": "Послание к Римлянам"
     },
     {
       "id": 53,
-      "aliases": ["1Cor"]
+      "aliases": ["1Cor"],
+      "title": "Первое Послание к Коринфянам"
     },
     {
       "id": 54,
-      "aliases": ["2Cor"]
+      "aliases": ["2Cor"],
+      "title": "Второе Послание к Коринфянам"
     },
     {
       "id": 55,
-      "aliases": ["Gal"]
+      "aliases": ["Gal"],
+      "title": "Послание к Галатам"
     },
     {
       "id": 56,
-      "aliases": ["Eph"]
+      "aliases": ["Eph"],
+      "title": "Послание к Ефесянам"
     },
     {
       "id": 57,
-      "aliases": ["Phil"]
+      "aliases": ["Phil"],
+      "title": "Послание к Филиппийцам"
     },
     {
       "id": 58,
-      "aliases": ["Col"]
+      "aliases": ["Col"],
+      "title": "Послание к Колоссянам"
     },
     {
       "id": 59,
-      "aliases": ["1Th"]
+      "aliases": ["1Th"],
+      "title": "Первое Послание к Фессалоникийцам"
     },
     {
       "id": 60,
-      "aliases": ["2Th"]
+      "aliases": ["2Th"],
+      "title": "Второе Послание к Фессалоникийцам"
     },
     {
       "id": 61,
-      "aliases": ["1Tim"]
+      "aliases": ["1Tim"],
+      "title": "Первое Послание к Тимофею"
     },
     {
       "id": 62,
-      "aliases": ["2Tim"]
+      "aliases": ["2Tim"],
+      "title": "Второе послание к Тимофею"
     },
     {
       "id": 63,
-      "aliases": ["Tit"]
+      "aliases": ["Tit"],
+      "title": "Послание к Титу"
     },
     {
       "id": 64,
-      "aliases": ["Phm"]
+      "aliases": ["Phm"],
+      "title": "Послание к Филимону"
     },
     {
       "id": 65,
-      "aliases": ["Heb"]
+      "aliases": ["Heb"],
+      "title": "Послание к Евреям"
     },
     {
       "id": 66,
-      "aliases": ["Rev"]
+      "aliases": ["Rev"],
+      "title": "Откровение Апостола Иоанна (Апокалипсис)"
     }
   ]
 }

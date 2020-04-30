@@ -12,10 +12,12 @@ const path = require('path');
 const util = require('util');
 
 export class BqParser extends BibleParser {
-  private _module: any;
-  private _currentChapter: number;
+  protected _module: any;
+  protected _currentChapter: number;
+  protected _currentVerseNo: number;
   protected _chapterRegex = /^<h4>(\d+)<\/h4>$/;
   protected _verseRegex = /^(<p><sup>(\d+)<\/sup> (.+)$)/;
+  protected _verseNewLineRegex = /^(?!.*<.*?>).*$/;
 
   parseVersion(): BibleVersion {
     return {
@@ -30,41 +32,32 @@ export class BqParser extends BibleParser {
 
   parseBooks(): BibleBookStored {
     const version = this.parseVersion();
-    const books = this.module['PathName'].map((_, i) => {
-      const id = i + 1;
-      const defaults = this._defaults && this._defaults.books.find(_ => _.id === id) || {};
+    const books = this.module['PathName']
+      .map((_, i) => {
+        const idMatch = _.match(/^\d+/);
 
-      return {
-        ...defaults,
-        id: id,
-        cvId: new String(id),
-        versionId: version.id,
-        title: this.module['FullName'][i],
-        titleShort: this.module['FullName'][i],
-        chapters: parseInt(this.module['ChapterQty'][i], 10),
-        aliases: this._parseAliases(this.module['ShortName'][i], defaults.aliases || []),
-        testament: id < 40 ? 'old' : 'new',
-      };
-    });
+        if (!idMatch) {
+          throw new Error('Book didn\'t match');
+        }
+
+        const id = parseInt(idMatch[0], 10);
+        const defaults = this._defaults && this._defaults.books.find(_ => _.id === id) || {};
+
+        return {
+          ...defaults,
+          id: id,
+          cvId: null,
+          versionId: version.id,
+          title: this.module['FullName'][i],
+          titleShort: this.module['FullName'][i],
+          chapters: parseInt(this.module['ChapterQty'][i], 10),
+          aliases: this._parseAliases(this.module['ShortName'][i], defaults.aliases || []),
+          testament: id < 40 ? 'old' : 'new',
+        };
+      })
+      .sort((a, b) => a.id - b.id);
 
     return books;
-  }
-
-  parseBookVerses(book: BibleBookStored): BibleVerse[] {
-    const file = this.module['PathName'][book.id - 1];
-    const rawVerses = fs.readFileSync(path.join(this._path, file));
-    this._currentChapter = null;
-    const verses = rawVerses
-      .toString()
-      .split('\n')
-      .map(row => row.trim())
-      .reduce(
-        (acc: BibleVerse[], row: string) => this._parseVerse(book, row, acc),
-        [],
-      )
-      .filter(_ => !!_);
-
-    return verses;
   }
 
   protected get module(): any {
@@ -85,40 +78,78 @@ export class BqParser extends BibleParser {
     return result;
   }
 
-  private _parseVerse(
+  parseBookVerses(book: BibleBookStored): BibleVerse[] {
+    const file = this.module['PathName'][book.id - 1];
+    const rawVerses = fs.readFileSync(path.join(this._path, file));
+    this._currentChapter = null;
+    this._currentVerseNo = null;
+
+    const verses = rawVerses
+      .toString()
+      .split('\n')
+      .map(row => row.trim())
+      .reduce(
+        (acc: BibleVerse[], row: string) => this._parseRow(book, row, acc),
+        [],
+      )
+      .filter(_ => !!_);
+
+    return verses;
+  }
+
+  private _parseRow(
     book: BibleBookStored,
     row: string,
     acc: BibleVerse[],
   ): BibleVerse[] {
     const chapterMatch = row.match(this._chapterRegex);
     const verseMatch = row.match(this._verseRegex);
+    const verseNewLineMatch = row.match(this._verseNewLineRegex);
 
     if (!row || !row.length) {
       return acc;
     }
 
     if (chapterMatch) {
-      this._currentChapter = parseInt(chapterMatch[1]);
+      this._currentChapter = parseInt(chapterMatch[1], 10);
+
       if (!this._currentChapter) {
         throw new Error('Malformed chapter: ' + JSON.stringify(row));
       }
+
+      this._currentVerseNo = null;
     } else if (verseMatch) {
-      const verseNo = parseInt(verseMatch[2]);
+      const verseNo = parseInt(verseMatch[2], 10);
+      this._currentVerseNo = verseNo;
+
       if (!verseNo) {
         throw new Error('Malformed verse number: ' + JSON.stringify(row));
       }
+
       if (!verseMatch[3].length) {
         throw new Error('Malformed verse text: ' + JSON.stringify(row));
       }
 
       acc.push({
         id: null,
-        cvId: '' + verseNo,
+        cvId: null,
         bookId: book.id,
         chapter: this._currentChapter,
         no: verseNo,
         text: verseMatch[3],
       });
+    } else if (verseNewLineMatch && this._currentVerseNo) {
+      const verse = acc.find(v => {
+        return v.bookId === book.id
+          && v.chapter === this._currentChapter
+          && v.no === this._currentVerseNo;
+      });
+
+      if (!verse) {
+        throw new Error('No current verse');
+      }
+
+      verse.text += ' ' + row;
     } else {
       console.log(
         'Malformed row: ' +
@@ -127,6 +158,7 @@ export class BqParser extends BibleParser {
         ' Text: ' + JSON.stringify(row)
       );
       acc[acc.length - 1].text += ' ' + row;
+      throw new Error('Malformed rows');
     }
 
     return acc;

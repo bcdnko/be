@@ -1,0 +1,269 @@
+{
+  "books": [
+    {
+      "id": 1,
+      "aliases": ["Gen"]
+    },
+    {
+      "id": 2,
+      "aliases": ["Ex"]
+    },
+    {
+      "id": 3,
+      "aliases": ["Lev"]
+    },
+    {
+      "id": 4,
+      "aliases": ["Num"]
+    },
+    {
+      "id": 5,
+      "aliases": ["Deut"]
+    },
+    {
+      "id": 6,
+      "aliases": ["Josh"]
+    },
+    {
+      "id": 7,
+      "aliases": ["Judg"]
+    },
+    {
+      "id": 8,
+      "aliases": ["Ruth"]
+    },
+    {
+      "id": 9,
+      "aliases": ["1Sam"]
+    },
+    {
+      "id": 10,
+      "aliases": ["2Sam"]
+    },
+    {
+      "id": 11,
+      "aliases": ["1Ki"]
+    },
+    {
+      "id": 12,
+      "aliases": ["2Ki"]
+    },
+    {
+      "id": 13,
+      "aliases": ["1Chr"]
+    },
+    {
+      "id": 14,
+      "aliases": ["2Chr"]
+    },
+    {
+      "id": 15,
+      "aliases": ["Ezr"]
+    },
+    {
+      "id": 16,
+      "aliases": ["Neh"]
+    },
+    {
+      "id": 17,
+      "aliases": ["Est"]
+    },
+    {
+      "id": 18,
+      "aliases": ["Job"]
+    },
+    {
+      "id": 19,
+      "aliases": ["Ps"]
+    },
+    {
+      "id": 20,
+      "aliases": ["Prov"]
+    },
+    {
+      "id": 21,
+      "aliases": ["Ecc"]
+    },
+    {
+      "id": 22,
+      "aliases": ["Song"]
+    },
+    {
+      "id": 23,
+      "aliases": ["Isa"]
+    },
+    {
+      "id": 24,
+      "aliases": ["Jer"]
+    },
+    {
+      "id": 25,
+      "aliases": ["Lam"]
+    },
+    {
+      "id": 26,
+      "aliases": ["Eze"]
+    },
+    {
+      "id": 27,
+      "aliases": ["Dan"]
+    },
+    {
+      "id": 28,
+      "aliases": ["Hos"]
+    },
+    {
+      "id": 29,
+      "aliases": ["Joel"]
+    },
+    {
+      "id": 30,
+      "aliases": ["Amos"]
+    },
+    {
+      "id": 31,
+      "aliases": ["Ob"]
+    },
+    {
+      "id": 32,
+      "aliases": ["Jon"]
+    },
+    {
+      "id": 33,
+      "aliases": ["Mic"]
+    },
+    {
+      "id": 34,
+      "aliases": ["Nah"]
+    },
+    {
+      "id": 35,
+      "aliases": ["Hab"]
+    },
+    {
+      "id": 36,
+      "aliases": ["Zep"]
+    },
+    {
+      "id": 37,
+      "aliases": ["Hag"]
+    },
+    {
+      "id": 38,
+      "aliases": ["Zech"]
+    },
+    {
+      "id": 39,
+      "aliases": ["Mal"]
+    },
+    {
+      "id": 40,
+      "aliases": ["Mat"]
+    },
+    {
+      "id": 41,
+      "aliases": ["Mar"]
+    },
+    {
+      "id": 42,
+      "aliases": ["Luk"]
+    },
+    {
+      "id": 43,
+      "aliases": ["Joh"]
+    },
+    {
+      "id": 44,
+      "aliases": ["Act"]
+    },
+    {
+      "id": 45,
+      "aliases": ["Jas"]
+    },
+    {
+      "id": 46,
+      "aliases": ["1Pet"]
+    },
+    {
+      "id": 47,
+      "aliases": ["2Pet"]
+    },
+    {
+      "id": 48,
+      "aliases": ["1Jn"]
+    },
+    {
+      "id": 49,
+      "aliases": ["2Jn"]
+    },
+    {
+      "id": 50,
+      "aliases": ["3Jn"]
+    },
+    {
+      "id": 51,
+      "aliases": ["Jud"]
+    },
+    {
+      "id": 52,
+      "aliases": ["Rom"]
+    },
+    {
+      "id": 53,
+      "aliases": ["1Cor"]
+    },
+    {
+      "id": 54,
+      "aliases": ["2Cor"]
+    },
+    {
+      "id": 55,
+      "aliases": ["Gal"]
+    },
+    {
+      "id": 56,
+      "aliases": ["Eph"]
+    },
+    {
+      "id": 57,
+      "aliases": ["Phil"]
+    },
+    {
+      "id": 58,
+      "aliases": ["Col"]
+    },
+    {
+      "id": 59,
+      "aliases": ["1Th"]
+    },
+    {
+      "id": 60,
+      "aliases": ["2Th"]
+    },
+    {
+      "id": 61,
+      "aliases": ["1Tim"]
+    },
+    {
+      "id": 62,
+      "aliases": ["2Tim"]
+    },
+    {
+      "id": 63,
+      "aliases": ["Tit"]
+    },
+    {
+      "id": 64,
+      "aliases": ["Phm"]
+    },
+    {
+      "id": 65,
+      "aliases": ["Heb"]
+    },
+    {
+      "id": 66,
+      "aliases": ["Rev"]
+    }
+  ]
+}
+

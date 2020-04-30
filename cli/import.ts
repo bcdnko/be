@@ -43,7 +43,7 @@ function saveChapter(
   chapter: number,
   verses: BibleVerse[],
 ): void {
-  const bookPath = path.join(targetPath, book.versionId, 'books', book.cvId.toString());
+  const bookPath = path.join(targetPath, book.versionId, 'books', book.id.toString());
   mkdirp.sync(bookPath);
   fs.writeFileSync(
     path.join(bookPath, chapter + '.json'),

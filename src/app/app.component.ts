@@ -39,9 +39,9 @@ export class AppComponent implements OnDestroy {
         navigator.storage.persist()
           .then(granted => {
             if (granted) {
-              console.log("Storage will not be cleared except by explicit user action");
+              console.log('Storage will not be cleared except by explicit user action');
             } else {
-              console.log("Storage may be cleared by the UA under storage pressure.");
+              console.log('Storage may be cleared by the UA under storage pressure.');
             }
           });
       }

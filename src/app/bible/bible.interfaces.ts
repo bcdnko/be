@@ -23,16 +23,6 @@ export interface BibleVersion {
   updated: string;
 }
 
-export type BibleBooksByTestament = {
-  title: string;
-  books: BibleBook[];
-}[];
-
-export interface BibleBookChapter {
-  number: number;
-  route: any[];
-}
-
 export interface BibleBookStored {
   id: BibleBookId;
   cvId: CrossVersionId;
@@ -51,6 +41,11 @@ export interface BibleBook extends BibleBookStored {
   route: any[];
 }
 
+export interface BibleBookChapter {
+  number: number;
+  route: any[];
+}
+
 export interface BibleVerse {
   id: number;
   cvId: CrossVersionId;
@@ -59,6 +54,11 @@ export interface BibleVerse {
   no: number;
   text: string;
 }
+
+export type BibleBooksByTestament = {
+  title: string;
+  books: BibleBook[];
+}[];
 
 export interface BibleState {
   version: BibleVersion;

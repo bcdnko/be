@@ -34,6 +34,17 @@ export class AppComponent implements OnDestroy {
           config,
         });
       });
+
+      if (navigator.storage && navigator.storage.persist) {
+        navigator.storage.persist()
+          .then(granted => {
+            if (granted) {
+              console.log("Storage will not be cleared except by explicit user action");
+            } else {
+              console.log("Storage may be cleared by the UA under storage pressure.");
+            }
+          });
+      }
   }
 
   ngOnDestroy(): void {

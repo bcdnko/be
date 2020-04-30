@@ -23,10 +23,10 @@ export interface BibleVersion {
   updated: string;
 }
 
-export interface BibleBooksByTestament {
-  old: BibleBook[];
-  new: BibleBook[];
-}
+export type BibleBooksByTestament = {
+  title: string;
+  books: BibleBook[];
+}[];
 
 export interface BibleBookChapter {
   number: number;

@@ -4,7 +4,11 @@ import { Subject } from 'rxjs';
 import { tap, takeUntil, filter } from 'rxjs/operators';
 
 import { BibleStateService } from '../bible-state.service';
-import { BibleState } from '../bible.interfaces';
+import { BibleService } from '../bible.service';
+import {
+  BibleState,
+  BibleBooksByTestament,
+} from '../bible.interfaces';
 
 @Component({
   selector: 'app-bible-book-selector',
@@ -13,12 +17,13 @@ import { BibleState } from '../bible.interfaces';
 })
 export class BibleBookSelectorComponent implements OnInit, OnDestroy {
 
-  public books;
+  public books: BibleBooksByTestament;
   public bibleState: BibleState;
   private destroy$: Subject<void> = new Subject();
 
   constructor(
     private bibleStateService: BibleStateService,
+    private bibleService: BibleService,
   ) {
     this.bibleStateService.state.pipe(
       takeUntil(this.destroy$),
@@ -39,6 +44,6 @@ export class BibleBookSelectorComponent implements OnInit, OnDestroy {
 
   private onBibleStateChange(state: BibleState): void {
     this.bibleState = state;
-    this.books = state.versionBooks;
+    this.books = this.bibleService.groupBooksByTestament(state.versionBooks);
   }
 }

@@ -38,10 +38,16 @@ export class BibleService {
   }
 
   groupBooksByTestament(books: BibleBook[]): BibleBooksByTestament {
+    const result = [
+      { title: 'Old Testament', books: []},
+      { title: 'New Testament', books: []},
+    ];
+
     return books.reduce((acc, item) => {
-      acc[item.testament].push(item);
+      const testamentIndex = item.testament === 'new' ? 1 : 0;
+      acc[testamentIndex].books.push(item);
       return acc;
-    }, { old: [], new: []});
+    }, result);
   }
 
   getVersesByChapter(versionId: BibleVersionId, bookId: BibleBookId, chapter: number): Observable<BibleVerse[]> {

@@ -1,14 +1,20 @@
 <ng-container *ngIf="bibleState && books">
-  <ul class="book-list">
-    <li *ngFor="let book of books" class="book">
-      <a [routerLink]="book.route">{{book.title}}</a>
-      <ul class="chapter-list">
-        <li *ngFor="let chapter of book.chaptersArray" class="chapter">
-          <a [routerLink]="chapter.route">
-            {{chapter.number}}
-          </a>
+  <div class="row">
+    <div *ngFor="let item of books" class="col-xs-12 col-md-6">
+      <strong>{{item.title}}</strong>
+
+      <ul class="book-list">
+        <li *ngFor="let book of item.books" class="book">
+          <a [routerLink]="book.route">{{book.title}}</a>
+          <ul class="chapter-list">
+            <li *ngFor="let chapter of book.chaptersArray" class="chapter">
+              <a [routerLink]="chapter.route">
+                {{chapter.number}}
+              </a>
+            </li>
+          </ul>
         </li>
       </ul>
-    </li>
-  </ul>
+    </div>
+  </div>
 </ng-container>

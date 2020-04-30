@@ -1,30 +1,4 @@
-<h1>Bible</h1>
+<h1>{{bibleState.version.title}}</h1>
 
-<ng-container *ngIf="books">
-  <h2>{{bibleState.version.title}}</h2>
-
-  <div class="row">
-    <div class="col-xs-12 col-md-6">
-      <h2>Old Testament</h2>
-      <ul>
-        <li *ngFor="let book of books.old">
-          <a [routerLink]="book.route">
-            {{book.title}}
-          </a>
-        </li>
-      </ul>
-    </div>
-
-    <div class="col-xs-12 col-md-6">
-      <h2>New Testament</h2>
-      <ul>
-        <li *ngFor="let book of books.new">
-          <a [routerLink]="book.route">
-            {{book.title}}
-          </a>
-        </li>
-      </ul>
-    </div>
-  </div>
-</ng-container>
+<app-bible-book-selector></app-bible-book-selector>
 

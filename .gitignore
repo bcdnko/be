@@ -51,3 +51,6 @@ imports/*/*
 !imports/bq-rst/defaults.json
 
 src/assets/bible/*
+
+# Firebase
+.firebase

@@ -43,6 +43,7 @@ export class BibleChapterComponent implements OnDestroy {
 
   private onBibleStateChange(state: BibleState): void {
     this.bibleState = state;
+    this.verses = null;
   }
 
   private onLoadVerses(state: BibleState): Observable<BibleVerse[]> {

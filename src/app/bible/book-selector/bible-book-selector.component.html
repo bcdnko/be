@@ -4,8 +4,14 @@
       <strong>{{item.title}}</strong>
 
       <ul class="book-list">
-        <li *ngFor="let book of item.books" class="book">
-          <a [routerLink]="book.route">{{book.titleShort}}</a>
+        <li
+          *ngFor="let book of item.books"
+          class="book"
+          [ngClass]="{active: bibleState.book && bibleState.book.id === book.id}"
+        >
+          <a [routerLink]="book.route">
+            {{book.titleShort}}
+          </a>
           <ul class="chapter-list">
             <li *ngFor="let chapter of book.chaptersArray" class="chapter">
               <a [routerLink]="chapter.route">

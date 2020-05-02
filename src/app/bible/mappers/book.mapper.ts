@@ -19,7 +19,7 @@ export function bibleBookMapper(versionId: BibleVersionId, book: BibleBookStored
       .map((v, i) => {
         const num = i + 1;
         return {
-          number: num,
+          no: num,
           route: [
             '/bible',
             versionId,

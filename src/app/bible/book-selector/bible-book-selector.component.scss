@@ -1,10 +1,12 @@
+@import "../../../variables.scss";
+
 .book-list {
   list-style: none;
   padding-left: 0;
 
   .active {
     font-weight: bold;
-    background: #f38328 !important;
+    background: $primary-color !important;
 
     >a {
       color: white;
@@ -16,7 +18,7 @@
     padding-right: 5px;
 
     .chapter-list {
-      background: silver;
+      background: $hilight-color;
       display: none;
       position: absolute;
       margin-left: 50px;
@@ -26,7 +28,7 @@
   }
 
   >li:hover {
-    background: #e4e4e4;
+    background: $hilight-color;
 
     .chapter-list {
       display: block;

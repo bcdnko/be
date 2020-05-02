@@ -1,3 +1,5 @@
+@import "../../../variables.scss";
+
 .bible-layout {
 }
 
@@ -8,6 +10,17 @@
   margin-top: -20px;
 }
 
+.chapter-list {
+  font-size: 12px;
+
+  .active {
+    color: $primary-color;
+    font-weight: bold;
+    font-size: 16px;
+  }
+}
+
 aside {
   font-size: 12px;
 }
+

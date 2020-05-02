@@ -42,7 +42,7 @@ export interface BibleBook extends BibleBookStored {
 }
 
 export interface BibleBookChapter {
-  number: number;
+  no: number;
   route: any[];
 }
 

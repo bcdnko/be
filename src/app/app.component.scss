@@ -1,7 +1,9 @@
+@import "../variables.scss";
+
 header {
   .logo {
     h1 {
-      background: #f38328;
+      background: $primary-color;
       color: white;
       padding: 10px 20px;
       margin: 20px;

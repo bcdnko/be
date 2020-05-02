@@ -31,6 +31,7 @@
     .chapter-list {
       display: block;
       z-index: 999;
+      font-weight: normal;
     }
   }
 }
@@ -44,3 +45,6 @@
   }
 }
 
+.book > a {
+  white-space: nowrap;
+}

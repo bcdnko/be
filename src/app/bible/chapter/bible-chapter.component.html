@@ -1,15 +1,20 @@
-<div class="bible-layout">
-  <div class="sidebar">
+<div class="row">
+  <aside class="col-md-3 col-12 order-2 order-md-1">
     <app-bible-book-selector></app-bible-book-selector>
-  </div>
+  </aside>
 
-  <div *ngIf="bibleState" class="chapter-text">
+  <main
+    *ngIf="bibleState"
+    class="col-md-7 col-sm-12 col-12 order-1 order-md-2 chapter-text page-bg"
+  >
     <p>{{bibleState.version.title}}</p>
     <h1>{{bibleState.book.title}}</h1>
     <h2>Chapter {{bibleState.chapter}}</h2>
     <p *ngFor="let verse of verses">
       <span>{{verse.no}}.</span> {{verse.text}}
     </p>
-  </div>
+  </main>
+
+  <aside class="col-md-2 col-12 order-3"></aside>
 </div>
 

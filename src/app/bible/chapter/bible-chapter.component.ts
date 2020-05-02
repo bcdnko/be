@@ -1,3 +1,4 @@
+import { Title } from '@angular/platform-browser';
 import { Component, OnDestroy } from '@angular/core';
 
 import { Subject, Observable } from 'rxjs';
@@ -25,6 +26,7 @@ export class BibleChapterComponent implements OnDestroy {
 
   constructor(
     public bibleUrlService: BibleUrlService,
+    private titleService: Title,
     private bibleService: BibleService,
     private bibleNavigationService: BibleNavigationService,
     private bibleStateService: BibleStateService,
@@ -49,6 +51,9 @@ export class BibleChapterComponent implements OnDestroy {
 
   private onBibleStateChange(state: BibleState): void {
     this.bibleState = state;
+    this.titleService.setTitle(
+      `${state.book.titleShort} ${state.chapter} (${state.version.titleShort})`
+    );
     this.verses = null;
     this.prevChapter = this.bibleNavigationService.getPreviousChapter(state);
     this.nextChapter = this.bibleNavigationService.getNextChapter(state);

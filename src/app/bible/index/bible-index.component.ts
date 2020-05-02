@@ -1,3 +1,4 @@
+import { Title } from '@angular/platform-browser';
 import { Component, OnDestroy } from '@angular/core';
 
 import { Subject } from 'rxjs';
@@ -25,6 +26,7 @@ export class BibleIndexComponent implements OnDestroy {
   private destroy$: Subject<void> = new Subject();
 
   constructor(
+    private titleService: Title,
     bibleService: BibleService,
     bibleStateService: BibleStateService,
   ) {
@@ -34,6 +36,7 @@ export class BibleIndexComponent implements OnDestroy {
         filter(state => !!state),
       )
       .subscribe(state => {
+        this.titleService.setTitle(state.version.title);
         this.bibleState = state;
         this.books = bibleService.groupBooksByTestament(state.versionBooks);
       });

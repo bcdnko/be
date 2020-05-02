@@ -3,9 +3,11 @@ import { Component, OnDestroy } from '@angular/core';
 import { Subject, Observable } from 'rxjs';
 import { tap, takeUntil, switchMap, filter } from 'rxjs/operators';
 
-import { BibleService } from '../bible.service';
 import { BibleState, BibleVerse } from '../bible.interfaces';
+import { BibleService } from '../bible.service';
+import { BibleNavigationService } from '../bible-navigation.service';
 import { BibleStateService } from '../bible-state.service';
+import { BibleUrlService } from '../bible-url.service';
 
 @Component({
   selector: 'app-bible-chapter',
@@ -16,11 +18,15 @@ export class BibleChapterComponent implements OnDestroy {
 
   public bibleState: BibleState;
   public verses: BibleVerse[];
+  public prevChapter: BibleState;
+  public nextChapter: BibleState;
 
   private destroy$: Subject<void> = new Subject();
 
   constructor(
+    public bibleUrlService: BibleUrlService,
     private bibleService: BibleService,
+    private bibleNavigationService: BibleNavigationService,
     private bibleStateService: BibleStateService,
   ) {
     this.bibleStateService.state.pipe(
@@ -44,6 +50,8 @@ export class BibleChapterComponent implements OnDestroy {
   private onBibleStateChange(state: BibleState): void {
     this.bibleState = state;
     this.verses = null;
+    this.prevChapter = this.bibleNavigationService.getPreviousChapter(state);
+    this.nextChapter = this.bibleNavigationService.getNextChapter(state);
   }
 
   private onLoadVerses(state: BibleState): Observable<BibleVerse[]> {

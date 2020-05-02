@@ -5,9 +5,7 @@ import {
   BibleState,
 } from './bible.interfaces';
 
-@Injectable({
-  providedIn: 'root',
-})
+@Injectable()
 export class BibleStateService {
   private stateSource$ = new BehaviorSubject(null);
 

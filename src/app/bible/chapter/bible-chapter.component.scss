@@ -3,13 +3,6 @@
 .bible-layout {
 }
 
-.chapter-text {
-  width: 200px;
-  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
-  padding: 20px 30px;
-  margin-top: -20px;
-}
-
 .chapter-list {
   font-size: 12px;
 
@@ -22,5 +15,43 @@
 
 aside {
   font-size: 12px;
+}
+
+main {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+  margin-top: -20px;
+  padding: 0;
+}
+
+.chapter-text {
+  padding: 20px 5px;
+  flex-grow: 1;
+}
+
+.prev-chapter,
+.next-chapter {
+  min-width: 35px;
+  max-width: 35px;
+  font-size: 20px;
+  text-align: center;
+  padding-top: 200px;
+  color: black;
+  text-decoration: none !important;
+}
+
+a.prev-chapter:hover,
+a.next-chapter:hover {
+  background: $hilight-color;
+}
+
+a.prev-chapter:after {
+  content: "◄";
+}
+
+a.next-chapter:after {
+  content: "►";
 }
 

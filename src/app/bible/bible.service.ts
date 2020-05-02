@@ -14,15 +14,15 @@ import {
   BibleVerse,
 } from './bible.interfaces';
 import { bibleBookMapper } from './mappers/book.mapper';
+import { BibleUrlService } from './bible-url.service';
 
-@Injectable({
-  providedIn: 'root',
-})
+@Injectable()
 export class BibleService {
   private baseUrl = 'assets/bible';
 
   constructor(
     private http: HttpService,
+    private bibleUrlService: BibleUrlService,
   ) {
   }
 
@@ -32,7 +32,7 @@ export class BibleService {
 
   getBooks(versionId: BibleVersionId): Observable<BibleBook[]> {
     return this.http.get<BibleBookStored[]>(`${this.baseUrl}/versions/${encodeURIComponent(versionId)}/books.json`).pipe(
-      map(books => books.map(book => bibleBookMapper(versionId, book))
+      map(books => books.map(book => bibleBookMapper(this.bibleUrlService, versionId, book))
      )
     );
   }
@@ -54,5 +54,6 @@ export class BibleService {
     const url = `${this.baseUrl}/versions/${encodeURIComponent(versionId)}/books/${bookId}/${chapter}.json`;
     return this.http.get<BibleVerse[]>(url);
   }
+
 }
 

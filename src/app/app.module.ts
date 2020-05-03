@@ -11,10 +11,12 @@ import { UrlService } from './core/services/url.service';
 import { AppStateService } from './core/services/app-state.service';
 
 import { BibleModule } from './bible/bible.module';
+import { ToTopComponent } from './core/controls/to-top/to-top.component';
 
 @NgModule({
   declarations: [
     AppComponent,
+    ToTopComponent,
   ],
   imports: [
     BrowserModule,

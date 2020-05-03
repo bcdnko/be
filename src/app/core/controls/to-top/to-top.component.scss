@@ -1,0 +1,15 @@
+.jump-to-top {
+  position: fixed;
+  bottom: 30px;
+  right: -5px;
+  transition: opacity .2s linear;
+  opacity: 1;
+  visibility: visible;
+  width: 100px;
+
+  &.hidden {
+    opacity: 0;
+    visibility: hidden;
+  }
+}
+

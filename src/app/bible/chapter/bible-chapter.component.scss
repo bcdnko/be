@@ -41,7 +41,7 @@ main {
   color: black;
   text-decoration: none !important;
 
-  >span {
+  >div {
     position: sticky;
     top: 0;
   }
@@ -52,11 +52,11 @@ a.next-chapter:hover {
   background: $hilight-color;
 }
 
-a.prev-chapter span:after {
+a.prev-chapter div:after {
   content: "◄";
 }
 
-a.next-chapter span:after {
+a.next-chapter div:after {
   content: "►";
 }
 

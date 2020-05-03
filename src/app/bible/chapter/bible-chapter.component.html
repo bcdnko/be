@@ -11,7 +11,7 @@
       class="prev-chapter"
       *ngIf="prevChapter"
       [routerLink]="prevChapter && bibleUrlService.bibleChapter(prevChapter)"
-    ></a>
+    ><span></span></a>
     <div *ngIf="!prevChapter" class="prev-chapter"></div>
 
     <div class="chapter-text">
@@ -28,7 +28,7 @@
       class="next-chapter"
       *ngIf="nextChapter"
       [routerLink]="nextChapter && bibleUrlService.bibleChapter(nextChapter)"
-    ></a>
+    ><span></span></a>
     <div *ngIf="!nextChapter" class="next-chapter"></div>
   </main>
 

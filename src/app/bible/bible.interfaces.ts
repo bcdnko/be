@@ -13,7 +13,7 @@ export interface BibleLanguage extends Language {
   defaultVersionId: BibleVersionId;
 }
 
-export interface BibleVersion {
+export interface BibleVersionStored {
   id: BibleVersionId;
   title: string;
   titleShort?: string;
@@ -21,6 +21,10 @@ export interface BibleVersion {
   copyright?: string;
   version?: string;
   updated: string;
+}
+
+export interface BibleVersion extends BibleVersionStored {
+  route: any[];
 }
 
 export interface BibleBookStored {

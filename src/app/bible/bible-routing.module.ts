@@ -4,19 +4,17 @@ import { Routes, RouterModule } from '@angular/router';
 import { BibleComponent } from './bible/bible.component';
 import { BibleChapterComponent } from './chapter/bible-chapter.component';
 import { BibleIndexComponent } from './index/bible-index.component';
-
-import { config } from '../config';
+import { BibleVersionsComponent } from './versions/bible-versions.component';
 
 const routes: Routes = [
   {
     path: 'bible',
+    component: BibleVersionsComponent,
+  },
+  {
+    path: 'bible',
     component: BibleComponent,
     children: [
-      {
-        path: '',
-        pathMatch: 'full',
-        redirectTo: `${config.defaultVersionId}`,
-      },
       {
         path: ':versionId',
         component: BibleIndexComponent,

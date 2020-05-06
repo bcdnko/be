@@ -11,6 +11,7 @@ import { BibleService } from './bible.service';
 import { BibleStateService } from './bible-state.service';
 import { BibleNavigationService } from './bible-navigation.service';
 import { BibleUrlService } from './bible-url.service';
+import { BibleVersionsComponent } from './versions/bible-versions.component';
 
 @NgModule({
   declarations: [
@@ -18,7 +19,8 @@ import { BibleUrlService } from './bible-url.service';
     BibleChapterComponent,
     BibleBookSelectorComponent,
     BibleBookSelectorColumnsComponent,
-    BibleComponent
+    BibleComponent,
+    BibleVersionsComponent
   ],
   imports: [
     CommonModule,

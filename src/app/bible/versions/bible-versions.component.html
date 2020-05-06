@@ -1,0 +1,9 @@
+<h1>Available Bible Versions</h1>
+
+<ul>
+  <li *ngFor="let version of versions">
+    <a [routerLink]="version.route">
+      {{version.title}}
+    </a>
+  </li>
+</ul>

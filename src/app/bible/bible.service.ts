@@ -5,6 +5,7 @@ import { map } from 'rxjs/operators';
 import { HttpService } from '../core/services/http.service';
 
 import {
+  BibleVersionStored,
   BibleVersion,
   BibleBookStored,
   BibleBook,
@@ -14,6 +15,7 @@ import {
   BibleVerse,
 } from './bible.interfaces';
 import { bibleBookMapper } from './mappers/book.mapper';
+import { bibleVersionMapper } from './mappers/version.mapper';
 import { BibleUrlService } from './bible-url.service';
 
 @Injectable()
@@ -24,6 +26,12 @@ export class BibleService {
     private http: HttpService,
     private bibleUrlService: BibleUrlService,
   ) {
+  }
+
+  getVersions(): Observable<BibleVersion[]> {
+    return this.http.get<BibleVersionStored[]>(`${this.baseUrl}/versions.json`).pipe(
+      map(versions => versions.map(version => bibleVersionMapper(this.bibleUrlService, version))),
+    );
   }
 
   getVersion(versionId: BibleVersionId): Observable<BibleVersion> {

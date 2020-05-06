@@ -15,7 +15,7 @@ import { BibleStateService } from '../bible-state.service';
 import { BibleService } from '../bible.service';
 
 @Component({
-  selector: 'app-bible-index',
+  selector: 'be-bible-index',
   templateUrl: './bible-index.component.html',
   styleUrls: ['./bible-index.component.scss']
 })

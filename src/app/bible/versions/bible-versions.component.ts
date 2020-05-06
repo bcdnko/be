@@ -7,7 +7,7 @@ import { BibleVersion } from '../bible.interfaces';
 import { BibleService } from '../bible.service';
 
 @Component({
-  selector: 'app-bible-versions',
+  selector: 'be-bible-versions',
   templateUrl: './bible-versions.component.html',
   styleUrls: ['./bible-versions.component.scss']
 })

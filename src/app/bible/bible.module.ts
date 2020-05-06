@@ -5,7 +5,6 @@ import { BibleRoutingModule } from './bible-routing.module';
 import { BibleIndexComponent } from './index/bible-index.component';
 import { BibleChapterComponent } from './chapter/bible-chapter.component';
 import { BibleBookSelectorComponent } from './book-selector/bible-book-selector.component';
-import { BibleBookSelectorColumnsComponent } from './book-selector/columns/bible-book-selector-columns.component';
 import { BibleComponent } from './bible/bible.component';
 import { BibleService } from './bible.service';
 import { BibleStateService } from './bible-state.service';
@@ -18,7 +17,6 @@ import { BibleVersionsComponent } from './versions/bible-versions.component';
     BibleIndexComponent,
     BibleChapterComponent,
     BibleBookSelectorComponent,
-    BibleBookSelectorColumnsComponent,
     BibleComponent,
     BibleVersionsComponent
   ],

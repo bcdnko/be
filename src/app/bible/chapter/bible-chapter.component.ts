@@ -11,7 +11,7 @@ import { BibleStateService } from '../bible-state.service';
 import { BibleUrlService } from '../bible-url.service';
 
 @Component({
-  selector: 'app-bible-chapter',
+  selector: 'be-bible-chapter',
   templateUrl: './bible-chapter.component.html',
   styleUrls: ['./bible-chapter.component.scss']
 })

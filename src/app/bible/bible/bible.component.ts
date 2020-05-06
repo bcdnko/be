@@ -9,7 +9,7 @@ import { BibleStateService } from '../bible-state.service';
 import { BibleState, BibleBook } from '../bible.interfaces';
 
 @Component({
-  selector: 'app-bible',
+  selector: 'be-bible',
   templateUrl: './bible.component.html',
   styleUrls: ['./bible.component.scss']
 })

@@ -11,7 +11,7 @@ import {
 } from '../bible.interfaces';
 
 @Component({
-  selector: 'app-bible-book-selector',
+  selector: 'be-bible-book-selector',
   templateUrl: './bible-book-selector.component.html',
   styleUrls: ['./bible-book-selector.component.scss']
 })

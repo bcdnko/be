@@ -4,7 +4,7 @@ import { Subject, fromEvent } from 'rxjs';
 import { tap, takeUntil } from 'rxjs/operators';
 
 @Component({
-  selector: 'app-to-top',
+  selector: 'be-to-top',
   templateUrl: './to-top.component.html',
   styleUrls: ['./to-top.component.scss']
 })

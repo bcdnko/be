@@ -1,6 +1,6 @@
 import { BibleParser } from './parser';
 import {
-  BibleVersion,
+  BibleVersionStored,
   BibleBookStored,
   BibleVerse,
   BibleBookId,
@@ -20,18 +20,19 @@ export class BqParser extends BibleParser {
   protected _verseNewLineRegex = /^(?!.*<.*?>).*$/;
   protected _jesusWordsRegex = null;
 
-  parseVersion(): BibleVersion {
+  parseVersion(): BibleVersionStored {
     return {
       id: this.module['BibleShortName'],
       title: this.module['ModuleName'],
       titleShort: this.module['BibleShortName'],
+      titleShortest: null,
       langId: null,
       copyright: this.module['Copyright'],
       updated: this.module['ModuleVersion'],
     };
   }
 
-  parseBooks(): BibleBookStored {
+  parseBooks(): BibleBookStored[] {
     const version = this.parseVersion();
     const books = this.module['PathName']
       .map((_, i) => {

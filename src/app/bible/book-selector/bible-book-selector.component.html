@@ -3,10 +3,10 @@
     <div *ngFor="let item of books" class="col-md-12 col-lg-6">
       <strong>{{item.title}}</strong>
 
-      <ul class="book-list">
+      <ul class="side-list">
         <li
           *ngFor="let book of item.books"
-          class="book"
+          class="side-list-item"
           [ngClass]="{active: bibleState.book && bibleState.book.id === book.id}"
         >
           <a [routerLink]="book.route">

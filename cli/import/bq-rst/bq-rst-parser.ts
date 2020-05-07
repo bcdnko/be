@@ -1,5 +1,5 @@
 import {
-  BibleVersion,
+  BibleVersionStored,
   BibleBookStored,
   BibleVerse,
 } from '../../../src/app/bible/bible.interfaces';
@@ -10,13 +10,15 @@ export default class BqRstParser extends BqParser {
   protected _verseRegex = /^(<p><sup>(\d+)<\/sup> (.+)$)/;
   protected _jesusWordsRegex = null;
 
-  parseVersion(): BibleVersion {
+  parseVersion(): BibleVersionStored {
     return Object.assign(
       {},
       super.parseVersion(),
       {
         id: 'rst',
-        titleShort: 'RST+',
+        title: 'Синодальный перевод',
+        titleShort: 'Синодальный',
+        titleShortest: 'RST',
         langId: 'ru',
       },
     );

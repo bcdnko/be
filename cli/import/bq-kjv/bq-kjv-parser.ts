@@ -1,5 +1,5 @@
 import {
-  BibleVersion,
+  BibleVersionStored,
 } from '../../../src/app/bible/bible.interfaces';
 import { BqParser } from '../bq-parser';
 
@@ -7,13 +7,15 @@ export default class BqKjvParser extends BqParser {
   protected _chapterRegex = /^<h4>[0-9 a-zA-Z]+ (\d+)<\/h4>$/;
   protected _verseRegex = /^(<p>(\d+) (.+)$)/;
 
-  parseVersion(): BibleVersion {
+  parseVersion(): BibleVersionStored {
     return Object.assign(
       {},
       super.parseVersion(),
       {
         id: 'kjv',
-        titleShort: 'KJV+',
+        title: 'King James Version 1769',
+        titleShort: 'King James',
+        titleShortest: 'KJV+',
         langId: 'en',
       },
     );

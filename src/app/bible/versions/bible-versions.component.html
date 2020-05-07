@@ -1,8 +1,11 @@
-<h1>Available Bible Versions</h1>
+<h1>Bible Versions</h1>
 
 <ul>
   <li *ngFor="let version of versions">
-    <a [routerLink]="version.route">
+    <a
+      [routerLink]="urls[version.id]"
+      [ngClass]="{ active: state && state.version.id === version.id }"
+    >
       {{version.title}}
     </a>
   </li>

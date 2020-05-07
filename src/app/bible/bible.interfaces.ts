@@ -16,7 +16,8 @@ export interface BibleLanguage extends Language {
 export interface BibleVersionStored {
   id: BibleVersionId;
   title: string;
-  titleShort?: string;
+  titleShortest: string;
+  titleShort: string;
   langId: LanguageId;
   copyright?: string;
   version?: string;

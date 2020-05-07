@@ -19,13 +19,13 @@ export class BibleChapterComponent implements OnDestroy {
 
   public bibleState: BibleState;
   public verses: BibleVerse[];
-  public prevChapter: BibleState;
-  public nextChapter: BibleState;
+  public prevChapterLink: string[];
+  public nextChapterLink: string[];
 
   private destroy$: Subject<void> = new Subject();
 
   constructor(
-    public bibleUrlService: BibleUrlService,
+    private bibleUrlService: BibleUrlService,
     private titleService: Title,
     private bibleService: BibleService,
     private bibleNavigationService: BibleNavigationService,
@@ -54,9 +54,13 @@ export class BibleChapterComponent implements OnDestroy {
     this.titleService.setTitle(
       `${state.book.titleShort} ${state.chapter} (${state.version.titleShort})`
     );
+
     this.verses = null;
-    this.prevChapter = this.bibleNavigationService.getPreviousChapter(state);
-    this.nextChapter = this.bibleNavigationService.getNextChapter(state);
+    const prevChapter = this.bibleNavigationService.getPreviousChapter(state);
+    const nextChapter = this.bibleNavigationService.getNextChapter(state);
+
+    this.prevChapterLink = prevChapter ? this.bibleUrlService.fromState(prevChapter) : null;
+    this.nextChapterLink = nextChapter ? this.bibleUrlService.fromState(nextChapter) : null;
   }
 
   private onLoadVerses(state: BibleState): Observable<BibleVerse[]> {

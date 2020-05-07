@@ -2,13 +2,15 @@ import { Injectable } from '@angular/core';
 
 import {
   BibleVersionId,
+  BibleVersion,
+  BibleBook,
   BibleState,
 } from './bible.interfaces';
 
 @Injectable()
 export class BibleUrlService {
-  bibleVersion(arg: BibleVersionId | BibleState): string[] {
-    const versionId = ((arg as BibleState) && typeof(arg) === 'object') ? arg.version.id : (arg as BibleVersionId);
+  bibleVersion(version: BibleVersion | BibleVersionId): string[] {
+    const versionId = typeof(version) === 'string' ? version : version.id;
 
     return [
       '/bible',
@@ -16,33 +18,41 @@ export class BibleUrlService {
     ];
   }
 
-  bibleBook(state: BibleState): string[];
-  bibleBook(versionId: BibleVersionId, bookUrlId: string): string[];
-  bibleBook(...args): string[] {
-    const bookId = ((args[0] as BibleState) && typeof(args[0]) === 'object')
-      ? args[0].book.aliases[0].toLowerCase()
-      : (args[1] as string);
+  bibleBook(
+    version: BibleVersion | BibleVersionId,
+    book: BibleBook | string,
+  ): string[] {
+    const bookId = typeof(book) === 'string'
+      ? book
+      : book.aliases[0].toLowerCase();
 
     return [
-      ...this.bibleVersion(args[0]),
+      ...this.bibleVersion(version),
       bookId,
     ];
   }
 
-  bibleChapter(state: BibleState): string[];
-  bibleChapter(versionId: BibleVersionId, bookUrlId: string, chapter: number): string[];
-  bibleChapter(...args): string[] {
-    if ((args[0] as BibleState) && typeof(args[0]) === 'object') {
-      const state = args[0];
-      return [
-        ...this.bibleBook(state),
-        state.chapter.toString()
-      ];
+  bibleChapter(
+    version: BibleVersion | BibleVersionId,
+    book: BibleBook | string,
+    chapter: number,
+  ): string[] {
+    return [
+      ...this.bibleBook(version, book),
+      chapter.toString(),
+    ];
+  }
+
+  fromState(state: BibleState): string[] {
+    if (state.version && state.book && state.chapter) {
+      return this.bibleChapter(state.version, state.book, state.chapter);
+    } else if (state.version && state.book) {
+      return this.bibleBook(state.version, state.book);
+    } else if (state.version) {
+      return this.bibleVersion(state.version);
     } else {
-      return [
-        ...this.bibleBook(args[0], args[1]),
-        args[2].toString(),
-      ];
+      return ['/bible'];
     }
   }
+
 }

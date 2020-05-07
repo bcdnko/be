@@ -12,11 +12,11 @@ import { BibleStateService } from '../bible-state.service';
 import { BibleUrlService } from '../bible-url.service';
 
 @Component({
-  selector: 'be-bible-versions',
-  templateUrl: './bible-versions.component.html',
-  styleUrls: ['./bible-versions.component.scss']
+  selector: 'be-bible-version-selector',
+  templateUrl: './bible-version-selector.component.html',
+  styleUrls: ['./bible-version-selector.component.scss']
 })
-export class BibleVersionsComponent implements OnInit, OnDestroy {
+export class BibleVersionSelectorComponent implements OnInit, OnDestroy {
 
   versions: BibleVersion[];
   urls: { [key: string]: string[] };

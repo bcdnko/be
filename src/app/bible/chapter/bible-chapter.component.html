@@ -1,5 +1,6 @@
 <div class="row">
   <aside class="col-md-3 col-12 order-2 order-md-1">
+    <be-bible-version-selector></be-bible-version-selector>
     <be-bible-book-selector></be-bible-book-selector>
   </aside>
 
@@ -9,10 +10,10 @@
   >
     <a
       class="prev-chapter"
-      *ngIf="prevChapter"
-      [routerLink]="prevChapter && bibleUrlService.bibleChapter(prevChapter)"
+      *ngIf="prevChapterLink"
+      [routerLink]="prevChapterLink"
     ><div></div></a>
-    <div *ngIf="!prevChapter" class="prev-chapter"></div>
+    <div *ngIf="!prevChapterLink" class="prev-chapter"></div>
 
     <div class="chapter-text">
       <p>{{bibleState.version.title}}</p>
@@ -26,10 +27,10 @@
 
     <a
       class="next-chapter"
-      *ngIf="nextChapter"
-      [routerLink]="nextChapter && bibleUrlService.bibleChapter(nextChapter)"
+      *ngIf="nextChapterLink"
+      [routerLink]="nextChapterLink"
     ><div></div></a>
-    <div *ngIf="!nextChapter" class="next-chapter"></div>
+    <div *ngIf="!nextChapterLink" class="next-chapter"></div>
   </main>
 
   <aside class="col-md-2 col-12 order-3"></aside>

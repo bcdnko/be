@@ -1,6 +1,7 @@
 import {
-  BibleVersion,
-  BibleBook,
+  BibleVersionStored,
+  BibleBookStored,
+  BibleVerse,
 } from '../../src/app/bible/bible.interfaces';
 
 const fs = require('fs');
@@ -25,7 +26,7 @@ export abstract class BibleParser {
     }
   }
 
-  abstract parseVersion(): BibleVersion;
-  abstract parseBooks();
-  abstract parseBookVerses(book: BibleBook);
+  abstract parseVersion(): BibleVersionStored;
+  abstract parseBooks(): BibleBookStored[];
+  abstract parseBookVerses(book: BibleBookStored): BibleVerse[];
 }

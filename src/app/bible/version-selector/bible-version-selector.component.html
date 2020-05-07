@@ -1,0 +1,15 @@
+<strong>Bible Versions</strong>
+
+<ul class="side-list">
+  <li
+    *ngFor="let version of versions"
+    class="side-list-item"
+    [ngClass]="{ active: state && state.version.id === version.id }"
+  >
+    <a
+      [routerLink]="urls[version.id]"
+    >
+      {{version.titleShort}}
+    </a>
+  </li>
+</ul>

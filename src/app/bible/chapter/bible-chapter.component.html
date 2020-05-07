@@ -17,9 +17,30 @@
 
     <div class="chapter-text">
       <p>{{bibleState.version.title}}</p>
-      <h1>{{bibleState.book.title}}</h1>
 
+      <h1>{{bibleState.book.title}}</h1>
       <h2>Chapter {{bibleState.chapter}}</h2>
+
+      <div class="chapter-list">
+        <span>Chapters:</span>
+        <ul>
+          <li *ngFor="let chapter of bibleState.book.chaptersArray">
+            <a
+              *ngIf="chapter.no !== bibleState.chapter"
+              [routerLink]="chapter.route"
+            >
+              {{chapter.no}}
+            </a>
+            <span
+              *ngIf="chapter.no === bibleState.chapter"
+              class="active"
+            >
+              {{chapter.no}}
+            </span>
+          </li>
+        </ul>
+      </div>
+
       <p *ngFor="let verse of verses">
         <span>{{verse.no}}.</span> {{verse.text}}
       </p>

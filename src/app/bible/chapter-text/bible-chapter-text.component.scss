@@ -5,3 +5,11 @@
 .i {
   font-style: italic;
 }
+
+.strong {
+  display: none;
+}
+
+.show-strong .strong {
+  display: inline;
+}

@@ -5,11 +5,17 @@ export interface Config {
   defaultLanguage: string;
 }
 
-export interface AppState {
-  config: Config;
+export interface Settings {
+  bible: {
+    showStrong: boolean,
+  }
 }
 
-export interface User extends Config {
+export interface AppState {
+}
+
+export interface User {
   name: string;
+  settings: Settings;
 }
 

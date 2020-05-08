@@ -1,4 +1,9 @@
-<p *ngFor="let verse of verses">
+<p
+  *ngFor="let verse of verses"
+  [ngClass]="{
+    'show-strong': settings.bible.showStrong
+  }"
+>
   <span>{{verse.no}}.</span>&nbsp;
   <ng-container *ngFor="let token of verse.parsedText">
     <span

@@ -1,9 +1,9 @@
 import { Component, OnDestroy } from '@angular/core';
 import { Subject } from 'rxjs';
-import { takeUntil } from 'rxjs/operators';
+import { takeUntil, tap } from 'rxjs/operators';
 
 import { UserService } from './core/services/user.service';
-import { ConfigService } from './core/services/config.service';
+import { SettingsService } from './core/services/settings.service';
 import { AppStateService } from './core/services/app-state.service';
 
 @Component({
@@ -19,32 +19,36 @@ export class AppComponent implements OnDestroy {
   constructor(
     userService: UserService,
     appStateService: AppStateService,
-    configService: ConfigService,
+    settingsService: SettingsService,
   ) {
+    userService.user$.pipe(
+      takeUntil(this.destroy$),
+      tap(user => {
+        settingsService.setSettings(user ? user.settings : null);
+      }),
+    ).subscribe();
+
     userService.setUser({
       name: null,
-      defaultVersionId: 'kjv',
-      defaultLanguage: 'en',
+      settings: {
+        bible: {
+          showStrong: true,
+        },
+      },
     });
 
-    configService.getConfig()
-      .pipe(takeUntil(this.destroy$))
-      .subscribe((config) => {
-        appStateService.setState({
-          config,
-        });
-      });
+    appStateService.setState({});
 
-      if (navigator.storage && navigator.storage.persist) {
-        navigator.storage.persist()
-          .then(granted => {
-            if (granted) {
-              console.log('Storage will not be cleared except by explicit user action');
-            } else {
-              console.log('Storage may be cleared by the UA under storage pressure.');
-            }
-          });
-      }
+    if (navigator.storage && navigator.storage.persist) {
+      navigator.storage.persist()
+        .then(granted => {
+          if (granted) {
+            console.log('Storage will not be cleared except by explicit user action');
+          } else {
+            console.log('Storage may be cleared by the UA under storage pressure.');
+          }
+        });
+    }
   }
 
   ngOnDestroy(): void {

@@ -24,7 +24,7 @@ import { BibleVersionSelectorComponent } from './version-selector/bible-version-
   ],
   imports: [
     CommonModule,
-    BibleRoutingModule
+    BibleRoutingModule,
   ],
   providers: [
     BibleService,

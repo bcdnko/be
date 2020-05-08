@@ -2,7 +2,7 @@ import { BibleParser } from './parser';
 import {
   BibleVersionStored,
   BibleBookStored,
-  BibleVerse,
+  BibleVerseStored,
   BibleBookId,
 } from '../../src/app/bible/bible.interfaces';
 import { parseBqIni } from '../parse-bq-ini';
@@ -80,7 +80,7 @@ export class BqParser extends BibleParser {
     return result;
   }
 
-  parseBookVerses(book: BibleBookStored): BibleVerse[] {
+  parseBookVerses(book: BibleBookStored): BibleVerseStored[] {
     const file = this.module['PathName'].sort()[book.id - 1];
     const rawVerses = fs.readFileSync(path.join(this._path, file));
     this._currentChapter = null;
@@ -91,7 +91,7 @@ export class BqParser extends BibleParser {
       .split('\n')
       .map(row => row.trim())
       .reduce(
-        (acc: BibleVerse[], row: string) => this._parseRow(book, row, acc),
+        (acc: BibleVerseStored[], row: string) => this._parseRow(book, row, acc),
         [],
       )
       .filter(_ => !!_);
@@ -102,8 +102,8 @@ export class BqParser extends BibleParser {
   private _parseRow(
     book: BibleBookStored,
     row: string,
-    acc: BibleVerse[],
-  ): BibleVerse[] {
+    acc: BibleVerseStored[],
+  ): BibleVerseStored[] {
     const chapterMatch = row.match(this._chapterRegex);
     const verseMatch = row.match(this._verseRegex);
     const verseNewLineMatch = row.match(this._verseNewLineRegex);

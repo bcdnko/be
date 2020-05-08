@@ -41,9 +41,9 @@
         </ul>
       </div>
 
-      <p *ngFor="let verse of verses">
-        <span>{{verse.no}}.</span> {{verse.text}}
-      </p>
+      <be-bible-chapter-text
+        [verses]="verses"
+      ></be-bible-chapter-text>
     </div>
 
     <a

@@ -2,7 +2,7 @@ import { parseArguments } from './parse-arguments';
 import {
   BibleVersion,
   BibleBook,
-  BibleVerse,
+  BibleVerseStored,
 } from '../src/app/bible/bible.interfaces';
 
 const appRoot = require('app-root-path').toString();
@@ -41,7 +41,7 @@ function saveBooks(version: BibleVersion, books: BibleBook[]): void {
 function saveChapter(
   book: BibleBook,
   chapter: number,
-  verses: BibleVerse[],
+  verses: BibleVerseStored[],
 ): void {
   const bookPath = path.join(targetPath, book.versionId, 'books', book.id.toString());
   mkdirp.sync(bookPath);
@@ -81,7 +81,7 @@ try {
       for (const book of books) {
         const verses = parser.parseBookVerses(book);
         for (let chapter = 1; chapter <= book.chapters; chapter++) {
-          const data = verses.filter((_: BibleVerse) => _.chapter === chapter);
+          const data = verses.filter((_: BibleVerseStored) => _.chapter === chapter);
           saveChapter(book, chapter, data);
         }
         bar.tick();

@@ -12,11 +12,13 @@ import {
   BibleBookId,
   BibleVersionId,
   BibleBooksByTestament,
+  BibleVerseStored,
   BibleVerse,
 } from './bible.interfaces';
 import { bibleBookMapper } from './mappers/book.mapper';
 import { bibleVersionMapper } from './mappers/version.mapper';
 import { BibleUrlService } from './bible-url.service';
+import { BibleVerseTextParser } from './parsers/bible-verse-text.parser';
 
 @Injectable()
 export class BibleService {
@@ -40,7 +42,7 @@ export class BibleService {
 
   getBooks(versionId: BibleVersionId): Observable<BibleBook[]> {
     return this.http.get<BibleBookStored[]>(`${this.baseUrl}/versions/${encodeURIComponent(versionId)}/books.json`).pipe(
-      map(books => books.map(book => bibleBookMapper(this.bibleUrlService, versionId, book))
+      map(books => books.map(book => bibleBookMapper(this.bibleUrlService, versionId, book)),
      )
     );
   }
@@ -60,7 +62,12 @@ export class BibleService {
 
   getVersesByChapter(versionId: BibleVersionId, bookId: BibleBookId, chapter: number): Observable<BibleVerse[]> {
     const url = `${this.baseUrl}/versions/${encodeURIComponent(versionId)}/books/${bookId}/${chapter}.json`;
-    return this.http.get<BibleVerse[]>(url);
+    return this.http.get<BibleVerseStored[]>(url).pipe(
+      map(verses => {
+        const parser = new BibleVerseTextParser();
+        return parser.parse(verses);
+      }),
+    );
   }
 
 }

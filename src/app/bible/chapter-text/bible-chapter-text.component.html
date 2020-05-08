@@ -1,0 +1,21 @@
+<p *ngFor="let verse of verses">
+  <span>{{verse.no}}.</span>&nbsp;
+  <ng-container *ngFor="let token of verse.parsedText">
+    <span
+      *ngIf="token.type === 'word'"
+      class="word"
+      [ngClass]="token.markers"
+    >{{token.text}}</span>
+    <span
+      *ngIf="token.type === 'punctuation'"
+      class="punctuation"
+      >{{token.text}}</span>
+    <span
+      *ngIf="token.type === 'strong'"
+      class="strong"
+      >{{token.text}}</span>
+    <ng-container
+      *ngIf="token.type === 'space'"
+      >{{token.text}}</ng-container>
+  </ng-container>
+</p>

@@ -1,7 +1,7 @@
 import {
   BibleVersionStored,
   BibleBookStored,
-  BibleVerse,
+  BibleVerseStored,
 } from '../../../src/app/bible/bible.interfaces';
 import { BqParser } from '../bq-parser';
 
@@ -24,7 +24,7 @@ export default class BqRstParser extends BqParser {
     );
   }
 
-  parseBookVerses(book: BibleBookStored): BibleVerse[] {
+  parseBookVerses(book: BibleBookStored): BibleVerseStored[] {
     return super.parseBookVerses(book)
       .map(verse => {
         const text = verse.text

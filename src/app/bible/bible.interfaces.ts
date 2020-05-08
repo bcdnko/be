@@ -51,13 +51,17 @@ export interface BibleBookChapter {
   route: any[];
 }
 
-export interface BibleVerse {
+export interface BibleVerseStored {
   id: number;
   cvId: CrossVersionId;
   bookId: BibleBookId;
   chapter: number;
   no: number;
   text: string;
+}
+
+export interface BibleVerse extends BibleVerseStored {
+  parsedText: BibleTextToken[];
 }
 
 export type BibleBooksByTestament = {
@@ -71,5 +75,11 @@ export interface BibleState {
   book: BibleBook;
   chapter: number;
   selectedVerses: BibleVerse[];
+}
+
+export interface BibleTextToken {
+  type: 'strong' | 'punctuation' | 'word' | 'space';
+  text: string;
+  markers?: string[];
 }
 

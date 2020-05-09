@@ -20,14 +20,7 @@ export class AppComponent implements OnDestroy {
     appStateService: AppStateService,
     settingsService: SettingsService,
   ) {
-    userService.setUser({
-      name: null,
-      settings: {
-        bible: {
-          showStrong: false,
-        },
-      },
-    });
+    userService.initUser();
 
     appStateService.setState({
       started: true,

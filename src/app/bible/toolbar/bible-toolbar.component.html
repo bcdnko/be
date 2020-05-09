@@ -1,6 +1,10 @@
 <ng-container *ngIf="settings">
   <div class="btn-group btn-group-toggle">
-    <label class="btn-primary" ngbButtonLabel>
+    <label
+      class="btn-primary"
+      title="Enable/Disable Strong Numbers"
+      ngbButtonLabel
+    >
       <input
         type="checkbox"
         [(ngModel)]="settings.bible.showStrong"

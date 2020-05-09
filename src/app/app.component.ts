@@ -24,7 +24,7 @@ export class AppComponent implements OnDestroy {
       name: null,
       settings: {
         bible: {
-          showStrong: true,
+          showStrong: false,
         },
       },
     });

@@ -16,6 +16,7 @@ export class UserService {
   initUser(): User {
     const serialized = localStorage.getItem('user');
     let user = JSON.parse(serialized);
+
     if (!user) {
       user = {
         name: null,
@@ -26,7 +27,9 @@ export class UserService {
         },
       };
     }
+
     this.setUser(user);
+
     return user;
   }
 }

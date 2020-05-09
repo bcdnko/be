@@ -15,7 +15,7 @@ export class BibleVerseTextParser {
 
     return verses.map(verse => {
       const parsedText = verse.text
-        .split(/(\[.*?\]|[ .,!?\-:;'"«»])/)
+        .split(/(\[.*?\]|\s*[GH]\d+|[ .,!?\-:;'"«»])/)
         .reduce((acc, rawToken) => {
           const token = this.parseToken(rawToken);
           if (token) {
@@ -23,7 +23,6 @@ export class BibleVerseTextParser {
           }
           return acc;
         }, []);
-
       return {
         ...verse,
         parsedText,
@@ -36,7 +35,7 @@ export class BibleVerseTextParser {
       return null;
     }
 
-    const strongNumber = rawToken.match(/^[GH]\d+$/);
+    const strongNumber = rawToken.match(/^\s*([GH]\d+)$/);
     const marker = rawToken.match(/^\[(.*?)\]$/);
     const punctuation = rawToken.match(/^[.,!?\-:;'"«»]$/);
     const space = rawToken === ' ';
@@ -44,7 +43,7 @@ export class BibleVerseTextParser {
     if (strongNumber) {
       return {
         type: 'strong',
-        text: rawToken,
+        text: strongNumber[1],
       };
     } else if (marker) {
       if (marker[1][0] === '/') {

@@ -12,6 +12,7 @@ export interface Settings {
 }
 
 export interface AppState {
+  started: boolean;
 }
 
 export interface User {

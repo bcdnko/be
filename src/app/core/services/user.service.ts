@@ -5,8 +5,8 @@ import { User } from '../interfaces/common.interfaces';
 
 @Injectable()
 export class UserService {
-  private userSource$ = new BehaviorSubject(null);
-  user$ = this.userSource$.asObservable();
+  private readonly userSource$ = new BehaviorSubject(null);
+  readonly user$ = this.userSource$.asObservable();
 
   setUser(user: User): void {
     this.userSource$.next(user);

@@ -34,8 +34,8 @@ export class BibleChapterTextComponent implements OnChanges, OnDestroy {
   }
 
   ngOnChanges(changes: SimpleChanges): void {
-    if (changes['verses']) {
-      this.handleVersesInputChange(changes['verses']);
+    if (changes.verses) {
+      this.handleVersesInputChange(changes.verses);
     }
   }
 

@@ -1,0 +1,12 @@
+<ng-container *ngIf="settings">
+  <div class="btn-group btn-group-toggle">
+    <label class="btn-primary" ngbButtonLabel>
+      <input
+        type="checkbox"
+        [(ngModel)]="settings.bible.showStrong"
+        (ngModelChange)="updateSettings()"
+        ngbButton
+      > Strong
+    </label>
+  </div>
+</ng-container>

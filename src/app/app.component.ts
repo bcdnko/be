@@ -1,6 +1,5 @@
 import { Component, OnDestroy } from '@angular/core';
 import { Subject } from 'rxjs';
-import { takeUntil, tap } from 'rxjs/operators';
 
 import { UserService } from './core/services/user.service';
 import { SettingsService } from './core/services/settings.service';
@@ -21,13 +20,6 @@ export class AppComponent implements OnDestroy {
     appStateService: AppStateService,
     settingsService: SettingsService,
   ) {
-    userService.user$.pipe(
-      takeUntil(this.destroy$),
-      tap(user => {
-        settingsService.setSettings(user ? user.settings : null);
-      }),
-    ).subscribe();
-
     userService.setUser({
       name: null,
       settings: {
@@ -37,7 +29,9 @@ export class AppComponent implements OnDestroy {
       },
     });
 
-    appStateService.setState({});
+    appStateService.setState({
+      started: true,
+    });
 
     if (navigator.storage && navigator.storage.persist) {
       navigator.storage.persist()

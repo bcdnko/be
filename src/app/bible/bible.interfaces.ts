@@ -35,6 +35,7 @@ export interface BibleBookStored {
   title: string;
   titleShort: string;
   chapters: number;
+  chapterTitle?: string;
   testament: TestamentId;
   description?: string;
   aliases: BibleBookAlias[];

@@ -1,0 +1,108 @@
+<div class="modal-header">
+  <h3 class="modal-title">Settings</h3>
+  <button
+    type="button"
+    class="close"
+    aria-label="Close"
+    (click)="activeModal.dismiss('Cross click')"
+  >
+    <span aria-hidden="true">&times;</span>
+  </button>
+</div>
+
+<div class="modal-body">
+  <h4>Bible Text</h4>
+
+  <div>
+    <div class="row">
+      <div class="col-8 col-sm-10">Show Strong's numbers</div>
+      <div class="col-4 col-sm-2 text-right">
+        <ui-switch
+          [(ngModel)]="settings.bible.showStrong"
+          (change)="updateSettings()"
+        ></ui-switch>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-8 col-sm-10">Highlight the words of Jesus</div>
+      <div class="col-4 col-sm-2 text-right">
+        <ui-switch
+          [(ngModel)]="settings.bible.highlightJesusWords"
+          (change)="updateSettings()"
+        ></ui-switch>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-8 col-sm-10">Full book names in text</div>
+      <div class="col-4 col-sm-2 text-right">
+        <ui-switch
+          [(ngModel)]="settings.bible.fullBookHeadersInText"
+          (change)="updateSettings()"
+        ></ui-switch>
+      </div>
+    </div>
+  </div>
+
+  <div>
+    <h4>Bible Interface</h4>
+    <div class="row">
+      <div class="col-8 col-sm-10">Show chapter list to the top of the text</div>
+      <div class="col-4 col-sm-2 text-right">
+        <ui-switch
+          [(ngModel)]="settings.bible.showChaptersInText"
+          (change)="updateSettings()"
+        ></ui-switch>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-8 col-sm-10">Huge previous/next chapter buttons around the text</div>
+      <div class="col-4 col-sm-2 text-right">
+        <ui-switch
+          [(ngModel)]="settings.bible.hugePrevNextChapterBtns"
+          (change)="updateSettings()"
+        ></ui-switch>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-8 col-sm-10">Chapter drop-down in book selector</div>
+      <div class="col-4 col-sm-2 text-right">
+        <ui-switch
+          [(ngModel)]="settings.bible.showChaptersInBookSelector"
+          (change)="updateSettings()"
+        ></ui-switch>
+      </div>
+    </div>
+  </div>
+
+  <div>
+    <h4>General</h4>
+    <div class="row">
+      <div class="col-8 col-sm-10">Show Go to the top button</div>
+      <div class="col-4 col-sm-2 text-right">
+        <ui-switch
+          [(ngModel)]="settings.bible.showGoToTopButton"
+          (change)="updateSettings()"
+        ></ui-switch>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal-footer">
+  <button
+    type="button"
+    class="btn btn-danger"
+    (click)="resetToDefaults()"
+  >Reset to Defaults</button>
+
+  <button
+    type="button"
+    class="btn btn-primary"
+    (click)="activeModal.close('Close click')"
+    ngbAutoFocus
+  >Close</button>
+</div>

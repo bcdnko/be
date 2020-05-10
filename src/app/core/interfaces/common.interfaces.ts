@@ -6,9 +6,18 @@ export interface Config {
 }
 
 export interface Settings {
+  general: {
+    showGoToTopButton: boolean,
+  },
   bible: {
     showStrong: boolean,
-  }
+    highlightJesusWords: boolean,
+    fullBookHeadersInText: boolean,
+
+    showChaptersInText: boolean,
+    showChaptersInBookSelector: boolean,
+    hugePrevNextChapterBtns: boolean,
+  },
 }
 
 export interface AppState {

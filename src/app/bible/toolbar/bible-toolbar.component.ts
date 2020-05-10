@@ -1,10 +1,14 @@
 import { Component, OnDestroy } from '@angular/core';
 
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+
 import { Subject } from 'rxjs';
 import { tap, takeUntil } from 'rxjs/operators';
 
 import { Settings } from '../../core/interfaces/common.interfaces';
 import { SettingsService } from '../../core/services/settings.service';
+
+import { SettingsComponent } from '../../settings/settings.component';
 
 @Component({
   selector: 'be-bible-toolbar',
@@ -18,6 +22,7 @@ export class BibleToolbarComponent implements OnDestroy {
 
   constructor(
     public settingsService: SettingsService,
+    private modalService: NgbModal,
   ) {
     settingsService.settings$.pipe(
       takeUntil(this.destroy$),
@@ -32,6 +37,10 @@ export class BibleToolbarComponent implements OnDestroy {
 
   updateSettings(): void {
     this.settingsService.setSettings({ ...this.settings });
+  }
+
+  openSettings(): void {
+    this.modalService.open(SettingsComponent);
   }
 
 }

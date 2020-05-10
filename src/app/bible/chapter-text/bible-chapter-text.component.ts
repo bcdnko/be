@@ -1,9 +1,7 @@
 import { Component, OnChanges, OnDestroy, Input, SimpleChanges, SimpleChange } from '@angular/core';
 
 import { Subject } from 'rxjs';
-import { tap, takeUntil } from 'rxjs/operators';
 
-import { SettingsService } from '../../core/services/settings.service';
 import { Settings } from '../../core/interfaces/common.interfaces';
 
 import {
@@ -18,20 +16,10 @@ import {
 })
 export class BibleChapterTextComponent implements OnChanges, OnDestroy {
 
-  @Input()
-  verses: BibleVerse[];
-  settings: Settings;
+  @Input() verses: BibleVerse[];
+  @Input() settings: Settings;
 
   private destroy$: Subject<void> = new Subject();
-
-  constructor(
-    public settingsService: SettingsService,
-  ) {
-    settingsService.settings$.pipe(
-      takeUntil(this.destroy$),
-      tap(settings => this.settings = settings),
-    ).subscribe();
-  }
 
   ngOnChanges(changes: SimpleChanges): void {
     if (changes.verses) {

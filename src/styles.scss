@@ -4,6 +4,7 @@ $enable-responsive-font-sizes: true;
 
 @import "variables.scss";
 @import "bootstrap";
+@import '~ngx-ui-switch/ui-switch.component.scss';
 
 .page-bg {
   background: rgb(255,255,255,1);

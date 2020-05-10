@@ -2,6 +2,8 @@ import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
 
 import { User } from '../interfaces/common.interfaces';
+import { cloneDeep } from '../utils';
+import { defaultSettings } from '../default-settings';
 
 @Injectable()
 export class UserService {
@@ -20,11 +22,7 @@ export class UserService {
     if (!user) {
       user = {
         name: null,
-        settings: {
-          bible: {
-            showStrong: false,
-          },
-        },
+        settings: cloneDeep(defaultSettings),
       };
     }
 

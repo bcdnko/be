@@ -1,4 +1,4 @@
-<ng-container *ngIf="bibleState && books">
+<ng-container *ngIf="bibleState && books && settings">
   <div class="row">
     <div *ngFor="let item of books" class="col-md-12 col-lg-6">
       <strong>{{item.title}}</strong>
@@ -12,7 +12,10 @@
           <a [routerLink]="book.route">
             {{book.titleShort}}
           </a>
-          <ul class="chapter-list">
+          <ul
+            *ngIf="settings.bible.showChaptersInBookSelector"
+            class="chapter-list"
+          >
             <li *ngFor="let chapter of book.chaptersArray" class="chapter">
               <a [routerLink]="chapter.route">
                 {{chapter.no}}

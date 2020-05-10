@@ -1,6 +1,7 @@
 import { Title } from '@angular/platform-browser';
 import { Component, OnDestroy } from '@angular/core';
 
+
 import { Subject, Observable } from 'rxjs';
 import { tap, takeUntil, switchMap, filter } from 'rxjs/operators';
 
@@ -9,6 +10,8 @@ import { BibleService } from '../bible.service';
 import { BibleNavigationService } from '../bible-navigation.service';
 import { BibleStateService } from '../bible-state.service';
 import { BibleUrlService } from '../bible-url.service';
+import { Settings } from '../../core/interfaces/common.interfaces';
+import { SettingsService } from '../../core/services/settings.service';
 
 @Component({
   selector: 'be-bible-chapter',
@@ -21,6 +24,7 @@ export class BibleChapterComponent implements OnDestroy {
   public verses: BibleVerse[];
   public prevChapterLink: string[];
   public nextChapterLink: string[];
+  public settings: Settings;
 
   private destroy$: Subject<void> = new Subject();
 
@@ -30,7 +34,13 @@ export class BibleChapterComponent implements OnDestroy {
     private bibleService: BibleService,
     private bibleNavigationService: BibleNavigationService,
     private bibleStateService: BibleStateService,
+    private settingsService: SettingsService,
   ) {
+    this.settingsService.settings$.pipe(
+      takeUntil(this.destroy$),
+      tap(settings => this.settings = settings),
+    ).subscribe();
+
     this.bibleStateService.state.pipe(
       takeUntil(this.destroy$),
       filter(state => Boolean(state && state.book)),
@@ -70,4 +80,5 @@ export class BibleChapterComponent implements OnDestroy {
       state.chapter,
     );
   }
+
 }

@@ -2,6 +2,9 @@ import { BrowserModule, Title } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { HttpClientModule } from '@angular/common/http';
 
+import { NgbModalModule } from '@ng-bootstrap/ng-bootstrap';
+import { UiSwitchModule } from 'ngx-ui-switch';
+
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { HttpService } from './core/services/http.service';
@@ -12,16 +15,22 @@ import { AppStateService } from './core/services/app-state.service';
 
 import { BibleModule } from './bible/bible.module';
 import { ToTopComponent } from './core/controls/to-top/to-top.component';
+import { SettingsComponent } from './settings/settings.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     ToTopComponent,
+    SettingsComponent,
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
+    NgbModalModule,
+    UiSwitchModule.forRoot({
+      color: 'DodgerBlue',
+    }),
     BibleModule,
   ],
   providers: [

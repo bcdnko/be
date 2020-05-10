@@ -2,7 +2,8 @@
   <p
     *ngFor="let verse of verses"
     [ngClass]="{
-      'show-strong': settings.bible.showStrong
+      'show-strong': settings.bible.showStrong,
+      'highlight-Jesus': settings.bible.highlightJesusWords
     }"
   >
     <span>{{verse.no}}.</span>&nbsp;

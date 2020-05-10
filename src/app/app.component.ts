@@ -1,6 +1,9 @@
 import { Component, OnDestroy } from '@angular/core';
 import { Subject } from 'rxjs';
+import { tap, takeUntil } from 'rxjs/operators';
 
+
+import { Settings } from './core/interfaces/common.interfaces';
 import { UserService } from './core/services/user.service';
 import { SettingsService } from './core/services/settings.service';
 import { AppStateService } from './core/services/app-state.service';
@@ -12,6 +15,7 @@ import { AppStateService } from './core/services/app-state.service';
 })
 export class AppComponent implements OnDestroy {
   title = 'Bible Explorer';
+  settings: Settings;
 
   private destroy$: Subject<void> = new Subject();
 
@@ -21,6 +25,11 @@ export class AppComponent implements OnDestroy {
     settingsService: SettingsService,
   ) {
     userService.initUser();
+
+    settingsService.settings$.pipe(
+      takeUntil(this.destroy$),
+      tap(settings => this.settings = settings),
+    ).subscribe();
 
     appStateService.setState({
       started: true,

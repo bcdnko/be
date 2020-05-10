@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit, OnDestroy, Input } from '@angular/core';
 
 import { Subject } from 'rxjs';
 import { tap, takeUntil, filter } from 'rxjs/operators';
@@ -9,6 +9,7 @@ import {
   BibleState,
   BibleBooksByTestament,
 } from '../bible.interfaces';
+import { Settings } from '../../core/interfaces/common.interfaces';
 
 @Component({
   selector: 'be-bible-book-selector',
@@ -17,8 +18,11 @@ import {
 })
 export class BibleBookSelectorComponent implements OnInit, OnDestroy {
 
-  public books: BibleBooksByTestament;
-  public bibleState: BibleState;
+  @Input() settings: Settings;
+
+  books: BibleBooksByTestament;
+  bibleState: BibleState;
+
   private destroy$: Subject<void> = new Subject();
 
   constructor(

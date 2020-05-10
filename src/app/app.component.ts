@@ -8,6 +8,8 @@ import { UserService } from './core/services/user.service';
 import { SettingsService } from './core/services/settings.service';
 import { AppStateService } from './core/services/app-state.service';
 
+import { faBible } from '@fortawesome/free-solid-svg-icons';
+
 @Component({
   selector: 'be-root',
   templateUrl: './app.component.html',
@@ -16,6 +18,9 @@ import { AppStateService } from './core/services/app-state.service';
 export class AppComponent implements OnDestroy {
   title = 'Bible Explorer';
   settings: Settings;
+  icons = {
+    bible: faBible,
+  };
 
   private destroy$: Subject<void> = new Subject();
 

@@ -4,6 +4,7 @@ import { HttpClientModule } from '@angular/common/http';
 
 import { NgbModalModule } from '@ng-bootstrap/ng-bootstrap';
 import { UiSwitchModule } from 'ngx-ui-switch';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -32,6 +33,7 @@ import { ErrorComponent } from './error/error/error.component';
     AppRoutingModule,
     HttpClientModule,
     NgbModalModule,
+    FontAwesomeModule,
     UiSwitchModule.forRoot({
       color: 'DodgerBlue',
     }),

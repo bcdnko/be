@@ -4,12 +4,15 @@ header {
   .logo {
     h1 {
       background: $primary-color;
-      color: white;
       padding: 10px 20px;
       margin: 20px;
       margin-left: -15px;
       display: inline-block;
       font-size: 1.5rem;
+
+      a {
+        color: white;
+      }
     }
   }
 

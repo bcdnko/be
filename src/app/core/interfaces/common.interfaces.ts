@@ -3,6 +3,7 @@ import { BibleVersionId } from '../../bible/bible.interfaces';
 export interface Config {
   defaultVersionId: BibleVersionId;
   defaultLanguage: string;
+  defaultRoute: string | string[];
 }
 
 // Made it one level to avoid importing libs for deep extend

@@ -1,6 +1,8 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 
+import { PageNotFoundComponent } from '../error/page-not-found/page-not-found.component';
+
 import { BibleComponent } from './bible/bible.component';
 import { BibleChapterComponent } from './chapter/bible-chapter.component';
 import { BibleIndexComponent } from './index/bible-index.component';
@@ -28,6 +30,10 @@ const routes: Routes = [
         component: BibleChapterComponent,
       },
     ],
+  },
+  {
+    path: '**',
+    component: PageNotFoundComponent,
   },
 ];
 

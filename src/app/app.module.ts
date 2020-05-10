@@ -16,12 +16,14 @@ import { AppStateService } from './core/services/app-state.service';
 import { BibleModule } from './bible/bible.module';
 import { ToTopComponent } from './core/controls/to-top/to-top.component';
 import { SettingsComponent } from './settings/settings.component';
+import { PageNotFoundComponent } from './error/page-not-found/page-not-found.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     ToTopComponent,
     SettingsComponent,
+    PageNotFoundComponent,
   ],
   imports: [
     BrowserModule,

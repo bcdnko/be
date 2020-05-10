@@ -1,12 +1,14 @@
-<h1>Bible Versions</h1>
+<ng-container *ngIf="versions">
+  <h1>Bible Versions</h1>
 
-<ul>
-  <li *ngFor="let version of versions">
-    <a
-      [routerLink]="urls[version.id]"
-      [ngClass]="{ active: state && state.version.id === version.id }"
-    >
-      {{version.title}}
-    </a>
-  </li>
-</ul>
+  <ul>
+    <li *ngFor="let version of versions">
+      <a
+        [routerLink]="urls[version.id]"
+        [ngClass]="{ active: state && state.version.id === version.id }"
+      >
+        {{version.title}}
+      </a>
+    </li>
+  </ul>
+</ng-container>

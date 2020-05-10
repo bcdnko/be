@@ -5,6 +5,7 @@ import { Subject } from 'rxjs';
 import {
   filter,
   takeUntil,
+  tap,
 } from 'rxjs/operators';
 
 import {
@@ -13,6 +14,8 @@ import {
 } from '../bible.interfaces';
 import { BibleStateService } from '../bible-state.service';
 import { BibleService } from '../bible.service';
+import { Settings } from '../../core/interfaces/common.interfaces';
+import { SettingsService } from '../../core/services/settings.service';
 
 @Component({
   selector: 'be-bible-index',
@@ -22,14 +25,21 @@ import { BibleService } from '../bible.service';
 export class BibleIndexComponent implements OnDestroy {
   bibleState: BibleState = null;
   books: BibleBooksByTestament = null;
+  public settings: Settings;
 
   private destroy$: Subject<void> = new Subject();
 
   constructor(
-    private titleService: Title,
     bibleService: BibleService,
     bibleStateService: BibleStateService,
+    private titleService: Title,
+    private settingsService: SettingsService,
   ) {
+    this.settingsService.settings$.pipe(
+      takeUntil(this.destroy$),
+      tap(settings => this.settings = settings),
+    ).subscribe();
+
     bibleStateService.state
       .pipe(
         takeUntil(this.destroy$),

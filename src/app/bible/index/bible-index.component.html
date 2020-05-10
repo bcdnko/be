@@ -1,4 +1,6 @@
 <ng-container *ngIf="bibleState">
   <h1>{{bibleState.version.title}}</h1>
-  <be-bible-book-selector></be-bible-book-selector>
+  <be-bible-book-selector
+    [settings]="settings"
+  ></be-bible-book-selector>
 </ng-container>

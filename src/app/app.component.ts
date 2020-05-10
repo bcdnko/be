@@ -41,7 +41,7 @@ export class AppComponent implements OnDestroy {
           if (granted) {
             console.log('Storage will not be cleared except by explicit user action');
           } else {
-            console.log('Storage may be cleared by the UA under storage pressure.');
+            alert('Warning: failed to request persistent storage. Browser may remove all your settings and researches if it lacks space at any time');
           }
         });
     }

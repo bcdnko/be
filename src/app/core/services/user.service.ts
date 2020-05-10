@@ -24,6 +24,11 @@ export class UserService {
         name: null,
         settings: cloneDeep(defaultSettings),
       };
+    } else {
+      user.settings = {
+        ...cloneDeep(defaultSettings),
+        ...cloneDeep(user.settings),
+      };
     }
 
     this.setUser(user);

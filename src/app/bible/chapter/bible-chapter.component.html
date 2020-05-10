@@ -12,15 +12,18 @@
   >
     <a
       class="prev-chapter"
-      *ngIf="prevChapterLink && settings.bible.hugePrevNextChapterBtns"
+      *ngIf="prevChapterLink && settings.hugePrevNextChapterBtns"
       [routerLink]="prevChapterLink"
     ><div></div></a>
-    <div *ngIf="!prevChapterLink" class="prev-chapter"></div>
+    <div
+      *ngIf="!prevChapterLink || !settings.hugePrevNextChapterBtns"
+      class="prev-chapter"
+    ></div>
 
     <div class="chapter-text">
       <be-bible-toolbar></be-bible-toolbar>
 
-      <div class="chapter-list" *ngIf="settings.bible.showChaptersInText">
+      <div class="chapter-list" *ngIf="settings.showChaptersInText">
         <span>Chapters:</span>
         <ul>
           <li *ngFor="let chapter of bibleState.book.chaptersArray">
@@ -40,7 +43,7 @@
         </ul>
       </div>
 
-      <h1>{{settings.bible.fullBookHeadersInText ? bibleState.book.title : bibleState.book.titleShort}}</h1>
+      <h1>{{settings.fullBookHeadersInText ? bibleState.book.title : bibleState.book.titleShort}}</h1>
       <h2>Chapter {{bibleState.chapter}}</h2>
 
       <be-bible-chapter-text
@@ -51,10 +54,13 @@
 
     <a
       class="next-chapter"
-      *ngIf="nextChapterLink && settings.bible.hugePrevNextChapterBtns"
+      *ngIf="nextChapterLink && settings.hugePrevNextChapterBtns"
       [routerLink]="nextChapterLink"
     ><div></div></a>
-    <div *ngIf="!nextChapterLink" class="next-chapter"></div>
+    <div
+      *ngIf="!nextChapterLink || !settings.hugePrevNextChapterBtns"
+      class="next-chapter"
+    ></div>
   </main>
 
   <aside class="col-md-2 col-12 order-3"></aside>

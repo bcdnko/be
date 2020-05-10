@@ -5,19 +5,19 @@ export interface Config {
   defaultLanguage: string;
 }
 
+// Made it one level to avoid importing libs for deep extend
+// that is needed when a new option is added and user has no
+// the option in his saved settings
 export interface Settings {
-  general: {
-    showGoToTopButton: boolean,
-  },
-  bible: {
-    showStrong: boolean,
-    highlightJesusWords: boolean,
-    fullBookHeadersInText: boolean,
+  showGoToTopButton: boolean,
 
-    showChaptersInText: boolean,
-    showChaptersInBookSelector: boolean,
-    hugePrevNextChapterBtns: boolean,
-  },
+  showStrongInText: boolean,
+  highlightJesusWords: boolean,
+  fullBookHeadersInText: boolean,
+
+  showChaptersInText: boolean,
+  showChaptersInBookSelector: boolean,
+  hugePrevNextChapterBtns: boolean,
 }
 
 export interface AppState {

@@ -1,7 +1,9 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
+
 import { NgbButtonsModule } from '@ng-bootstrap/ng-bootstrap';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 
 import { BibleRoutingModule } from './bible-routing.module';
 import { BibleIndexComponent } from './index/bible-index.component';
@@ -33,6 +35,7 @@ import { BibleToolbarComponent } from './toolbar/bible-toolbar.component';
     CommonModule,
     FormsModule,
     NgbButtonsModule,
+    FontAwesomeModule,
     BibleRoutingModule,
   ],
   providers: [

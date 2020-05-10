@@ -10,13 +10,17 @@
         [(ngModel)]="settings.showStrongInText"
         (ngModelChange)="updateSettings()"
         ngbButton
-      > Strong
+      >
+      <fa-icon [icon]="icons.strong"></fa-icon>
     </label>
 
     <button
       class="btn btn-primary"
       (click)="openSettings()"
-    >Settings</button>
+      title="Settings"
+    >
+      <fa-icon [icon]="icons.settings"></fa-icon>
+    </button>
 
   </div>
 </ng-container>

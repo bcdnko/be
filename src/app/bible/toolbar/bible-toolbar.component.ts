@@ -10,6 +10,11 @@ import { SettingsService } from '../../core/services/settings.service';
 
 import { SettingsComponent } from '../../settings/settings.component';
 
+import {
+  faCog,
+  faFistRaised,
+} from '@fortawesome/free-solid-svg-icons';
+
 @Component({
   selector: 'be-bible-toolbar',
   templateUrl: './bible-toolbar.component.html',
@@ -18,6 +23,11 @@ import { SettingsComponent } from '../../settings/settings.component';
 export class BibleToolbarComponent implements OnDestroy {
 
   settings: Settings;
+  icons = {
+    settings: faCog,
+    strong: faFistRaised,
+  };
+
   private destroy$: Subject<void> = new Subject();
 
   constructor(

@@ -17,6 +17,7 @@ import { BibleModule } from './bible/bible.module';
 import { ToTopComponent } from './core/controls/to-top/to-top.component';
 import { SettingsComponent } from './settings/settings.component';
 import { PageNotFoundComponent } from './error/page-not-found/page-not-found.component';
+import { ErrorComponent } from './error/error/error.component';
 
 @NgModule({
   declarations: [
@@ -24,6 +25,7 @@ import { PageNotFoundComponent } from './error/page-not-found/page-not-found.com
     ToTopComponent,
     SettingsComponent,
     PageNotFoundComponent,
+    ErrorComponent,
   ],
   imports: [
     BrowserModule,

@@ -1,5 +1,4 @@
-import { Component, OnInit } from '@angular/core';
-
+import { Component } from '@angular/core';
 import { config } from '../../config';
 
 @Component({
@@ -7,13 +6,8 @@ import { config } from '../../config';
   templateUrl: './page-not-found.component.html',
   styleUrls: ['./page-not-found.component.scss']
 })
-export class PageNotFoundComponent implements OnInit {
+export class PageNotFoundComponent {
 
   config = config;
-
-  constructor() { }
-
-  ngOnInit(): void {
-  }
 
 }

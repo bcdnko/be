@@ -10,6 +10,7 @@
     "e2e": "ng e2e",
     "clean": "rm -r dist && mkdir dist",
     "import": "ts-node --project cli/tsconfig.json cli/import.ts",
+    "import-strong": "ts-node --project cli/tsconfig.json cli/import-strong.ts",
     "update-version-index": "ts-node --project cli/tsconfig.json cli/update-version-index.ts"
   },
   "private": true,
@@ -57,6 +58,7 @@
     "mkdirp": "^1.0.4",
     "progress": "^2.0.3",
     "protractor": "~5.4.4",
+    "sqlite3": "^4.2.0",
     "ts-node": "^8.9.1",
     "tslint": "~6.1.2",
     "typescript": "~3.8.3"

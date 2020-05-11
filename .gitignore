@@ -48,6 +48,7 @@ Thumbs.db
 # project files
 imports/*/*
 src/assets/bible/*
+src/assets/dicts/*
 
 # Firebase
 .firebase

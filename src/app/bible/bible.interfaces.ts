@@ -84,3 +84,15 @@ export interface BibleTextToken {
   markers?: string[];
 }
 
+export interface StrongWord {
+  id: string;
+  word: string;
+  pron: string;
+  pronAlt?: string;
+  meaning: string;
+}
+
+export interface StrongDictionary {
+  [key: string]: StrongWord;
+}
+

@@ -5,12 +5,13 @@ import {
   BibleVerseStored,
 } from '../src/app/bible/bible.interfaces';
 
-const appRoot = require('app-root-path').toString();
-const path = require('path');
 const fs = require('fs');
 const fsExtra = require('fs-extra');
 const ProgressBar = require('progress');
 const mkdirp = require('mkdirp');
+
+const appRoot = require('app-root-path').toString();
+const path = require('path');
 
 const importPath = path.join(appRoot, 'imports', 'bible');
 const targetPath = path.join(appRoot, 'src', 'assets', 'bible', 'versions');

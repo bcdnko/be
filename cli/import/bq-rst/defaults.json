@@ -52,36 +52,42 @@
       "id": 9,
       "aliases": ["1Sam"],
       "title": "Первая Книга Царств",
+      "titleShort": "1-я Царств",
       "chapterTitle": "Глава"
     },
     {
       "id": 10,
       "aliases": ["2Sam"],
       "title": "Вторая Книга Царств",
+      "titleShort": "2-я Царств",
       "chapterTitle": "Глава"
     },
     {
       "id": 11,
       "aliases": ["1Ki"],
       "title": "Третья Книга Царств",
+      "titleShort": "3-я Царств",
       "chapterTitle": "Глава"
     },
     {
       "id": 12,
       "aliases": ["2Ki"],
       "title": "Четвёртая Книга Царств",
+      "titleShort": "4-я Царств",
       "chapterTitle": "Глава"
     },
     {
       "id": 13,
       "aliases": ["1Chr"],
       "title": "Первая Книга Паралипоменон",
+      "titleShort": "1-я Паралипоменон",
       "chapterTitle": "Глава"
     },
     {
       "id": 14,
       "aliases": ["2Chr"],
       "title": "Вторая Книга Паралипоменон",
+      "titleShort": "2-я Паралипоменон",
       "chapterTitle": "Глава"
     },
     {
@@ -278,30 +284,35 @@
       "id": 46,
       "aliases": ["1Pet"],
       "title": "Первое Послание Петра",
+      "titleShort": "1-е Петра",
       "chapterTitle": "Глава"
     },
     {
       "id": 47,
       "aliases": ["2Pet"],
       "title": "Второе Послание Петра",
+      "titleShort": "2-е Петра",
       "chapterTitle": "Глава"
     },
     {
       "id": 48,
       "aliases": ["1Jn"],
       "title": "Первое Послание Иоанна",
+      "titleShort": "1-е Иоанна",
       "chapterTitle": "Глава"
     },
     {
       "id": 49,
       "aliases": ["2Jn"],
       "title": "Второе Послание Иоанна",
+      "titleShort": "2-е Иоанна",
       "chapterTitle": "Глава"
     },
     {
       "id": 50,
       "aliases": ["3Jn"],
       "title": "Третье Послание Иоанна",
+      "titleShort": "3-е Иоанна",
       "chapterTitle": "Глава"
     },
     {
@@ -320,12 +331,14 @@
       "id": 53,
       "aliases": ["1Cor"],
       "title": "Первое Послание к Коринфянам",
+      "titleShort": "1-е Коринфянам",
       "chapterTitle": "Глава"
     },
     {
       "id": 54,
       "aliases": ["2Cor"],
       "title": "Второе Послание к Коринфянам",
+      "titleShort": "2-е Коринфянам",
       "chapterTitle": "Глава"
     },
     {
@@ -356,24 +369,28 @@
       "id": 59,
       "aliases": ["1Th"],
       "title": "Первое Послание к Фессалоникийцам",
+      "titleShort": "1-е Фессалоникийцам",
       "chapterTitle": "Глава"
     },
     {
       "id": 60,
       "aliases": ["2Th"],
       "title": "Второе Послание к Фессалоникийцам",
+      "titleShort": "2-е Фессалоникийцам",
       "chapterTitle": "Глава"
     },
     {
       "id": 61,
       "aliases": ["1Tim"],
       "title": "Первое Послание к Тимофею",
+      "titleShort": "1-е Тимофею",
       "chapterTitle": "Глава"
     },
     {
       "id": 62,
       "aliases": ["2Tim"],
       "title": "Второе послание к Тимофею",
+      "titleShort": "2-е Тимофею",
       "chapterTitle": "Глава"
     },
     {

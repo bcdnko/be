@@ -12,7 +12,7 @@ const fsExtra = require('fs-extra');
 const ProgressBar = require('progress');
 const mkdirp = require('mkdirp');
 
-const importPath = path.join(appRoot, 'imports');
+const importPath = path.join(appRoot, 'imports', 'bible');
 const targetPath = path.join(appRoot, 'src', 'assets', 'bible', 'versions');
 
 function saveVersion(version: BibleVersion): void {
@@ -60,15 +60,16 @@ try {
   }
 
   const importId = args['t'];
-  const parserPath = path
-    .join(appRoot, 'cli', 'import', importId, importId + '-parser');
+  const parserDir = path
+    .join(appRoot, 'cli', 'import', importId);
+  const parserPath = path.join(parserDir, importId + '-parser');
 
   import(parserPath)
     .then(Parser => {
-      const dataPath = path.join(appRoot, 'imports', importId);
+      const dataPath = path.join(importPath, importId);
 
       console.log('Importing from: ' + dataPath);
-      const parser = new Parser.default(dataPath);
+      const parser = new Parser.default(dataPath, parserDir);
 
       const version = parser.parseVersion();
       const books = parser.parseBooks();

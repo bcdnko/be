@@ -4,5 +4,5 @@ build
 Dockerfile
 
 info
-imports
-
+public/bible
+public/dicts

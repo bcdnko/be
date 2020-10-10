@@ -28,3 +28,6 @@ yarn-error.log*
 # be
 info
 imports
+!imports/read.me
+public/bible
+public/dicts

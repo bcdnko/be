@@ -10,6 +10,7 @@ RUN yarn install
 RUN yarn run import -t bq-kjv
 RUN yarn run import -t bq-rst
 RUN yarn run import-strong -id mb-strong-ru
+RUN yarn run update-version-index
 
 CMD yarn start
 

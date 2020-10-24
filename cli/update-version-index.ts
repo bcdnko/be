@@ -2,7 +2,7 @@ const fs = require('fs');
 const path = require('path');
 
 const appRoot = require('app-root-path').toString();
-const importsPath = path.join(appRoot, 'src', 'assets', 'bible');
+const importsPath = path.join(appRoot, 'public', 'bible');
 
 export function updateIndex(importsPath: string): void {
   const versionsPath = path.join(importsPath, 'versions');

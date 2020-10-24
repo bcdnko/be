@@ -21,10 +21,16 @@ function saveVersion(version: BibleVersion): void {
   const versionFilePath = versionPath + '.json';
 
   // Clean
+  console.log('Removing: ' + versionPath);
   fsExtra.removeSync(versionPath);
-  fsExtra.removeSync(versionFilePath);
 
+  //console.log('Removing: ' + versionFilePath);
+  //fsExtra.removeSync(versionFilePath);
+
+  console.log('Creating dir: ' + versionPath);
   mkdirp.sync(versionPath);
+
+  console.log('Saving: ' + versionFilePath);
   fs.writeFileSync(
     versionFilePath,
     JSON.stringify(version),
@@ -33,8 +39,10 @@ function saveVersion(version: BibleVersion): void {
 
 function saveBooks(version: BibleVersion, books: BibleBook[]): void {
   const versionPath = path.join(targetPath, version.id);
+  const versionBooksPath = path.join(versionPath, 'books.json');
+
   fs.writeFileSync(
-    path.join(versionPath, 'books.json'),
+    versionBooksPath,
     JSON.stringify(books),
   );
 }
@@ -46,8 +54,10 @@ function saveChapter(
 ): void {
   const bookPath = path.join(targetPath, book.versionId, 'books', book.id.toString());
   mkdirp.sync(bookPath);
+
+  const chapterPath = path.join(bookPath, chapter + '.json');
   fs.writeFileSync(
-    path.join(bookPath, chapter + '.json'),
+    chapterPath,
     JSON.stringify(verses),
   );
 }

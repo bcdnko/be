@@ -1,9 +1,13 @@
 import React, { Component } from 'react';
 
-export class BibleIndexPage extends Component {
+export default class BibleIndexPage extends Component {
   public render() {
     return (
-      <div>Index</div>
+      <div>
+        Index
+        <button onClick={() => {console.log(this.props)}}>Store</button>
+      </div>
     );
   }
 }
+

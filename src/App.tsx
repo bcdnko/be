@@ -3,8 +3,7 @@ import { connect, ConnectedProps } from 'react-redux';
 import {
   BrowserRouter as Router,
   Switch,
-  Route,
-  Link
+  Route
 } from "react-router-dom";
 import { Action } from 'redux';
 import { ThunkDispatch } from 'redux-thunk';
@@ -16,6 +15,7 @@ import {
 } from './store/bible/versions';
 
 import BibleIndexPage from './pages/bible/BibleIndexPage';
+import Header from './shared-components/Header';
 import { NotFoundPage } from './pages/NotFoundPage';
 
 import './App.css';
@@ -51,22 +51,19 @@ class App extends React.Component<PropsFromRedux> {
   render() {
     return (
       <Router>
-        <div>
-          <Link to="/">Home</Link>
-        </div>
-
         <div className="App">
+          <Header />
+
+          <Switch>
+            <Route exact path="/">
+              <BibleIndexPage />
+            </Route>
+
+            <Route path="*">
+              <NotFoundPage />
+            </Route>
+          </Switch>
         </div>
-
-        <Switch>
-          <Route exact path="/">
-            <BibleIndexPage />
-          </Route>
-
-          <Route path="*">
-            <NotFoundPage />
-          </Route>
-        </Switch>
       </Router>
     );
   }

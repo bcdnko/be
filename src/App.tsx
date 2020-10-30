@@ -14,11 +14,11 @@ import {
   fetchBibleVersions,
 } from './store/bible/versions';
 
-import BibleIndexPage from './pages/bible/BibleIndexPage';
+import BibleExplorerPage from './pages/bible/BibleExplorerPage';
 import Header from './shared-components/Header';
 import { NotFoundPage } from './pages/NotFoundPage';
 
-import './App.css';
+import './App.scss';
 
 type StateProps = ReturnType<typeof mapStateToProps>;
 type DispatchProps = typeof mapDispatchToProps;
@@ -56,7 +56,7 @@ class App extends React.Component<PropsFromRedux> {
 
           <Switch>
             <Route exact path="/">
-              <BibleIndexPage />
+              <BibleExplorerPage />
             </Route>
 
             <Route path="*">

@@ -12,11 +12,11 @@ import { RootState } from './store/rootReducer';
 import {
   selectVersions,
   fetchBibleVersions,
-} from './store/bible/versions';
+} from './store/bible/versionsSlice';
 
-import BibleExplorerPage from './pages/bible/BibleExplorerPage';
-import Header from './shared-components/Header';
-import { NotFoundPage } from './pages/NotFoundPage';
+import BibleExplorerPage from './features/Bible/pages/BibleExplorerPage';
+import Header from './shared-components/Header/Header';
+import NotFoundPage from './pages/NotFoundPage';
 
 import './App.scss';
 

@@ -4,7 +4,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faBible } from '@fortawesome/free-solid-svg-icons'
 
 import styles from './Header.module.scss';
-import logo from '../assets/img/logo.svg';
+import logo from 'assets/img/logo.svg';
 
 export default function Header() {
   return (

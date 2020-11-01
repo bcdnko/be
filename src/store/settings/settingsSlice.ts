@@ -1,6 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit';
 
-import { defaultSettings } from '../settings/defaultSettings';
+import { defaultSettings } from './defaultSettings';
 
 const settingsSlice = createSlice({
   name: 'settings',

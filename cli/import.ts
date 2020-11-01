@@ -1,7 +1,7 @@
 import { parseArguments } from './parse-arguments';
 import {
-  BibleVersion,
-  BibleBook,
+  BibleVersionStored,
+  BibleBookStored,
   BibleVerseStored,
 } from '../src/core/interfaces/Bible.interfaces';
 
@@ -16,7 +16,7 @@ const path = require('path');
 const importPath = path.join(appRoot, 'imports', 'bible');
 const targetPath = path.join(appRoot, 'public', 'bible', 'versions');
 
-function saveVersion(version: BibleVersion): void {
+function saveVersion(version: BibleVersionStored): void {
   const versionPath = path.join(targetPath, version.id);
   const versionFilePath = versionPath + '.json';
 
@@ -37,7 +37,7 @@ function saveVersion(version: BibleVersion): void {
   );
 }
 
-function saveBooks(version: BibleVersion, books: BibleBook[]): void {
+function saveBooks(version: BibleVersionStored, books: BibleBookStored[]): void {
   const versionPath = path.join(targetPath, version.id);
   const versionBooksPath = path.join(versionPath, 'books.json');
 
@@ -48,7 +48,7 @@ function saveBooks(version: BibleVersion, books: BibleBook[]): void {
 }
 
 function saveChapter(
-  book: BibleBook,
+  book: BibleBookStored,
   chapter: number,
   verses: BibleVerseStored[],
 ): void {

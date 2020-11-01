@@ -1,4 +1,4 @@
-import { Settings } from '../../core/interfaces/common.interfaces';
+import { Settings } from 'core/interfaces/common.interfaces';
 
 export const defaultSettings: Settings = {
   showGoToTopButton: true,

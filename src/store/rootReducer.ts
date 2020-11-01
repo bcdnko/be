@@ -1,13 +1,15 @@
 import { combineReducers } from '@reduxjs/toolkit';
 
-import { configReducer } from './config';
-import { versionsReducer } from './bible/versions';
-import { settingsReducer } from './settings/settings';
+import { configReducer } from './configSlice';
+import { bibleVersionsReducer } from './bible/versionsSlice';
+import { bibleStateReducer } from './bible/bibleStateSlice';
+import { settingsReducer } from './settings/settingsSlice';
 
 const rootReducer = combineReducers({
   config: configReducer,
   settings: settingsReducer,
-  bibleVersions: versionsReducer,
+  bibleVersions: bibleVersionsReducer,
+  bibleState: bibleStateReducer,
 });
 
 export type RootState = ReturnType<typeof rootReducer>;

@@ -3,10 +3,10 @@ import { connect, ConnectedProps } from 'react-redux';
 import { Action } from 'redux';
 import { ThunkDispatch } from 'redux-thunk';
 
-import { RootState } from '../../store/rootReducer';
-import {
-  selectVersions,
-} from '../../store/bible/versions';
+import BibleVersionSelectorComponent from '../components/BibleVersionSelector/BibleVersionSelector';
+
+import { RootState } from 'store/rootReducer';
+import { selectVersions } from 'store/bible/versionsSlice';
 
 type StateProps = ReturnType<typeof mapStateToProps>;
 type DispatchProps = typeof mapDispatchToProps;
@@ -31,14 +31,11 @@ const connector = connect(
 type PropsFromRedux = ConnectedProps<typeof connector>;
 
 class BibleExplorerPage extends React.Component<PropsFromRedux> {
-  componentDidMount() {
-  }
-
   render() {
     return (
       <div className="row">
         <aside className="col-12 col-md-3 order-2 order-md-1">
-          left
+          <BibleVersionSelectorComponent />
         </aside>
 
         <main

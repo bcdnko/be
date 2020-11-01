@@ -9,10 +9,6 @@ export type BibleBookAlias = string;
 export type TestamentId = 'old' | 'new';
 export type CrossVersionId = string;
 
-export interface BibleLanguage extends Language {
-  defaultVersionId: BibleVersionId;
-}
-
 export interface BibleVersionStored {
   id: BibleVersionId;
   title: string;
@@ -23,10 +19,6 @@ export interface BibleVersionStored {
   version?: string;
   updated: string;
   strongId?: string;
-}
-
-export interface BibleVersion extends BibleVersionStored {
-  route: any[];
 }
 
 export interface BibleBookStored {
@@ -42,17 +34,6 @@ export interface BibleBookStored {
   aliases: BibleBookAlias[];
 }
 
-export interface BibleBook extends BibleBookStored {
-  chaptersArray: BibleBookChapter[];
-  aliasesIndex: string[];
-  route: any[];
-}
-
-export interface BibleBookChapter {
-  no: number;
-  route: any[];
-}
-
 export interface BibleVerseStored {
   id: number;
   cvId: CrossVersionId;
@@ -60,29 +41,6 @@ export interface BibleVerseStored {
   chapter: number;
   no: number;
   text: string;
-}
-
-export interface BibleVerse extends BibleVerseStored {
-  parsedText: BibleTextToken[];
-}
-
-export type BibleBooksByTestament = {
-  title: string;
-  books: BibleBook[];
-}[];
-
-export interface BibleState {
-  version: BibleVersion;
-  versionBooks: BibleBook[];
-  book: BibleBook;
-  chapter: number;
-  selectedVerses: BibleVerse[];
-}
-
-export interface BibleTextToken {
-  type: 'strong' | 'punctuation' | 'word' | 'space';
-  text: string;
-  markers?: string[];
 }
 
 export interface StrongWord {

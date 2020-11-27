@@ -30,12 +30,6 @@ const connector = connect(
 type PropsFromRedux = ConnectedProps<typeof connector>;
 
 class BibleVersionSelectorComponent extends React.Component<PropsFromRedux> {
-  componentDidMount() {
-  }
-
-  componentDidUpdate() {
-  }
-
   render() {
     return (
       <div>

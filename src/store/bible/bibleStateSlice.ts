@@ -1,4 +1,4 @@
-import { createSlice } from '@reduxjs/toolkit';
+import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
 import { RootState } from 'store/rootReducer';
 import { BibleState } from 'features/Bible/Bible.interfaces';
@@ -10,10 +10,21 @@ const bibleStateSlice = createSlice({
     book: null,
     chapter: null,
   },
-  reducers: {},
+  reducers: {
+    // TODO
+    changeChapter: (state, action: PayloadAction<any>) => {
+      const { versionId, bookId, chapter } = action.payload;
+
+      return {
+        version: versionId,
+        book: bookId,
+        chapter: chapter,
+      };
+    }
+  },
 });
 
-//export const {} = createSlice.actions;
+export const { changeChapter } = bibleStateSlice.actions;
 
 export const bibleStateReducer = bibleStateSlice.reducer;
 

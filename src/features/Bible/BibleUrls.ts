@@ -9,7 +9,7 @@ import { BibleState } from './Bible.interfaces';
 export function getBibleVersionUrl(version: BibleVersionStored | BibleVersionId): string {
   const versionId = typeof(version) === 'string' ? version : version.id;
 
-  return ['/bible', versionId].join('/');
+  return ['/bible', versionId, '1', '1'].join('/');
 }
 
 export function getBibleBookUrl(

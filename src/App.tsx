@@ -20,10 +20,6 @@ import NotFoundPage from './pages/NotFoundPage';
 
 import './App.scss';
 
-type StateProps = ReturnType<typeof mapStateToProps>;
-type DispatchProps = typeof mapDispatchToProps;
-type Props = StateProps & DispatchProps;
-
 const mapStateToProps = (state: RootState) => {
   return {
     bibleVersions: selectVersions(state),
@@ -55,13 +51,19 @@ class App extends React.Component<PropsFromRedux> {
           <Header />
 
           <Switch>
-            <Route exact path="/">
-              <BibleExplorerPage />
-            </Route>
-
-            <Route path="*">
-              <NotFoundPage />
-            </Route>
+            <Route
+              exact
+              path="/"
+              component={BibleExplorerPage}
+            />
+            <Route
+              path="/bible/:versionId?/:bookId?/:chapter?"
+              component={BibleExplorerPage}
+            />
+            <Route
+              path="*"
+              component={NotFoundPage}
+            />
           </Switch>
         </div>
       </Router>

@@ -2,24 +2,38 @@ import React from 'react';
 import { connect, ConnectedProps } from 'react-redux';
 import { Action } from 'redux';
 import { ThunkDispatch } from 'redux-thunk';
-
-import BibleVersionSelectorComponent from '../components/BibleVersionSelector/BibleVersionSelector';
+import { RouteComponentProps } from 'react-router-dom';
 
 import { RootState } from 'store/rootReducer';
-import { selectVersions } from 'store/bible/versionsSlice';
+import { selectHashedVersions } from 'store/bible/versionsSlice';
+import {
+  changeChapter,
+  selectBibleState,
+} from 'store/bible/bibleStateSlice';
 
-type StateProps = ReturnType<typeof mapStateToProps>;
-type DispatchProps = typeof mapDispatchToProps;
-type Props = StateProps & DispatchProps;
+import {
+  BibleVersionId,
+  BibleBookId
+} from 'core/interfaces/Bible.interfaces';
+import BibleVersionSelectorComponent from '../components/BibleVersionSelector/BibleVersionSelector';
+
+interface RouteProps {
+  versionId?: string;
+  bookId?: string;
+  chapter?: string;
+}
 
 const mapStateToProps = (state: RootState) => {
   return {
-    bibleVersions: selectVersions(state),
+    bibleVersions: selectHashedVersions(state),
+    bibleState: selectBibleState(state),
   }
 };
 
 const mapDispatchToProps = (dispatch: ThunkDispatch<RootState, void, Action>) => {
   return {
+    //TODO
+    changeChapter: (payload: any) => dispatch(changeChapter(payload)),
   }
 };
 
@@ -29,8 +43,33 @@ const connector = connect(
 );
 
 type PropsFromRedux = ConnectedProps<typeof connector>;
+type ComponentProps = RouteComponentProps<RouteProps> & PropsFromRedux;
 
-class BibleExplorerPage extends React.Component<PropsFromRedux> {
+class BibleExplorerPage extends React.Component<ComponentProps> {
+  private _handleRouteChanges(prevProps: ComponentProps) {
+    const { versionId, bookId } = this.props.match.params;
+    const chapter = parseInt(String(this.props.match.params.chapter));
+    const bibleState = this.props.bibleState;
+    const stateVersionId = bibleState.version && bibleState.version.id;
+
+    const isVersionChanged = versionId !== stateVersionId;
+    //const isBookChanged = bookId !== bibleState.book;
+    const isBookChanged = false;
+    const isChapterChanged = chapter !== bibleState.chapter;
+
+    if (isVersionChanged || isBookChanged || isChapterChanged) {
+      this.props.changeChapter({
+        versionId: this.props.bibleVersions[versionId!],
+        bookId: bookId,
+        chapter: chapter,
+      });
+    }
+  }
+
+  componentDidUpdate(prevProps: ComponentProps) {
+    this._handleRouteChanges(prevProps);
+  }
+
   render() {
     return (
       <div className="row">

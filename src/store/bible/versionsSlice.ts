@@ -44,3 +44,7 @@ export const selectVersions = (state: RootState): BibleVersion[] => {
   return state.bibleVersions.all;
 };
 
+export const selectHashedVersions = (state: RootState): { [key: string]: BibleVersion } => {
+  return state.bibleVersions.hashed;
+};
+

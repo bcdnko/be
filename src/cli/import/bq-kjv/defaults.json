@@ -1,0 +1,336 @@
+{
+  "books": [
+    {
+      "id": 1,
+      "aliases": ["Gen"],
+      "title": "The First Book of Moses, called Genesis"
+    },
+    {
+      "id": 2,
+      "aliases": ["Ex"],
+      "title": "The Second Book of Moses, called Exodus"
+    },
+    {
+      "id": 3,
+      "aliases": ["Lev"],
+      "title": "The Third Book of Moses, called Leviticus"
+    },
+    {
+      "id": 4,
+      "aliases": ["Num"],
+      "title": "The Fourth Book of Moses, called Numbers"
+    },
+    {
+      "id": 5,
+      "aliases": ["Deut"],
+      "title": "The Fifth Book of Moses, called Deuteronomy"
+    },
+    {
+      "id": 6,
+      "aliases": ["Josh"],
+      "title": "The Book of Joshua"
+    },
+    {
+      "id": 7,
+      "aliases": ["Judg"],
+      "title": "The Book of Judges"
+    },
+    {
+      "id": 8,
+      "aliases": ["Ruth"],
+      "title": "The Book of Ruth"
+    },
+    {
+      "id": 9,
+      "aliases": ["1Sam"],
+      "title": "The First Book of Samuel"
+    },
+    {
+      "id": 10,
+      "aliases": ["2Sam"],
+      "title": "The Second Book of Samuel"
+    },
+    {
+      "id": 11,
+      "aliases": ["1Ki"],
+      "title": "The First Book of the Kings"
+    },
+    {
+      "id": 12,
+      "aliases": ["2Ki"],
+      "title": "The Second Book of the Kings"
+    },
+    {
+      "id": 13,
+      "aliases": ["1Chr"],
+      "title": "The First Book of the Chronicles"
+    },
+    {
+      "id": 14,
+      "aliases": ["2Chr"],
+      "title": "The Second Book of the Chronicles"
+    },
+    {
+      "id": 15,
+      "aliases": ["Ezr"],
+      "title": "Ezra"
+    },
+    {
+      "id": 16,
+      "aliases": ["Neh"],
+      "title": "The Book of Nehemiah"
+    },
+    {
+      "id": 17,
+      "aliases": ["Est"],
+      "title": "The Book of Esther"
+    },
+    {
+      "id": 18,
+      "aliases": ["Job"],
+      "title": "The Book of Job"
+    },
+    {
+      "id": 19,
+      "aliases": ["Ps"],
+      "title": "The Book of Psalms",
+      "chapterTitle": "Psalm"
+    },
+    {
+      "id": 20,
+      "aliases": ["Prov"],
+      "title": "The Proverbs"
+    },
+    {
+      "id": 21,
+      "aliases": ["Ecc"],
+      "title": "Ecclesiastes"
+    },
+    {
+      "id": 22,
+      "aliases": ["Song"],
+      "title": "The Song of Solomon"
+    },
+    {
+      "id": 23,
+      "aliases": ["Isa"],
+      "title": "The Book of the Prophet Isaiah"
+    },
+    {
+      "id": 24,
+      "aliases": ["Jer"],
+      "title": "The Book of the Prophet Jeremiah"
+    },
+    {
+      "id": 25,
+      "aliases": ["Lam"],
+      "title": "The Lamentations of Jeremiah"
+    },
+    {
+      "id": 26,
+      "aliases": ["Eze"],
+      "title": "The Book of the Prophet Ezekiel"
+    },
+    {
+      "id": 27,
+      "aliases": ["Dan"],
+      "title": "The Book of Daniel"
+    },
+    {
+      "id": 28,
+      "aliases": ["Hos"],
+      "title": "Hosea"
+    },
+    {
+      "id": 29,
+      "aliases": ["Joel"],
+      "title": "Joel"
+    },
+    {
+      "id": 30,
+      "aliases": ["Amos"],
+      "title": "Amos"
+    },
+    {
+      "id": 31,
+      "aliases": ["Ob"],
+      "title": "Obadiah"
+    },
+    {
+      "id": 32,
+      "aliases": ["Jon"],
+      "title": "Jonah"
+    },
+    {
+      "id": 33,
+      "aliases": ["Mic"],
+      "title": "Micah"
+    },
+    {
+      "id": 34,
+      "aliases": ["Nah"],
+      "title": "Nahum"
+    },
+    {
+      "id": 35,
+      "aliases": ["Hab"],
+      "title": "Habakkuk"
+    },
+    {
+      "id": 36,
+      "aliases": ["Zep"],
+      "title": "Zephaniah"
+    },
+    {
+      "id": 37,
+      "aliases": ["Hag"],
+      "title": "Haggai"
+    },
+    {
+      "id": 38,
+      "aliases": ["Zech"],
+      "title": "Zechariah"
+    },
+    {
+      "id": 39,
+      "aliases": ["Mal"],
+      "title": "Malachi"
+    },
+    {
+      "id": 40,
+      "aliases": ["Mat"],
+      "title": "The Gospel According to Saint Matthew"
+    },
+    {
+      "id": 41,
+      "aliases": ["Mar"],
+      "title": "The Gospel According to Saint Mark"
+    },
+    {
+      "id": 42,
+      "aliases": ["Luk"],
+      "title": "The Gospel According to Saint Luke"
+    },
+    {
+      "id": 43,
+      "aliases": ["Joh"],
+      "title": "The Gospel According to Saint John"
+    },
+    {
+      "id": 44,
+      "aliases": ["Act"],
+      "title": "The Acts of the Apostles"
+    },
+    {
+      "id": 45,
+      "aliases": ["Jas"],
+      "title": "The General Epistle of James"
+    },
+    {
+      "id": 46,
+      "aliases": ["1Pet"],
+      "title": "The First Epistle General of Peter"
+    },
+    {
+      "id": 47,
+      "aliases": ["2Pet"],
+      "title": "The Second General Epistle of Peter"
+    },
+    {
+      "id": 48,
+      "aliases": ["1Jn"],
+      "title": "The First Epistle General of John"
+    },
+    {
+      "id": 49,
+      "aliases": ["2Jn"],
+      "title": "The Second Epistle General of John"
+    },
+    {
+      "id": 50,
+      "aliases": ["3Jn"],
+      "title": "The Third Epistle General of John"
+    },
+    {
+      "id": 51,
+      "aliases": ["Jud"],
+      "title": "The General Epistle of Jude"
+    },
+    {
+      "id": 52,
+      "aliases": ["Rom"],
+      "title": "The Epistle of Paul the Apostle to the Romans"
+    },
+    {
+      "id": 53,
+      "aliases": ["1Cor"],
+      "title": "The First Epistle of Paul the Apostle to the Corinthians"
+    },
+    {
+      "id": 54,
+      "aliases": ["2Cor"],
+      "title": "The Second Epistle of Paul the Apostle to the Corinthians"
+    },
+    {
+      "id": 55,
+      "aliases": ["Gal"],
+      "title": "The Epistle of Paul the Apostle to the Galatians"
+    },
+    {
+      "id": 56,
+      "aliases": ["Eph"],
+      "title": "The Epistle of Paul the Apostle to the Ephesians"
+    },
+    {
+      "id": 57,
+      "aliases": ["Phil"],
+      "title": "The Epistle of Paul the Apostle to the Philippians"
+    },
+    {
+      "id": 58,
+      "aliases": ["Col"],
+      "title": "The Epistle of Paul the Apostle to the Colossians"
+    },
+    {
+      "id": 59,
+      "aliases": ["1Th"],
+      "title": "The First Epistle of Paul the Apostle to the Thessalonians"
+    },
+    {
+      "id": 60,
+      "aliases": ["2Th"],
+      "title": "The Second Epistle of Paul the Apostle to the Thessalonians"
+    },
+    {
+      "id": 61,
+      "aliases": ["1Tim"],
+      "title": "The First Epistle of Paul the Apostle to Timothy"
+    },
+    {
+      "id": 62,
+      "aliases": ["2Tim"],
+      "title": "The Second Epistle of Paul the Apostle to Timothy"
+    },
+    {
+      "id": 63,
+      "aliases": ["Tit"],
+      "title": "The Epistle of Paul the Apostle to Titus"
+    },
+    {
+      "id": 64,
+      "aliases": ["Phm"],
+      "title": "The Epistle of Paul the Apostle to Philemon"
+    },
+    {
+      "id": 65,
+      "aliases": ["Heb"],
+      "title": "The Epistle of Paul the Apostle to the Hebrews"
+    },
+    {
+      "id": 66,
+      "aliases": ["Rev"],
+      "title": "The Revelation of Saint John the Devine"
+    }
+  ]
+}
+

@@ -1,0 +1,8 @@
+node_modules
+build
+.dockerignore
+Dockerfile
+
+info
+public/bible
+public/dicts

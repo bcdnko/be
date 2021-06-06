@@ -1,0 +1,422 @@
+{
+  "books": [
+    {
+      "id": 1,
+      "aliases": ["Gen"],
+      "title": "Первая Книга Моисеева: Бытие",
+      "chapterTitle": "Глава"
+    },
+    {
+      "id": 2,
+      "aliases": ["Ex"],
+      "title": "Вторая Книга Моисеева: Исход",
+      "chapterTitle": "Глава"
+    },
+    {
+      "id": 3,
+      "aliases": ["Lev"],
+      "title": "Третья Книга Моисеева: Левит",
+      "chapterTitle": "Глава"
+    },
+    {
+      "id": 4,
+      "aliases": ["Num"],
+      "title": "Четвертая Книга Моисеева: Числа",
+      "chapterTitle": "Глава"
+    },
+    {
+      "id": 5,
+      "aliases": ["Deut"],
+      "title": "Пятая Книга Моисеева: Второзаконие",
+      "chapterTitle": "Глава"
+    },
+    {
+      "id": 6,
+      "aliases": ["Josh"],
+      "title": "Книга Иисуса Навина",
+      "chapterTitle": "Глава"
+    },
+    {
+      "id": 7,
+      "aliases": ["Judg"],
+      "title": "Книга Судей Израилевых",
+      "chapterTitle": "Глава"
+    },
+    {
+      "id": 8,
+      "aliases": ["Ruth"],
+      "title": "Книга Руфи",
+      "chapterTitle": "Глава"
+    },
+    {
+      "id": 9,
+      "aliases": ["1Sam"],
+      "title": "Первая Книга Царств",
+      "titleShort": "1-я Царств",
+      "chapterTitle": "Глава"
+    },
+    {
+      "id": 10,
+      "aliases": ["2Sam"],
+      "title": "Вторая Книга Царств",
+      "titleShort": "2-я Царств",
+      "chapterTitle": "Глава"
+    },
+    {
+      "id": 11,
+      "aliases": ["1Ki"],
+      "title": "Третья Книга Царств",
+      "titleShort": "3-я Царств",
+      "chapterTitle": "Глава"
+    },
+    {
+      "id": 12,
+      "aliases": ["2Ki"],
+      "title": "Четвёртая Книга Царств",
+      "titleShort": "4-я Царств",
+      "chapterTitle": "Глава"
+    },
+    {
+      "id": 13,
+      "aliases": ["1Chr"],
+      "title": "Первая Книга Паралипоменон",
+      "titleShort": "1-я Паралипоменон",
+      "chapterTitle": "Глава"
+    },
+    {
+      "id": 14,
+      "aliases": ["2Chr"],
+      "title": "Вторая Книга Паралипоменон",
+      "titleShort": "2-я Паралипоменон",
+      "chapterTitle": "Глава"
+    },
+    {
+      "id": 15,
+      "aliases": ["Ezr"],
+      "title": "Первая Книга Ездры",
+      "chapterTitle": "Глава"
+    },
+    {
+      "id": 16,
+      "aliases": ["Neh"],
+      "title": "Книга Неемии",
+      "chapterTitle": "Глава"
+    },
+    {
+      "id": 17,
+      "aliases": ["Est"],
+      "title": "Книга Есфири",
+      "chapterTitle": "Глава"
+    },
+    {
+      "id": 18,
+      "aliases": ["Job"],
+      "title": "Книга Иова",
+      "chapterTitle": "Глава"
+    },
+    {
+      "id": 19,
+      "aliases": ["Ps"],
+      "title": "Псалтирь",
+      "chapterTitle": "Псалом"
+    },
+    {
+      "id": 20,
+      "aliases": ["Prov"],
+      "title": "Книга Притчей Соломоновых",
+      "chapterTitle": "Глава"
+    },
+    {
+      "id": 21,
+      "aliases": ["Ecc"],
+      "title": "Книга Екклеcиаста Или Проповедника",
+      "chapterTitle": "Глава"
+    },
+    {
+      "id": 22,
+      "aliases": ["Song"],
+      "title": "Книга Песни Песней Соломона",
+      "chapterTitle": "Глава"
+    },
+    {
+      "id": 23,
+      "aliases": ["Isa"],
+      "title": "Книга Пророка Исаии",
+      "chapterTitle": "Глава"
+    },
+    {
+      "id": 24,
+      "aliases": ["Jer"],
+      "title": "Книга Пророка Иеремии",
+      "chapterTitle": "Глава"
+    },
+    {
+      "id": 25,
+      "aliases": ["Lam"],
+      "title": "Книга Плач Иеремии",
+      "chapterTitle": "Глава"
+    },
+    {
+      "id": 26,
+      "aliases": ["Eze"],
+      "title": "Книга Пророка Иезекииля",
+      "chapterTitle": "Глава"
+    },
+    {
+      "id": 27,
+      "aliases": ["Dan"],
+      "title": "Книга Пророка Даниила",
+      "chapterTitle": "Глава"
+    },
+    {
+      "id": 28,
+      "aliases": ["Hos"],
+      "title": "Книга Пророка Осии",
+      "chapterTitle": "Глава"
+    },
+    {
+      "id": 29,
+      "aliases": ["Joel"],
+      "title": "Книга Пророка Иоиля",
+      "chapterTitle": "Глава"
+    },
+    {
+      "id": 30,
+      "aliases": ["Amos"],
+      "title": "Книга Пророка Амоса",
+      "chapterTitle": "Глава"
+    },
+    {
+      "id": 31,
+      "aliases": ["Ob"],
+      "title": "Книга Пророка Авдия",
+      "chapterTitle": "Глава"
+    },
+    {
+      "id": 32,
+      "aliases": ["Jon"],
+      "title": "Книга Пророка Ионы",
+      "chapterTitle": "Глава"
+    },
+    {
+      "id": 33,
+      "aliases": ["Mic"],
+      "title": "Книга Пророка Михея",
+      "chapterTitle": "Глава"
+    },
+    {
+      "id": 34,
+      "aliases": ["Nah"],
+      "title": "Книга Пророка Наума",
+      "chapterTitle": "Глава"
+    },
+    {
+      "id": 35,
+      "aliases": ["Hab"],
+      "title": "Книга Пророка Аввакума",
+      "chapterTitle": "Глава"
+    },
+    {
+      "id": 36,
+      "aliases": ["Zep"],
+      "title": "Книга Пророка Софонии",
+      "chapterTitle": "Глава"
+    },
+    {
+      "id": 37,
+      "aliases": ["Hag"],
+      "title": "Книга Пророка Аггея",
+      "chapterTitle": "Глава"
+    },
+    {
+      "id": 38,
+      "aliases": ["Zech"],
+      "title": "Книга Пророка Захарии",
+      "chapterTitle": "Глава"
+    },
+    {
+      "id": 39,
+      "aliases": ["Mal"],
+      "title": "Книга Пророка Малахии",
+      "chapterTitle": "Глава"
+    },
+    {
+      "id": 40,
+      "aliases": ["Mat"],
+      "title": "От Матфея Святое Благовествование",
+      "titleShort": "От Матфея",
+      "chapterTitle": "Глава"
+    },
+    {
+      "id": 41,
+      "aliases": ["Mar"],
+      "title": "От Марка Святое Благовествование",
+      "titleShort": "От Марка",
+      "chapterTitle": "Глава"
+    },
+    {
+      "id": 42,
+      "aliases": ["Luk"],
+      "title": "От Луки Святое Благовествование",
+      "titleShort": "От Луки",
+      "chapterTitle": "Глава"
+    },
+    {
+      "id": 43,
+      "aliases": ["Joh"],
+      "title": "От Иоанна Святое Благовествование",
+      "titleShort": "От Иоанна",
+      "chapterTitle": "Глава"
+    },
+    {
+      "id": 44,
+      "aliases": ["Act"],
+      "title": "Деяния Святых Апостолов",
+      "chapterTitle": "Глава"
+    },
+    {
+      "id": 45,
+      "aliases": ["Jas"],
+      "title": "Послание Иакова",
+      "chapterTitle": "Глава"
+    },
+    {
+      "id": 46,
+      "aliases": ["1Pet"],
+      "title": "Первое Послание Петра",
+      "titleShort": "1-е Петра",
+      "chapterTitle": "Глава"
+    },
+    {
+      "id": 47,
+      "aliases": ["2Pet"],
+      "title": "Второе Послание Петра",
+      "titleShort": "2-е Петра",
+      "chapterTitle": "Глава"
+    },
+    {
+      "id": 48,
+      "aliases": ["1Jn"],
+      "title": "Первое Послание Иоанна",
+      "titleShort": "1-е Иоанна",
+      "chapterTitle": "Глава"
+    },
+    {
+      "id": 49,
+      "aliases": ["2Jn"],
+      "title": "Второе Послание Иоанна",
+      "titleShort": "2-е Иоанна",
+      "chapterTitle": "Глава"
+    },
+    {
+      "id": 50,
+      "aliases": ["3Jn"],
+      "title": "Третье Послание Иоанна",
+      "titleShort": "3-е Иоанна",
+      "chapterTitle": "Глава"
+    },
+    {
+      "id": 51,
+      "aliases": ["Jud"],
+      "title": "Послание Иуды",
+      "chapterTitle": "Глава"
+    },
+    {
+      "id": 52,
+      "aliases": ["Rom"],
+      "title": "Послание к Римлянам",
+      "chapterTitle": "Глава"
+    },
+    {
+      "id": 53,
+      "aliases": ["1Cor"],
+      "title": "Первое Послание к Коринфянам",
+      "titleShort": "1-е Коринфянам",
+      "chapterTitle": "Глава"
+    },
+    {
+      "id": 54,
+      "aliases": ["2Cor"],
+      "title": "Второе Послание к Коринфянам",
+      "titleShort": "2-е Коринфянам",
+      "chapterTitle": "Глава"
+    },
+    {
+      "id": 55,
+      "aliases": ["Gal"],
+      "title": "Послание к Галатам",
+      "chapterTitle": "Глава"
+    },
+    {
+      "id": 56,
+      "aliases": ["Eph"],
+      "title": "Послание к Ефесянам",
+      "chapterTitle": "Глава"
+    },
+    {
+      "id": 57,
+      "aliases": ["Phil"],
+      "title": "Послание к Филиппийцам",
+      "chapterTitle": "Глава"
+    },
+    {
+      "id": 58,
+      "aliases": ["Col"],
+      "title": "Послание к Колоссянам",
+      "chapterTitle": "Глава"
+    },
+    {
+      "id": 59,
+      "aliases": ["1Th"],
+      "title": "Первое Послание к Фессалоникийцам",
+      "titleShort": "1-е Фессалоникийцам",
+      "chapterTitle": "Глава"
+    },
+    {
+      "id": 60,
+      "aliases": ["2Th"],
+      "title": "Второе Послание к Фессалоникийцам",
+      "titleShort": "2-е Фессалоникийцам",
+      "chapterTitle": "Глава"
+    },
+    {
+      "id": 61,
+      "aliases": ["1Tim"],
+      "title": "Первое Послание к Тимофею",
+      "titleShort": "1-е Тимофею",
+      "chapterTitle": "Глава"
+    },
+    {
+      "id": 62,
+      "aliases": ["2Tim"],
+      "title": "Второе послание к Тимофею",
+      "titleShort": "2-е Тимофею",
+      "chapterTitle": "Глава"
+    },
+    {
+      "id": 63,
+      "aliases": ["Tit"],
+      "title": "Послание к Титу",
+      "chapterTitle": "Глава"
+    },
+    {
+      "id": 64,
+      "aliases": ["Phm"],
+      "title": "Послание к Филимону",
+      "chapterTitle": "Глава"
+    },
+    {
+      "id": 65,
+      "aliases": ["Heb"],
+      "title": "Послание к Евреям",
+      "chapterTitle": "Глава"
+    },
+    {
+      "id": 66,
+      "aliases": ["Rev"],
+      "title": "Откровение Апостола Иоанна (Апокалипсис)",
+      "chapterTitle": "Глава"
+    }
+  ]
+}
+

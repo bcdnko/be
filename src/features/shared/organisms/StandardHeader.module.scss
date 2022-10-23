@@ -1,0 +1,32 @@
+@import '../../../variables.scss';
+
+.pageHeader {
+  .logo {
+    h1 {
+      background: $primary-color;
+      padding: 10px 20px;
+      margin: 20px;
+      margin-left: -15px;
+      display: inline-block;
+      font-size: 1.5rem;
+
+      a {
+        color: white;
+      }
+
+      a, a:hover {
+        text-decoration: none;
+      }
+
+      span {
+        margin-left: 10px;
+      }
+    }
+  }
+
+  .bookmark {
+    img {
+      height: 100px;
+    }
+  }
+}

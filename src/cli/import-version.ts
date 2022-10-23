@@ -98,6 +98,6 @@ try {
       console.log('done\n');
     });
 } catch (e) {
-  throw e;
   console.log(`Error: ${e.message}`);
+    console.log('Usage example: npm run import-version -- -t bq-kjv');
 }

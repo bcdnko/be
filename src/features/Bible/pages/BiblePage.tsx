@@ -27,12 +27,18 @@ export function BiblePage() {
   const [versions, setVersions] = useState<BibleVersionStored[]>([]);
   const [books, setBooks] = useState<BibleBookStored[]>([]);
 
+  const version = !versionId
+    ? null
+    : versions.find(ver => ver.id === versionId);
+
+  if (!isLoading && !version) {
+    // TODO handle
+    console.error('Version wasn\'t found', versionId, version, versions);
+  }
+
   // Initial loading
   useEffect(() => {
-    if (initRef.current) {
-      return;
-    }
-
+    if (initRef.current) return;
     initRef.current = true;
 
     Promise.all([
@@ -56,26 +62,28 @@ export function BiblePage() {
     }
   }, [versionId]);
 
-  const version = !versionId
-    ? null
-    : versions.find(ver => ver.id === versionId);
-
-  if (!isLoading && !version) {
-    // TODO handle
-    console.error('Version wasn\'t found', versionId, version, versions);
-  }
-
   return (<StandardLayout>
-    <VersionSelector
-      versions={versions}
-      versionId={versionId}
-      bookId={bookId}
-      chapter={chapter}
-    />
-    <BookSelector
-      books={books}
-      versionId={versionId}
-      bookId={bookId}
-    />
+    {{
+      leftSidebar: (
+        <>
+          <VersionSelector
+            versions={versions}
+            versionId={versionId}
+            bookId={bookId}
+            chapter={chapter}
+          />
+          <BookSelector
+            books={books}
+            versionId={versionId}
+            bookId={bookId}
+          />
+        </>
+      ),
+      main: (
+        <>
+        </>
+      ),
+      //rightSidebar: (),
+    }}
   </StandardLayout>);
 }

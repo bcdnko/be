@@ -34,6 +34,11 @@ export interface BibleBookStored {
   aliases: BibleBookAlias[];
 }
 
+export type BibleBooksByTestament = {
+  title: string;
+  books: BibleBookStored[];
+}[];
+
 export interface BibleVerseStored {
   id: number;
   cvId: CrossVersionId;

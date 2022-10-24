@@ -3,6 +3,7 @@ import {
   BrowserRouter as Router,
   Routes,
   Route,
+  Outlet,
 } from "react-router-dom";
 
 import './App.scss';
@@ -15,13 +16,28 @@ function App() {
       <Router>
         <Routes>
           <Route index path="/" element={<BiblePage />} />
-          <Route
-            path="/bible/:versionId?/:bookId?/:chapter?"
-            element={<BiblePage />}
-          />
+          <Route path="/bible/">
+            <Route
+              path=""
+              element={<BiblePage />}
+            />
+            <Route
+              path="/bible/:versionId"
+              element={<BiblePage />}
+            />
+            <Route
+              path="/bible/:versionId/:bookId"
+              element={<BiblePage />}
+            />
+            <Route
+              path="/bible/:versionId/:bookId/:chapter"
+              element={<BiblePage />}
+            />
+          </Route>
           <Route path="*" element={<NotFoundPage />} />
         </Routes>
       </Router>
+      <Outlet key={window.location.pathname} />
     </div>
   );
 }

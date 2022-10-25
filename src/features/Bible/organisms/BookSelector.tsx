@@ -1,6 +1,7 @@
 import React, { useMemo }  from 'react';
 import { Link } from 'react-router-dom';
 import { BibleBooksByTestament, BibleBookStored } from '../../../core/interfaces/Bible.interfaces';
+import {ChapterSelector} from '../molecules/ChapterSelector';
 import './VersionSelector.scss';
 
 type Props = {
@@ -52,19 +53,10 @@ export const BookSelector: React.FC<Props> = ({
                   {book.titleShort}
                 </Link>
 
-                <ul className="chapterList">
-                  {[...Array(book.chapters)].map((_, i) => {
-                    const chapter = i + 1;
-                    return <li
-                      className="chapter"
-                      key={`${testament.title}_${book.id}_${chapter}`}
-                    >
-                      <Link to={`/bible/${versionId}/${book.id}/${chapter}`}>
-                        {chapter}
-                      </Link>
-                    </li>
-                  })}
-                </ul>
+                <ChapterSelector
+                  versionId={versionId}
+                  book={book}
+                />
               </li>
             ))}
           </ul>

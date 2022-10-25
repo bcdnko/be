@@ -1,9 +1,10 @@
 import { useEffect, useState, useRef } from 'react';
 import { useParams } from 'react-router-dom';
-import { getBibleBooks, getBibleVersions } from '../../../core/api/bible';
+import { fetchBibleBooks, fetchBibleVersions } from '../../../core/api/bible';
 import { BibleBookStored, BibleVersionStored } from '../../../core/interfaces/Bible.interfaces';
 import { StandardLayout } from '../../shared/templates/StandardLayout';
 import { BookSelector } from '../organisms/BookSelector';
+import { Chapter } from '../organisms/Chapter';
 import { VersionSelector } from '../organisms/VersionSelector';
 
 type RouteParams = {
@@ -27,6 +28,8 @@ export function BiblePage() {
   const [versions, setVersions] = useState<BibleVersionStored[]>([]);
   const [books, setBooks] = useState<BibleBookStored[]>([]);
 
+  const book = books.length ? books.find(b => b.id === bookId) : null;
+
   const version = !versionId
     ? null
     : versions.find(ver => ver.id === versionId);
@@ -42,8 +45,8 @@ export function BiblePage() {
     initRef.current = true;
 
     Promise.all([
-      getBibleVersions(),
-      getBibleBooks(versionId)
+      fetchBibleVersions(),
+      fetchBibleBooks(versionId)
     ]).then(([versions, books]) => {
       setVersions(versions);
       setBooks(books);
@@ -55,7 +58,7 @@ export function BiblePage() {
   useEffect(() => {
     if (versionId && !isLoading) {
       setLoading(true)
-      getBibleBooks(versionId).then(books => {
+      fetchBibleBooks(versionId).then(books => {
         setBooks(books);
         setLoading(false);
       });
@@ -81,6 +84,11 @@ export function BiblePage() {
       ),
       main: (
         <>
+          {book && <Chapter
+            versionId={versionId}
+            book={book}
+            chapter={chapter}
+          />}
         </>
       ),
       //rightSidebar: (),

@@ -2,7 +2,7 @@ import React, { PropsWithChildren, ReactNode } from 'react';
 import { StandardFooter } from "../organisms/StandardFooter";
 import { StandardHeader } from "../organisms/StandardHeader"
 
-import styles from './StandardLayout.module.scss';
+import './StandardLayout.scss';
 
 type Props = {
   children: {
@@ -10,7 +10,6 @@ type Props = {
     leftSidebar?: ReactNode,
     rightSidebar?: ReactNode,
   },
-
 }
 
 export const StandardLayout: React.FC<Props> = ({
@@ -19,18 +18,20 @@ export const StandardLayout: React.FC<Props> = ({
   return (<div>
     <StandardHeader />
 
-    <aside className="col-12 col-md-3 order-2 order-md-1">
-      {children.leftSidebar}
-    </aside>
+    <div className="row">
+      <aside className="col-12 col-md-3 order-2 order-md-1">
+        {children.leftSidebar}
+      </aside>
 
-    <main className={styles.pageBg}>
-      {children.main}
-    </main>
+      <main className="col-12 col-sm-12 col-md-6 order-1 order-md-2">
+        {children.main}
+      </main>
 
-    <aside className="col-12 col-md-3 order-3">
-      {children.rightSidebar}
-    </aside>
+      <aside className="col-12 col-md-3 order-3">
+        {children.rightSidebar}
+      </aside>
 
-    <StandardFooter />
+      <StandardFooter />
+    </div>
   </div>);
 }

@@ -16,7 +16,7 @@ export const VersionSelector: React.FC<Props> = ({
   bookId,
   chapter,
 }) => {
-  return (<section>
+  return (<section className='nonDecoratedLinks'>
     <strong>Bible Versions</strong>
 
     <ul className="sideList">
@@ -29,7 +29,7 @@ export const VersionSelector: React.FC<Props> = ({
       >
         <Link
           to={`/bible/${version.id}/${bookId}/${chapter}`}
-        >{version.titleShort}</Link>
+        >{version.title}</Link>
       </li>)}
     </ul>
   </section>);

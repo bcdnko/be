@@ -30,7 +30,7 @@ export const BookSelector: React.FC<Props> = ({
   const booksGrouped = useMemo(() => groupBooksByTestament(books), [books]);
 
   // TODO if settings.showChaptersInBookSelector
-  return (<section>
+  return (<section className='nonDecoratedLinks'>
     <div className="row">
       {booksGrouped.map(testament => (
         <div

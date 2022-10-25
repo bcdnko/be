@@ -7,15 +7,26 @@ export interface Config {
   defaultLanguage: string;
 }
 
-export interface Settings {
-  showGoToTopButton: boolean,
+export interface IChapterSettings {
+  showVerseNumber: boolean;
+  splitVerses: boolean;
+  showChapterList: boolean;
+  fullBookHeader: boolean;
+  showStrong: boolean;
+  highlightJesusWords: boolean;
+  hugePrevNextChapterBtns: boolean;
+}
 
-  showStrongInText: boolean,
-  highlightJesusWords: boolean,
-  fullBookHeadersInText: boolean,
+export interface IBookSelectorSettings {
+  showChaptersDropDown: boolean,
+}
 
-  showChaptersInText: boolean,
-  showChaptersInBookSelector: boolean,
-  hugePrevNextChapterBtns: boolean,
+export interface ISettings {
+  version: number;
+  general: {
+    showGoToTopButton: boolean,
+  };
+  chapter: IChapterSettings;
+  bookSelector: IBookSelectorSettings;
 }
 

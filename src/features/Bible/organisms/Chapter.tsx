@@ -1,5 +1,6 @@
 import React, { useEffect, useState }  from 'react';
 import { fetchVerses } from '../../../core/api/bible';
+import { useSettingsContext } from '../../../core/contexts/SettingsContext';
 import { BibleBookStored, BibleVerseStored } from '../../../core/interfaces/Bible.interfaces';
 import { PageHeader } from '../../shared/atoms/PageHeader';
 import { Verse } from './Verse';
@@ -16,6 +17,7 @@ export const Chapter: React.FC<Props> = ({
   chapter,
 }) => {
   const [verses, setVerses] = useState<BibleVerseStored[]>([]);
+  const { settings } = useSettingsContext();
 
   useEffect(() => {
     fetchVerses(versionId, book.id, chapter)
@@ -25,6 +27,10 @@ export const Chapter: React.FC<Props> = ({
   return (<>
     <PageHeader>{book.title}</PageHeader>
     <h2>Chapter {chapter}</h2>
-    {verses.map(verse => <Verse verse={verse} />)}
+
+    {verses.map(verse => <Verse
+      key={`${versionId}_${book.id}_${chapter}_${verse.no}`}
+      verse={verse}
+    />)}
   </>);
 }

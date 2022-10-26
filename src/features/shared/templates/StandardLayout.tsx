@@ -1,4 +1,6 @@
-import React, { PropsWithChildren, ReactNode } from 'react';
+import React, { ReactNode } from 'react';
+import {useSettingsContext} from '../../../core/contexts/SettingsContext';
+import { GoToTop } from '../organisms/GoToTop';
 import { StandardFooter } from "../organisms/StandardFooter";
 import { StandardHeader } from "../organisms/StandardHeader"
 
@@ -15,6 +17,8 @@ type Props = {
 export const StandardLayout: React.FC<Props> = ({
   children,
 }) => {
+  const { settings } = useSettingsContext();
+
   return (<div>
     <StandardHeader />
 
@@ -32,6 +36,8 @@ export const StandardLayout: React.FC<Props> = ({
       </aside>
 
       <StandardFooter />
+
+      {settings.general.showGoToTopButton && <GoToTop />}
     </div>
   </div>);
 }

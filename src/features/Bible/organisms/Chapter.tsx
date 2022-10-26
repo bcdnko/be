@@ -3,7 +3,8 @@ import { fetchVerses } from '../../../core/api/bible';
 import { useSettingsContext } from '../../../core/contexts/SettingsContext';
 import { BibleBookStored, BibleVerseStored } from '../../../core/interfaces/Bible.interfaces';
 import { PageHeader } from '../../shared/atoms/PageHeader';
-import {ChapterSelector} from '../molecules/ChapterSelector';
+import { ChapterSelector } from '../molecules/ChapterSelector';
+import { ChapterToolbar } from '../molecules/ChapterToolbar';
 import { Verse } from './Verse';
 
 type Props = {
@@ -31,9 +32,14 @@ export const Chapter: React.FC<Props> = ({
   />;
 
   return (<>
+    <ChapterToolbar />
+
     {chapters}
 
-    <PageHeader>{book.title}</PageHeader>
+    <PageHeader>
+      {settings.chapter.fullBookHeader ? book.title : book.titleShort}
+    </PageHeader>
+
     <h2>Chapter {chapter}</h2>
 
     {verses.map(verse => <Verse

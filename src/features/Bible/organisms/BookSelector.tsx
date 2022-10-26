@@ -1,7 +1,8 @@
 import React, { useMemo }  from 'react';
 import { Link } from 'react-router-dom';
+import { useSettingsContext } from '../../../core/contexts/SettingsContext';
 import { BibleBooksByTestament, BibleBookStored } from '../../../core/interfaces/Bible.interfaces';
-import {ChapterSelector} from '../molecules/ChapterSelector';
+import { ChapterSelector } from '../molecules/ChapterSelector';
 import './VersionSelector.scss';
 
 type Props = {
@@ -29,8 +30,8 @@ export const BookSelector: React.FC<Props> = ({
   bookId,
 }) => {
   const booksGrouped = useMemo(() => groupBooksByTestament(books), [books]);
+  const { settings } = useSettingsContext();
 
-  // TODO if settings.showChaptersInBookSelector
   return (<section className='nonDecoratedLinks'>
     <div className="row">
       {booksGrouped.map(testament => (
@@ -53,10 +54,10 @@ export const BookSelector: React.FC<Props> = ({
                   {book.titleShort}
                 </Link>
 
-                <ChapterSelector
+                {settings.bookSelector.showChaptersDropDown && <ChapterSelector
                   versionId={versionId}
                   book={book}
-                />
+                />}
               </li>
             ))}
           </ul>

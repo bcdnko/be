@@ -1,5 +1,5 @@
 import React, { ReactNode } from 'react';
-import {useSettingsContext} from '../../../core/contexts/SettingsContext';
+import { useSettingsContext } from '../../../core/contexts/SettingsContext';
 import { GoToTop } from '../organisms/GoToTop';
 import { StandardFooter } from "../organisms/StandardFooter";
 import { StandardHeader } from "../organisms/StandardHeader"
@@ -27,7 +27,7 @@ export const StandardLayout: React.FC<Props> = ({
         {children.leftSidebar}
       </aside>
 
-      <main className="col-12 col-sm-12 col-md-6 order-1 order-md-2">
+      <main className="g-0 col-12 col-sm-12 col-md-6 order-1 order-md-2">
         {children.main}
       </main>
 

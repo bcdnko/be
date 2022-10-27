@@ -48,6 +48,16 @@ export interface BibleVerseStored {
   text: string;
 }
 
+export interface BibleTextToken {
+  type: 'strong' | 'punctuation' | 'word' | 'space';
+  text: string;
+  markers?: string[];
+}
+
+export interface BibleVerse extends BibleVerseStored {
+  textParsed: BibleTextToken[];
+}
+
 export interface StrongWord {
   id: string;
   word: string;

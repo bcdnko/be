@@ -1,11 +1,14 @@
 import React, { useEffect, useState }  from 'react';
-import { fetchVerses } from '../../../core/api/bible';
+import { Link } from 'react-router-dom';
+import { fetchVerses } from '../../../core/api/bible/verse';
 import { useSettingsContext } from '../../../core/contexts/SettingsContext';
-import { BibleBookStored, BibleVerseStored } from '../../../core/interfaces/Bible.interfaces';
 import { PageHeader } from '../../shared/atoms/PageHeader';
 import { ChapterSelector } from '../molecules/ChapterSelector';
 import { ChapterToolbar } from '../molecules/ChapterToolbar';
 import { Verse } from './Verse';
+import { BibleBookStored, BibleVerse } from '../../../core/interfaces/Bible.interfaces';
+import { BibleNavigationService } from '../../../core/service/BibleNavigationService';
+import styles from './Chapter.module.scss';
 
 type Props = {
   versionId: string,
@@ -18,7 +21,7 @@ export const Chapter: React.FC<Props> = ({
   book,
   chapter,
 }) => {
-  const [verses, setVerses] = useState<BibleVerseStored[]>([]);
+  const [verses, setVerses] = useState<BibleVerse[]>([]);
   const { settings } = useSettingsContext();
 
   useEffect(() => {
@@ -31,22 +34,52 @@ export const Chapter: React.FC<Props> = ({
     book={book}
   />;
 
-  return (<>
-    <ChapterToolbar />
+  const prevChapterLink = BibleNavigationService.getPreviousChapterUrl(versionId, book, chapter);
+  const nextChapterLink = BibleNavigationService.getNextChapterUrl(versionId, book, chapter);
 
-    {chapters}
+  return (
+    <div style={{
+      display: 'flex',
+    }}>
+      {
+        settings.chapter.hugePrevNextChapterBtns
+        && prevChapterLink
+        && <Link
+          to={prevChapterLink}
+          className={[styles.chapterNav, styles.chapterPrev].join(' ')}
+        >◄</Link> || <div className={styles.chapterNav}></div>
+      }
 
-    <PageHeader>
-      {settings.chapter.fullBookHeader ? book.title : book.titleShort}
-    </PageHeader>
+      <div className={styles.content}>
+        <ChapterToolbar />
 
-    <h2>Chapter {chapter}</h2>
+        {chapters}
 
-    {verses.map(verse => <Verse
-      key={`${versionId}_${book.id}_${chapter}_${verse.no}`}
-      verse={verse}
-    />)}
+        <PageHeader>
+          {settings.chapter.fullBookHeader ? book.title : book.titleShort}
+        </PageHeader>
 
-    {chapters}
-  </>);
+        <h2>Chapter {chapter}</h2>
+
+        {verses.map(verse =>
+          <Verse
+            key={`${versionId}_${book.id}_${chapter}_${verse.no}`}
+            verse={verse}
+          />
+        )}
+
+        {chapters}
+      </div>
+
+      {
+        settings.chapter.hugePrevNextChapterBtns
+        && nextChapterLink
+        && <Link
+          to={nextChapterLink}
+          className={[styles.chapterNav, styles.chapterNext].join(' ')}
+        >►</Link> || <div className={styles.chapterNav}></div>
+      }
+
+    </div>
+  );
 }

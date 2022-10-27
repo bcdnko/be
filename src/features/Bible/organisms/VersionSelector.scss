@@ -14,24 +14,6 @@
     background: $hilight-color;
   }
 
-  .sideListItem {
-    .chapterList {
-      background: $hilight-color;
-      display: none;
-      position: absolute;
-      margin-left: 50px;
-      width: 200px;
-      padding: 10px;
-      font-weight: normal;
-    }
-  }
-
-  >.sideListItem:hover {
-    .chapterList {
-      display: block;
-      z-index: 999;
-    }
-  }
 }
 
 .active {
@@ -45,15 +27,5 @@
 
 .sideListItem > a {
   white-space: nowrap;
-}
-
-.chapterList {
-  padding-left: 0;
-
-  >li {
-    display: inline-block;
-    list-style: none;
-    margin: 0 5px;
-  }
 }
 

@@ -2,13 +2,14 @@ import React, { useMemo }  from 'react';
 import { Link } from 'react-router-dom';
 import { useSettingsContext } from '../../../core/contexts/SettingsContext';
 import { BibleBooksByTestament, BibleBookStored } from '../../../core/interfaces/Bible.interfaces';
-import { ChapterSelector } from '../molecules/ChapterSelector';
+import { SidebarChapterSelector } from '../molecules/SidebarChapterSelector';
 import './VersionSelector.scss';
 
 type Props = {
   books: BibleBookStored[],
   versionId: string,
   bookId: number,
+  chapter: number,
 }
 
 function groupBooksByTestament(books: BibleBookStored[]): BibleBooksByTestament {
@@ -28,6 +29,7 @@ export const BookSelector: React.FC<Props> = ({
   books,
   versionId,
   bookId,
+  chapter,
 }) => {
   const booksGrouped = useMemo(() => groupBooksByTestament(books), [books]);
   const { settings } = useSettingsContext();
@@ -54,9 +56,10 @@ export const BookSelector: React.FC<Props> = ({
                   {book.titleShort}
                 </Link>
 
-                {settings.bookSelector.showChaptersDropDown && <ChapterSelector
+                {settings.bookSelector.showChaptersDropDown && <SidebarChapterSelector
                   versionId={versionId}
                   book={book}
+                  chapter={chapter}
                 />}
               </li>
             ))}

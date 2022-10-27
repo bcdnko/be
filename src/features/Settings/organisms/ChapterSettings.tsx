@@ -27,7 +27,7 @@ export function ChapterSettings() {
       />
 
       <SwitchSettingRow
-        label="Show chapter list to the top of the text"
+        label="Show chapter list above and below the text"
         checked={settings.chapter.showChapterList}
         onChange={() => updateSettings(settings => {
           settings.chapter.showChapterList = !settings.chapter.showChapterList;

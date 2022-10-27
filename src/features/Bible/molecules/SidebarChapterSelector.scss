@@ -1,0 +1,30 @@
+@import '../../../variables.scss';
+
+.chapterList {
+  padding-left: 0;
+
+  >li {
+    display: inline-block;
+    list-style: none;
+    margin: 0 5px;
+  }
+}
+
+.sideListItem {
+  .chapterList {
+    background: $hilight-color;
+    display: none;
+    position: absolute;
+    margin-left: 50px;
+    width: 200px;
+    padding: 10px;
+    font-weight: normal;
+  }
+}
+
+.sideListItem:hover {
+  .chapterList {
+    display: block;
+    z-index: 999;
+  }
+}

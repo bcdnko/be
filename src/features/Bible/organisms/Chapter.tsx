@@ -3,11 +3,11 @@ import { Link } from 'react-router-dom';
 import { fetchVerses } from '../../../core/api/bible/verse';
 import { useSettingsContext } from '../../../core/contexts/SettingsContext';
 import { PageHeader } from '../../shared/atoms/PageHeader';
-import { ChapterSelector } from '../molecules/ChapterSelector';
 import { ChapterToolbar } from '../molecules/ChapterToolbar';
 import { Verse } from './Verse';
 import { BibleBookStored, BibleVerse } from '../../../core/interfaces/Bible.interfaces';
 import { BibleNavigationService } from '../../../core/service/BibleNavigationService';
+import { PagetopChapterSelector } from '../molecules/PagetopChapterSelector';
 import styles from './Chapter.module.scss';
 
 type Props = {
@@ -29,9 +29,10 @@ export const Chapter: React.FC<Props> = ({
       .then(verses => setVerses(verses));
   }, [versionId, book.id, chapter])
 
-  const chapters = settings.chapter.showChapterList && <ChapterSelector
+  const chapters = settings.chapter.showChapterList && <PagetopChapterSelector
     versionId={versionId}
     book={book}
+    chapter={chapter}
   />;
 
   const prevChapterLink = BibleNavigationService.getPreviousChapterUrl(versionId, book, chapter);

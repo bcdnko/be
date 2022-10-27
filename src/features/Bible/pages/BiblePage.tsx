@@ -79,6 +79,7 @@ export function BiblePage() {
             books={books}
             versionId={versionId}
             bookId={bookId}
+            chapter={chapter}
           />
         </>
       ),

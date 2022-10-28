@@ -14,14 +14,12 @@ type RouteParams = {
 };
 
 export function BiblePage() {
-  console.log('render')
   const initRef = useRef(false);
 
   const params = useParams<RouteParams>();
   const versionId = params.versionId || 'kjv';
   const bookId = params.bookId && parseInt(params.bookId) || 1;
   const chapter = params.chapter && parseInt(params.chapter) || 1;
-  console.log(versionId, bookId, chapter)
 
   const [isLoading, setLoading] = useState<boolean>(true);
 

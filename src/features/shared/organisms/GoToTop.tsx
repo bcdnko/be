@@ -29,7 +29,7 @@ export function GoToTop() {
             width: '100px',
           }}
           onClick={() => window.scrollTo(0,0)}
-        >Go to the Top ↑</button>
+        >Go to the top ↑</button>
       }
     </>
   );

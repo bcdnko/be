@@ -5,8 +5,8 @@ export function ChapterSettings() {
   const { settings, updateSettings } = useSettingsContext();
 
   return (
-    <div>
-      <h4>Chapter View Settings</h4>
+    <div className="mt-4">
+      <h4>Chapter View</h4>
 
       <SwitchSettingRow
         label="Show verse numbers"

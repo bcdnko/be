@@ -6,7 +6,7 @@ export function GeneralSettings() {
 
   return (
     <div>
-      <h4>General Settings</h4>
+      <h4>General</h4>
 
       <SwitchSettingRow
         label="Show Go to the top button"

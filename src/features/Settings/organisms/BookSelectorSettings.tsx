@@ -5,8 +5,8 @@ export function BookSelectorSettings() {
   const { settings, updateSettings } = useSettingsContext();
 
   return (
-    <div>
-      <h4>Sidebar Book Selector Settings</h4>
+    <div className="mt-4">
+      <h4>Sidebar Book Selector</h4>
 
       <SwitchSettingRow
         label="Drop down chapter list"

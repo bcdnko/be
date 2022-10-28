@@ -22,6 +22,7 @@ export const SettingsModal: React.FC<Props> = ({
     onHide={onHide}
   >
     <Modal.Header closeButton>
+      Settings
     </Modal.Header>
 
     <Modal.Body>

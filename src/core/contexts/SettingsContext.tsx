@@ -1,4 +1,5 @@
 import React from 'react';
+import { useLocalStorage } from '../hooks/useLocalStorage';
 import { ISettings } from '../interfaces/common.interfaces';
 import { cloneDeepJson } from '../util/serialization';
 
@@ -33,12 +34,12 @@ const SettingsContext = React.createContext({} as ISettingsContext);
 export const SettingsProvider: React.FC<React.PropsWithChildren<{}>> = ({
   children,
 }) => {
-  const [settings, setSettings] = React.useState(cloneDeepJson(defaultSettings));
+  const [settings, setSettings] = useLocalStorage<ISettings>('settings', cloneDeepJson(defaultSettings));
 
   function updateSettings(
-    setter: (current: ISettings) => ISettings,
+    setter: (prevValue: ISettings) => ISettings,
   ) {
-    setSettings((current) => setter(cloneDeepJson(current)));
+    setSettings((prevSettings: ISettings) => setter(cloneDeepJson(prevSettings)));
   }
 
   return (<SettingsContext.Provider value={{

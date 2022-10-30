@@ -22,11 +22,11 @@ export function GoToTop() {
           className="btn btn-light"
           style={{
             position: 'fixed',
-            bottom: '30px',
-            right: '-5px',
+            bottom: '2rem',
+            right: '-0.4rem',
             transition: 'opacity .2s linear',
             opacity: 1,
-            width: '100px',
+            width: '6rem',
           }}
           onClick={() => window.scrollTo(0,0)}
         >Go to the top ↑</button>

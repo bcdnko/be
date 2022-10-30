@@ -2,31 +2,23 @@
 
 .pageHeader {
   .logo {
-    h1 {
+    a {
       background: $primary-color;
-      padding: 10px 20px;
-      margin: 20px;
-      margin-left: -15px;
+      padding: .65rem 1.25rem;
+      margin: 1rem 0;
+      margin-left: -1.1rem;
       display: inline-block;
-      font-size: 1.5rem;
+      color: white;
+    }
 
-      a {
-        color: white;
-      }
-
-      a, a:hover {
-        text-decoration: none;
-      }
-
-      span {
-        margin-left: 10px;
-      }
+    a, a:hover {
+      text-decoration: none;
     }
   }
 
   .bookmark {
     img {
-      height: 100px;
+      height: 100px; // TODO
     }
   }
 }

@@ -1,27 +1,35 @@
 @import '../../../variables.scss';
 
-.chapterList {
-  background: white;
-  padding: 20px 20px;
-  margin: 1em 0;
+.chapter {
+  .chapterList {
+    background: white;
+    padding: 1.25rem 1.5rem;
+    margin: 1rem 0;
+    border: 1px solid #e0e0e0;
 
-  a {
-    text-decoration: none;
-  }
+    a {
+      text-decoration: none;
+    }
 
-  ul {
-    display: inline;
-    padding: 0;
-  }
+    span {
+      margin: 0 .25rem;
+    }
 
-  li {
-    list-style: none;
-    display: inline-block;
-    line-height: 27px;
-  }
+    >ul {
+      display: inline;
+      padding: 0;
 
-  .active {
-    color: $primary-color;
-    font-size: 18px;
+      >li {
+        list-style: none;
+        display: inline-block;
+        margin: 0 .25rem;
+      }
+    }
+
+    .active, .active a {
+      color: $primary-color;
+      font-size: 1.2rem;
+      font-weight: bold;
+    }
   }
 }

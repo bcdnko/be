@@ -12,7 +12,7 @@ import { NotFoundPage } from './features/shared/pages/NotFoundPage';
 
 function App() {
   return (
-    <div className="App">
+    <div className="App container-fluid">
       <Router>
         <Routes>
           <Route index path="/" element={<BiblePage />} />

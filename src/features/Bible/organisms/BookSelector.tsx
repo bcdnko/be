@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import { useSettingsContext } from '../../../core/contexts/SettingsContext';
 import { BibleBooksByTestament, BibleBookStored } from '../../../core/interfaces/Bible.interfaces';
 import { SidebarChapterSelector } from '../molecules/SidebarChapterSelector';
-import './VersionSelector.scss';
+import styles from './SideList.module.scss';
 
 type Props = {
   books: BibleBookStored[],
@@ -34,7 +34,7 @@ export const BookSelector: React.FC<Props> = ({
   const booksGrouped = useMemo(() => groupBooksByTestament(books), [books]);
   const { settings } = useSettingsContext();
 
-  return (<section className='nonDecoratedLinks'>
+  return (<section className={styles.sideList}>
     <div className="row">
       {booksGrouped.map(testament => (
         <div
@@ -43,24 +43,25 @@ export const BookSelector: React.FC<Props> = ({
         >
           <strong>{testament.title}</strong>
 
-          <ul className="sideList">
+          <ul className={styles.sideList}>
             {testament.books.map(book => (
               <li
                 key={`${testament.title}_${book.id}`}
                 className={[
                   'sideListItem',
-                  bookId === book.id ? 'active' : null,
+                  styles.sideListItem,
+                  bookId === book.id ? 'active ' + styles.active : null,
                 ].join(' ')}
               >
-                <Link to={`/bible/${versionId}/${book.id}`}>
-                  {book.titleShort}
-                </Link>
-
                 {settings.bookSelector.showChaptersDropDown && <SidebarChapterSelector
                   versionId={versionId}
                   book={book}
                   chapter={chapter}
                 />}
+                <Link to={`/bible/${versionId}/${book.id}`}>
+                  {book.titleShort}
+                </Link>
+
               </li>
             ))}
           </ul>

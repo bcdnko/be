@@ -1,18 +1,13 @@
 @import '~bootstrap/scss/bootstrap';
+@import './variables.scss';
 
 body {
   line-height: 1.5;
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
-}
-
-.nonDecoratedLinks a {
-  text-decoration: none;
-}
-
-.nonDecoratedLinks a:hover {
-  text-decoration: underline;
+  background: rgb(255,255,255);
+  background: linear-gradient(to bottom, rgba(241,242,246,1) 0%, rgba(255,255,255,1) 300px);
 }
 
 a {
-  color: #007bff;
+  color: $link-color;
 }

@@ -2,21 +2,26 @@
 
 .chapterNav {
   display: block;
-  min-width: 35px;
-  max-width: 35px;
+  min-width: 2.25rem;
+  max-width: 2.25rem;
   text-align: center;
   text-decoration: none;
   color: black;
-  padding-top: 30vh;
   user-select: none;
-  font-size: 20px;
+  padding-top: 35vh;
+
+  span {
+    position: sticky;
+    top: 1rem;
+  }
 }
 
 a.chapterNav:hover {
-  background: $hilight-color;
+  background: $hover-bg-color;
+  color: black;
 }
 
 .content {
-  padding: 20px 5px;
+  padding: 1rem 0.25rem;
 }
 

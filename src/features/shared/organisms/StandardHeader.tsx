@@ -1,4 +1,3 @@
-import React from 'react';
 import { Link } from "react-router-dom";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faBible } from '@fortawesome/free-solid-svg-icons'
@@ -11,12 +10,10 @@ export function StandardHeader() {
     <header className={styles.pageHeader}>
       <div className="row">
         <div className={['col-12', 'col-md-3', styles.logo].join(' ')}>
-          <h1>
-            <Link to="/">
-              <FontAwesomeIcon icon={faBible} />
-              <span>Bible Explorer</span>
-            </Link>
-          </h1>
+          <Link to="/" className="h3">
+            <FontAwesomeIcon icon={faBible} />
+            <span className="ms-2">Bible Explorer</span>
+          </Link>
         </div>
 
         <div className="col-md-5 d-none d-md-block"></div>

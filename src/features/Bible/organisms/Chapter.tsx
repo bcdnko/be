@@ -47,11 +47,11 @@ export const Chapter: React.FC<Props> = ({
         && prevChapterLink
         && <Link
           to={prevChapterLink}
-          className={[styles.chapterNav, styles.chapterPrev].join(' ')}
-        >◄</Link> || <div className={styles.chapterNav}></div>
+          className={['fs-5', styles.chapterNav, styles.chapterPrev].join(' ')}
+        ><span>◄</span></Link> || <div className={styles.chapterNav}></div>
       }
 
-      <div className={styles.content}>
+      <div className={['chapter', styles.content].join(' ')}>
         <ChapterToolbar />
 
         {chapters}
@@ -77,10 +77,9 @@ export const Chapter: React.FC<Props> = ({
         && nextChapterLink
         && <Link
           to={nextChapterLink}
-          className={[styles.chapterNav, styles.chapterNext].join(' ')}
-        >►</Link> || <div className={styles.chapterNav}></div>
+          className={['fs-5', styles.chapterNav, styles.chapterNext].join(' ')}
+        ><span>►</span></Link> || <div className={styles.chapterNav}></div>
       }
-
     </div>
   );
 }

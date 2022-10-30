@@ -1,7 +1,7 @@
 import React  from 'react';
 import { Link } from 'react-router-dom';
 import { BibleVersionStored } from '../../../core/interfaces/Bible.interfaces';
-import './VersionSelector.scss';
+import styles from './SideList.module.scss';
 
 type Props = {
   versions: BibleVersionStored[],
@@ -16,14 +16,14 @@ export const VersionSelector: React.FC<Props> = ({
   bookId,
   chapter,
 }) => {
-  return (<section className='nonDecoratedLinks'>
+  return (<section className={styles.sideList}>
     <strong>Bible Versions</strong>
 
-    <ul className="sideList">
+    <ul className={styles.sideList}>
       {versions.map(version => <li
         className={[
-          'sideListItem',
-          versionId === version.id ? 'active': null,
+          styles.sideListItem,
+          versionId === version.id ? styles.active: null,
         ].join(' ')}
         key={version.id}
       >

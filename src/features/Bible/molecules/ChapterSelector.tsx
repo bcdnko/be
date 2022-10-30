@@ -13,25 +13,32 @@ export const ChapterSelector: React.FC<ChapterSelectorProps> = ({
   book,
   chapter,
 }) => {
-  return (<ul className="chapterList">
-    {[...Array(book.chapters)].map((_, i) => {
-      const _chapter = i + 1;
+  return (
+    <div className="chapterList">
+      <span>Chapters:</span>
+      {' '}
+      <ul>
+        {[...Array(book.chapters)].map((_, i) => {
+          const _chapter = i + 1;
 
-      return <li
-        className={['chapter', chapter === _chapter ? 'active' : ''].join(' ')}
-        key={`${book.id}_${_chapter}`}
-      >
-        <Link
-          to={`/bible/${versionId}/${book.id}/${_chapter}`}
-          onClick={() => window.scrollTo({
-            top: 0,
-            left: 0,
-            behavior: 'instant',
-          } as any)}
-        >
-          {_chapter}
-        </Link>
-      </li>
-    })}
-  </ul>);
+          return <li
+            className={[chapter === _chapter ? 'active' : ''].join(' ')}
+            key={`${book.id}_${_chapter}`}
+          >
+            <Link
+              to={`/bible/${versionId}/${book.id}/${_chapter}`}
+              onClick={() => window.scrollTo({
+                top: 0,
+                left: 0,
+                behavior: 'instant',
+              } as any)}
+            >
+              {_chapter}
+            </Link>
+            {' '}
+          </li>
+        })}
+      </ul>
+    </div>
+  );
 }

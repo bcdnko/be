@@ -1,6 +1,5 @@
-import React, { useEffect, useState }  from 'react';
+import React from 'react';
 import { Link } from 'react-router-dom';
-import { fetchVerses } from '../../../core/api/bible/verse';
 import { useSettingsContext } from '../../../core/contexts/SettingsContext';
 import { PageHeader } from '../../shared/atoms/PageHeader';
 import { ChapterToolbar } from '../molecules/ChapterToolbar';
@@ -8,35 +7,36 @@ import { Verse } from './Verse';
 import { BibleBookStored, BibleVerse } from '../../../core/interfaces/Bible.interfaces';
 import { BibleNavigationService } from '../../../core/service/BibleNavigationService';
 import { PagetopChapterSelector } from '../molecules/PagetopChapterSelector';
+import { VersesSkeleton } from '../molecules/VersesSkeleton';
+import { PageSubHeader } from '../../shared/atoms/PageSubHeader';
+import { ChapterSkeleton } from './ChapterSkeleton';
 import styles from './Chapter.module.scss';
 
 type Props = {
   versionId: string,
-  book: BibleBookStored,
+  book?: BibleBookStored,
   chapter: number,
+  verses?: BibleVerse[],
 }
 
 export const Chapter: React.FC<Props> = ({
   versionId,
   book,
   chapter,
+  verses,
 }) => {
-  const [verses, setVerses] = useState<BibleVerse[]>([]);
   const { settings } = useSettingsContext();
 
-  useEffect(() => {
-    fetchVerses(versionId, book.id, chapter)
-      .then(verses => setVerses(verses));
-  }, [versionId, book.id, chapter])
+  const chapters = settings.chapter.showChapterList
+    ? (<PagetopChapterSelector
+        versionId={versionId}
+        book={book}
+        chapter={chapter}
+      />)
+    : null;
 
-  const chapters = settings.chapter.showChapterList && <PagetopChapterSelector
-    versionId={versionId}
-    book={book}
-    chapter={chapter}
-  />;
-
-  const prevChapterLink = BibleNavigationService.getPreviousChapterUrl(versionId, book, chapter);
-  const nextChapterLink = BibleNavigationService.getNextChapterUrl(versionId, book, chapter);
+  const prevChapterLink = book ? BibleNavigationService.getPreviousChapterUrl(versionId, book, chapter) : null;
+  const nextChapterLink = book ? BibleNavigationService.getNextChapterUrl(versionId, book, chapter) : null;
 
   return (
     <div style={{
@@ -56,17 +56,27 @@ export const Chapter: React.FC<Props> = ({
 
         {chapters}
 
-        <PageHeader>
-          {settings.chapter.fullBookHeader ? book.title : book.titleShort}
-        </PageHeader>
+        {!book && <ChapterSkeleton />}
 
-        <h2>Chapter {chapter}</h2>
+        {book && (
+          <>
+            <PageHeader>
+              {settings.chapter.fullBookHeader ? book.title : book.titleShort}
+            </PageHeader>
 
-        {verses.map(verse =>
-          <Verse
-            key={`${versionId}_${book.id}_${chapter}_${verse.no}`}
-            verse={verse}
-          />
+            <PageSubHeader>
+              Chapter {chapter}
+            </PageSubHeader>
+
+            {(verses && book)
+              ? (verses.map(verse =>
+                <Verse
+                  key={`${versionId}_${book.id}_${chapter}_${verse.no}`}
+                  verse={verse}
+                />))
+              : (<VersesSkeleton />)
+            }
+          </>
         )}
 
         {chapters}

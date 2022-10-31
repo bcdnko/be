@@ -61,8 +61,8 @@ export const Verse: React.FC<Props> = ({
       <>
         {settings.chapter.showVerseNumber && VerseNumber(verse.no)}
 
-        {verse.textParsed.map(token =>
-          <span className={markersToClassNames(token.markers)}>
+        {verse.textParsed.map((token, i) =>
+          <span key={i} className={markersToClassNames(token.markers)}>
             {mapToken(token)}
           </span>
         )}

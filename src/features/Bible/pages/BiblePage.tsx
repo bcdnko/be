@@ -1,7 +1,7 @@
-import { useEffect, useState, useRef } from 'react';
+import { useQuery } from 'react-query';
 import { useParams } from 'react-router-dom';
 import { fetchBibleBooks, fetchBibleVersions } from '../../../core/api/bible';
-import { BibleBookStored, BibleVersionStored } from '../../../core/interfaces/Bible.interfaces';
+import { fetchVerses } from '../../../core/api/bible/verse';
 import { StandardLayout } from '../../shared/templates/StandardLayout';
 import { BookSelector } from '../organisms/BookSelector';
 import { Chapter } from '../organisms/Chapter';
@@ -14,83 +14,67 @@ type RouteParams = {
 };
 
 export function BiblePage() {
-  const initRef = useRef(false);
-
   const params = useParams<RouteParams>();
   const versionId = params.versionId || 'kjv';
-  const bookId = params.bookId && parseInt(params.bookId) || 1;
-  const chapter = params.chapter && parseInt(params.chapter) || 1;
+  const bookId = (params.bookId && parseInt(params.bookId)) || 1;
+  const chapter = (params.chapter && parseInt(params.chapter)) || 1;
 
-  const [isLoading, setLoading] = useState<boolean>(true);
+  const versionsQuery = useQuery('versions', fetchBibleVersions);
 
-  const [versions, setVersions] = useState<BibleVersionStored[]>([]);
-  const [books, setBooks] = useState<BibleBookStored[]>([]);
+  const booksQuery = useQuery(
+    ['books', versionId],
+    () => fetchBibleBooks(versionId)
+  );
 
-  const book = books.length ? books.find(b => b.id === bookId) : null;
+  const versesQuery = useQuery(
+    ['verses', versionId, bookId, chapter],
+    () => fetchVerses(versionId, bookId, chapter)
+  );
 
-  const version = !versionId
-    ? null
-    : versions.find(ver => ver.id === versionId);
-
-  if (!isLoading && !version) {
-    // TODO handle
-    console.error('Version wasn\'t found', versionId, version, versions);
+  const isError = versionsQuery.isError || booksQuery.isError || versesQuery.isError;
+  if (isError) {
+    // TODO handle errors
+    return <p>error</p>
   }
 
-  // Initial loading
-  useEffect(() => {
-    if (initRef.current) return;
-    initRef.current = true;
+  const books = booksQuery.data;
+  const versions = versionsQuery.data;
+  const verses = versesQuery.data;
 
-    Promise.all([
-      fetchBibleVersions(),
-      fetchBibleBooks(versionId)
-    ]).then(([versions, books]) => {
-      setVersions(versions);
-      setBooks(books);
-      setLoading(false);
-    });
-  }, []);
-
-  // Reload books on version change
-  useEffect(() => {
-    if (versionId && !isLoading) {
-      setLoading(true)
-      fetchBibleBooks(versionId).then(books => {
-        setBooks(books);
-        setLoading(false);
-      });
-    }
-  }, [versionId]);
+  const book = books && books.length ? books.find(b => b.id === bookId) : undefined;
 
   return (<StandardLayout>
     {{
       leftSidebar: (
-        <>
+        <div>
           <VersionSelector
             versions={versions}
             versionId={versionId}
             bookId={bookId}
             chapter={chapter}
           />
+
           <BookSelector
             books={books}
             versionId={versionId}
             bookId={bookId}
             chapter={chapter}
           />
-        </>
+        </div>
       ),
       main: (
         <>
-          {book && <Chapter
+          <Chapter
             versionId={versionId}
             book={book}
             chapter={chapter}
-          />}
+            verses={verses}
+          />
         </>
       ),
       //rightSidebar: (),
     }}
   </StandardLayout>);
+
+  //return <div>Something went wrong</div>;
 }

@@ -3,10 +3,11 @@ import { Link } from 'react-router-dom';
 import { useSettingsContext } from '../../../core/contexts/SettingsContext';
 import { BibleBooksByTestament, BibleBookStored } from '../../../core/interfaces/Bible.interfaces';
 import { SidebarChapterSelector } from '../molecules/SidebarChapterSelector';
+import { BookSelectorSkeleton } from './BookSelectorSkeleton';
 import styles from './SideList.module.scss';
 
 type Props = {
-  books: BibleBookStored[],
+  books?: BibleBookStored[],
   versionId: string,
   bookId: number,
   chapter: number,
@@ -31,8 +32,12 @@ export const BookSelector: React.FC<Props> = ({
   bookId,
   chapter,
 }) => {
-  const booksGrouped = useMemo(() => groupBooksByTestament(books), [books]);
+  const booksGrouped = useMemo(() => groupBooksByTestament(books || []), [books]);
   const { settings } = useSettingsContext();
+
+  if (!books) {
+    return <BookSelectorSkeleton />;
+  }
 
   return (<section className={styles.sideList}>
     <div className="row">
@@ -43,13 +48,12 @@ export const BookSelector: React.FC<Props> = ({
         >
           <strong>{testament.title}</strong>
 
-          <ul className={styles.sideList}>
+          <ul>
             {testament.books.map(book => (
               <li
                 key={`${testament.title}_${book.id}`}
                 className={[
                   'sideListItem',
-                  styles.sideListItem,
                   bookId === book.id ? 'active ' + styles.active : null,
                 ].join(' ')}
               >

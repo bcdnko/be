@@ -9,7 +9,6 @@ export interface Config {
 
 export interface IChapterSettings {
   showVerseNumber: boolean;
-  splitVerses: boolean;
   showChapterList: boolean;
   fullBookHeader: boolean;
   showStrong: boolean;

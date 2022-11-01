@@ -2,17 +2,11 @@ import React from 'react';
 import { useSettingsContext } from '../../../core/contexts/SettingsContext';
 import { BibleTextToken, BibleVerse } from '../../../core/interfaces/Bible.interfaces';
 import { ISettings } from '../../../core/interfaces/common.interfaces';
+import { VerseNumber } from '../atoms/VerseNumber';
 import styles from './Verse.module.scss';
 
 type Props = {
   verse: BibleVerse,
-}
-
-function VerseNumber(verseNumber: number) {
-  return <>
-    <span>{verseNumber}.</span>
-    &nbsp;
-  </>;
 }
 
 function markersToClassNames(markers?: string[]) {
@@ -56,23 +50,15 @@ export const Verse: React.FC<Props> = ({
     return <>UNKNOWN TOKEN</>;
   }
 
-  const text = () => {
-    return (
-      <>
-        {settings.chapter.showVerseNumber && VerseNumber(verse.no)}
+  return (
+    <p className={highlightedClassNames(settings)}>
+      {settings.chapter.showVerseNumber && <VerseNumber no={verse.no} />}
 
-        {verse.textParsed.map((token, i) =>
-          <span key={i} className={markersToClassNames(token.markers)}>
-            {mapToken(token)}
-          </span>
-        )}
-      </>
-    );
-  };
-
-  return (<>{
-      settings.chapter.splitVerses
-        ? <p className={highlightedClassNames(settings)}>{text()}</p>
-        : <span className={highlightedClassNames(settings)}>{text()}</span>
-    } </>);
+      {verse.textParsed.map((token, i) =>
+        <span key={i} className={markersToClassNames(token.markers)}>
+          {mapToken(token)}
+        </span>
+      )}
+    </p>
+  );
 }

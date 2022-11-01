@@ -10,7 +10,6 @@ export const defaultSettings: ISettings = {
   },
   chapter: {
     showVerseNumber: true,
-    splitVerses: true,
     showChapterList: true,
 
     fullBookHeader: true,

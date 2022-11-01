@@ -2,7 +2,6 @@ import { useSettingsContext } from '../../../core/contexts/SettingsContext';
 import { SwitchSettingRow } from '../molecules/SwitchSettingRow';
 import {
   faListOl,
-  faBars,
   faSquare,
   faHandFist,
   faComment,
@@ -23,16 +22,6 @@ export function ChapterSettings() {
         checked={settings.chapter.showVerseNumber}
         onChange={() => updateSettings(settings => {
           settings.chapter.showVerseNumber = !settings.chapter.showVerseNumber;
-          return settings;
-        })}
-      />
-
-      <SwitchSettingRow
-        label="Split verses"
-        icon={faBars}
-        checked={settings.chapter.splitVerses}
-        onChange={() => updateSettings(settings => {
-          settings.chapter.splitVerses = !settings.chapter.splitVerses;
           return settings;
         })}
       />

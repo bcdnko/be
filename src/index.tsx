@@ -6,35 +6,45 @@ import reportWebVitals from './reportWebVitals';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import { BiblePage } from './features/Bible/pages/BiblePage';
 import { NotFoundPage } from './features/shared/pages/NotFoundPage';
+import {ErrorPage} from './features/shared/pages/ErrorPage';
+
+const errorElement = <ErrorPage />;
 
 const router = createBrowserRouter([
   {
     path: '/',
     element: <App />,
+    errorElement,
     children: [
       {
         path: '',
         element: <BiblePage />,
+        errorElement,
       },
       {
         path: '/bible',
         element: <BiblePage />,
+        errorElement,
       },
       {
         path: '/bible/:versionId',
         element: <BiblePage />,
+        errorElement,
       },
       {
         path: '/bible/:versionId/:bookId',
         element: <BiblePage />,
+        errorElement,
       },
       {
         path: '/bible/:versionId/:bookId/:chapter',
         element: <BiblePage />,
+        errorElement,
       },
       {
         path: '*',
         element: <NotFoundPage />,
+        errorElement,
       },
     ],
   },

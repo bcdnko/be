@@ -33,8 +33,7 @@ export function BiblePage() {
 
   const isError = versionsQuery.isError || booksQuery.isError || versesQuery.isError;
   if (isError) {
-    // TODO handle errors
-    return <p>error</p>
+    throw [versionsQuery.error, booksQuery.error, versesQuery.error].filter(e => e !== null);
   }
 
   const books = booksQuery.data;

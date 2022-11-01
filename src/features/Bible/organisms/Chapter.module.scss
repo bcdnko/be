@@ -17,8 +17,13 @@
 }
 
 a.chapterNav:hover {
-  background: $hover-bg-color;
   color: black;
+}
+
+@media (hover: hover) {
+  a.chapterNav:hover {
+    background: $hover-bg-color;
+  }
 }
 
 .content {

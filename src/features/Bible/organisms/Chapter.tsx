@@ -43,12 +43,12 @@ export const Chapter: React.FC<Props> = ({
       display: 'flex',
     }}>
       {
-        settings.chapter.hugePrevNextChapterBtns
+        (settings.chapter.hugePrevNextChapterBtns
         && prevChapterLink
         && <Link
           to={prevChapterLink}
           className={['fs-5', styles.chapterNav, styles.chapterPrev].join(' ')}
-        ><span>◄</span></Link> || <div className={styles.chapterNav}></div>
+        ><span>◄</span></Link>) || <div className={styles.chapterNav}></div>
       }
 
       <div className={['chapter', styles.content].join(' ')}>
@@ -83,12 +83,12 @@ export const Chapter: React.FC<Props> = ({
       </div>
 
       {
-        settings.chapter.hugePrevNextChapterBtns
+        (settings.chapter.hugePrevNextChapterBtns
         && nextChapterLink
         && <Link
           to={nextChapterLink}
           className={['fs-5', styles.chapterNav, styles.chapterNext].join(' ')}
-        ><span>►</span></Link> || <div className={styles.chapterNav}></div>
+        ><span>►</span></Link>) || <div className={styles.chapterNav}></div>
       }
     </div>
   );

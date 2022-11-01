@@ -1,4 +1,5 @@
 import { BibleBookStored, BibleVersionStored } from '../interfaces/Bible.interfaces';
+import { url } from '../util/url';
 
 export function fetchBibleVersions(): Promise<BibleVersionStored[]> {
   return fetch('/bible/versions.json')
@@ -6,7 +7,7 @@ export function fetchBibleVersions(): Promise<BibleVersionStored[]> {
 }
 
 export function fetchBibleBooks(versionId: string): Promise<BibleBookStored[]> {
-  return fetch(`/bible/versions/${encodeURIComponent(versionId)}/books.json`)
+  return fetch(url(['bible', 'versions', versionId, 'books.json']))
     .then(res => res.json());
 }
 

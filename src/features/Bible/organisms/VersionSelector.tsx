@@ -2,6 +2,7 @@ import React  from 'react';
 import { Link } from 'react-router-dom';
 import { BibleVersionStored } from '../../../core/interfaces/Bible.interfaces';
 import { VersionSelectorSkeleton } from './VersionSelectorSkeleton';
+import { BibleNavigationService } from '../../../core/service/BibleNavigationService';
 import styles from './SideList.module.scss';
 
 type Props = {
@@ -31,7 +32,7 @@ export const VersionSelector: React.FC<Props> = ({
           key={version.id}
         >
           <Link
-            to={`/bible/${version.id}/${bookId}/${chapter}`}
+            to={BibleNavigationService.chapterUrl(version.id, bookId, chapter)}
           >{version.title}</Link>
         </li>)}
       </ul>

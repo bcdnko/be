@@ -2,6 +2,7 @@ import React, { useMemo }  from 'react';
 import { Link } from 'react-router-dom';
 import { useSettingsContext } from '../../../core/contexts/SettingsContext';
 import { BibleBooksByTestament, BibleBookStored } from '../../../core/interfaces/Bible.interfaces';
+import { BibleNavigationService } from '../../../core/service/BibleNavigationService';
 import { SidebarChapterSelector } from '../molecules/SidebarChapterSelector';
 import { BookSelectorSkeleton } from './BookSelectorSkeleton';
 import styles from './SideList.module.scss';
@@ -62,7 +63,7 @@ export const BookSelector: React.FC<Props> = ({
                   book={book}
                   chapter={chapter}
                 />}
-                <Link to={`/bible/${versionId}/${book.id}`}>
+                <Link to={BibleNavigationService.chapterUrl(versionId, book.id, 1)}>
                   {book.titleShort}
                 </Link>
 

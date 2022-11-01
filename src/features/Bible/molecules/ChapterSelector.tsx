@@ -1,6 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { BibleBookStored } from '../../../core/interfaces/Bible.interfaces';
+import { BibleNavigationService } from '../../../core/service/BibleNavigationService';
 
 export type ChapterSelectorProps = {
   versionId: string,
@@ -8,25 +9,24 @@ export type ChapterSelectorProps = {
   chapter: number,
 }
 
-export const ChapterSelector: React.FC<ChapterSelectorProps> = ({
-  versionId,
-  book,
-  chapter,
-}) => {
+export const ChapterSelector: React.FC<ChapterSelectorProps> = (props) => {
+  const { versionId, book } = props;
+  const currentChapter = props.chapter;
+
   return (
     <div className="chapterList">
       <span>Chapters:</span>
       {' '}
       <ul>
         {[...Array(book.chapters)].map((_, i) => {
-          const _chapter = i + 1;
+          const chapter = i + 1;
 
           return <li
-            className={[chapter === _chapter ? 'active' : ''].join(' ')}
-            key={`${book.id}_${_chapter}`}
+            className={[currentChapter === chapter ? 'active' : ''].join(' ')}
+            key={`${book.id}_${chapter}`}
           >
-            <Link to={`/bible/${versionId}/${book.id}/${_chapter}`}>
-              {_chapter}
+            <Link to={BibleNavigationService.chapterUrl(versionId, book.id, chapter)}>
+              {chapter}
             </Link>
             {' '}
           </li>

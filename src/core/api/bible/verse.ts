@@ -1,4 +1,5 @@
 import { BibleTextToken, BibleVerse } from '../../interfaces/Bible.interfaces';
+import { url } from '../../util/url';
 
 function parseVerseText(verseText: string): BibleTextToken[] {
   const markers: string[] = [];
@@ -69,7 +70,14 @@ export function fetchVerses(
   bookId: number,
   chapter: number,
 ) {
-  return fetch(`/bible/versions/${encodeURIComponent(versionId)}/books/${encodeURIComponent(bookId)}/${encodeURIComponent(chapter)}.json`)
+  return fetch(url([
+    'bible',
+    'versions',
+    versionId,
+    'books',
+    bookId.toString(),
+    chapter.toString() + '.json'
+  ]))
     .then(res => res.json())
     .then((verses: BibleVerse[]) => {
       return verses.map(verse => ({

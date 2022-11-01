@@ -1,5 +1,6 @@
+import { useEffect } from 'react';
 import { useQuery } from 'react-query';
-import { useParams } from 'react-router-dom';
+import { useLocation, useParams } from 'react-router-dom';
 import { fetchBibleBooks, fetchBibleVersions } from '../../../core/api/bible';
 import { fetchVerses } from '../../../core/api/bible/verse';
 import { StandardLayout } from '../../shared/templates/StandardLayout';
@@ -13,8 +14,21 @@ type RouteParams = {
   chapter?: string,
 };
 
+function getSelectedVersesFromHash(hashString: string): [number, number] {
+  const hash = hashString.slice(1);
+  const verseNo = parseInt(hash);
+
+  if (!hash.length || !verseNo) {
+    return [0,0];
+  }
+
+  return [verseNo, verseNo];
+}
+
 export function BiblePage() {
   const params = useParams<RouteParams>();
+  const selectedVerses = getSelectedVersesFromHash(useLocation().hash);
+
   const versionId = params.versionId || 'kjv';
   const bookId = (params.bookId && parseInt(params.bookId)) || 1;
   const chapter = (params.chapter && parseInt(params.chapter)) || 1;
@@ -68,6 +82,7 @@ export function BiblePage() {
               book={book}
               chapter={chapter}
               verses={verses}
+              selectedVerses={selectedVerses}
             />
           </>
         ),

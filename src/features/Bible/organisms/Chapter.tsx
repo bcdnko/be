@@ -16,6 +16,7 @@ type Props = {
   book?: BibleBookStored,
   chapter: number,
   verses?: BibleVerse[],
+  selectedVerses: [number, number],
 }
 
 export const Chapter: React.FC<Props> = ({
@@ -23,6 +24,7 @@ export const Chapter: React.FC<Props> = ({
   book,
   chapter,
   verses,
+  selectedVerses,
 }) => {
   const { settings } = useSettingsContext();
 
@@ -36,6 +38,11 @@ export const Chapter: React.FC<Props> = ({
 
   const prevChapterLink = book ? BibleNavigationService.getPreviousChapterUrl(versionId, book, chapter) : null;
   const nextChapterLink = book ? BibleNavigationService.getNextChapterUrl(versionId, book, chapter) : null;
+
+  const isVerseSelected = (verseNumber: number) => {
+    return verseNumber >= selectedVerses[0]
+      && verseNumber <= selectedVerses[1];
+  };
 
   return (
     <div style={{
@@ -63,15 +70,14 @@ export const Chapter: React.FC<Props> = ({
               {settings.chapter.fullBookHeader ? book.title : book.titleShort}
             </PageHeader>
 
-            <PageSubHeader>
-              Chapter {chapter}
-            </PageSubHeader>
+            <PageSubHeader>Chapter {chapter}</PageSubHeader>
 
             {(verses && book)
               ? (verses.map(verse =>
                 <Verse
                   key={`${versionId}_${book.id}_${chapter}_${verse.no}`}
                   verse={verse}
+                  isSelected={isVerseSelected(verse.no)}
                 />))
               : (<VersesSkeleton />)
             }

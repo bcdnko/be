@@ -1,4 +1,5 @@
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
 import { useSettingsContext } from '../../../core/contexts/SettingsContext';
 import { BibleTextToken, BibleVerse } from '../../../core/interfaces/Bible.interfaces';
 import { ISettings } from '../../../core/interfaces/common.interfaces';
@@ -7,6 +8,7 @@ import styles from './Verse.module.scss';
 
 type Props = {
   verse: BibleVerse,
+  isSelected: boolean,
 }
 
 function markersToClassNames(markers?: string[]) {
@@ -33,8 +35,10 @@ function highlightedClassNames(settings: ISettings): string {
 
 export const Verse: React.FC<Props> = ({
   verse,
+  isSelected,
 }) => {
   const { settings } = useSettingsContext();
+  const navigate = useNavigate();
 
   const mapToken = (token: BibleTextToken) => {
     if (token.type === 'word') {
@@ -51,7 +55,16 @@ export const Verse: React.FC<Props> = ({
   }
 
   return (
-    <p className={highlightedClassNames(settings)}>
+    <p
+      className={[
+        styles.verse,
+        isSelected ? styles.selected : null,
+        highlightedClassNames(settings),
+      ].join(' ')}
+      onMouseDown={() => {
+        navigate(isSelected ? '#' : ('#' + verse.no), { preventScrollReset: true });
+      }}
+    >
       {settings.chapter.showVerseNumber && <VerseNumber no={verse.no} />}
 
       {verse.textParsed.map((token, i) =>

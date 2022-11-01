@@ -14,12 +14,14 @@
   color: purple;
 }
 
-.verse:hover {
-  background: #f2f2f2;
-  outline: 5px solid #f2f2f2;
-  padding: 0 5px;
-  margin-left: -5px;
-  margin-right: -5px;
+@media (hover: hover) {
+  .verse:hover {
+    background: #f2f2f2;
+    outline: 5px solid #f2f2f2;
+    padding: 0 5px;
+    margin-left: -5px;
+    margin-right: -5px;
+  }
 }
 
 .verse.selected {

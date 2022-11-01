@@ -9,7 +9,7 @@ function parseVerseText(verseText: string): BibleTextToken[] {
       return null;
     }
 
-    const strongNumber = rawToken.match(/^\s*([GH]\d+)$/);
+    const strongNumber = rawToken.match(/^\s*([GH]*\d+)$/);
     const marker = rawToken.match(/^\[(.*?)\]$/);
     const punctuation = rawToken.match(/^[.,!?\-:;'"«»]$/);
     const space = rawToken === ' ';
@@ -53,7 +53,7 @@ function parseVerseText(verseText: string): BibleTextToken[] {
   }
 
   const parsedText = verseText
-    .split(/(\[.*?\]|\s*[GH]\d+|[ .,!?\-:;'"«»])/)
+    .split(/(\[.*?\]|\s*[GH]*\d+|[ .,!?\-:;'"«»])/)
     .reduce((acc, rawToken) => {
       const token = parseToken(rawToken);
       if (token) {

@@ -3,16 +3,50 @@ import ReactDOM from 'react-dom/client';
 import './index.scss';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
-import {SettingsProvider} from './core/contexts/SettingsContext';
+import { createBrowserRouter, RouterProvider } from 'react-router-dom';
+import { BiblePage } from './features/Bible/pages/BiblePage';
+import { NotFoundPage } from './features/shared/pages/NotFoundPage';
+
+const router = createBrowserRouter([
+  {
+    path: '/',
+    element: <App />,
+    children: [
+      {
+        path: '',
+        element: <BiblePage />,
+      },
+      {
+        path: '/bible',
+        element: <BiblePage />,
+      },
+      {
+        path: '/bible/:versionId',
+        element: <BiblePage />,
+      },
+      {
+        path: '/bible/:versionId/:bookId',
+        element: <BiblePage />,
+      },
+      {
+        path: '/bible/:versionId/:bookId/:chapter',
+        element: <BiblePage />,
+      },
+      {
+        path: '*',
+        element: <NotFoundPage />,
+      },
+    ],
+  },
+]);
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
 );
+
 root.render(
   <React.StrictMode>
-    <SettingsProvider>
-      <App />
-    </SettingsProvider>
+    <RouterProvider router={router} />
   </React.StrictMode>
 );
 

@@ -1,5 +1,6 @@
+import {useEffect, useRef} from 'react';
 import { useQuery } from 'react-query';
-import { useParams } from 'react-router-dom';
+import { ScrollRestoration, useParams } from 'react-router-dom';
 import { fetchBibleBooks, fetchBibleVersions } from '../../../core/api/bible';
 import { fetchVerses } from '../../../core/api/bible/verse';
 import { StandardLayout } from '../../shared/templates/StandardLayout';
@@ -42,39 +43,40 @@ export function BiblePage() {
   const verses = versesQuery.data;
 
   const book = books && books.length ? books.find(b => b.id === bookId) : undefined;
+  return (
+    <StandardLayout>
+      {{
+        leftSidebar: (
+          <div>
+            <VersionSelector
+              versions={versions}
+              versionId={versionId}
+              bookId={bookId}
+              chapter={chapter}
+            />
 
-  return (<StandardLayout>
-    {{
-      leftSidebar: (
-        <div>
-          <VersionSelector
-            versions={versions}
-            versionId={versionId}
-            bookId={bookId}
-            chapter={chapter}
-          />
-
-          <BookSelector
-            books={books}
-            versionId={versionId}
-            bookId={bookId}
-            chapter={chapter}
-          />
-        </div>
-      ),
-      main: (
-        <>
-          <Chapter
-            versionId={versionId}
-            book={book}
-            chapter={chapter}
-            verses={verses}
-          />
-        </>
-      ),
-      //rightSidebar: (),
-    }}
-  </StandardLayout>);
+            <BookSelector
+              books={books}
+              versionId={versionId}
+              bookId={bookId}
+              chapter={chapter}
+            />
+          </div>
+        ),
+        main: (
+          <>
+            <Chapter
+              versionId={versionId}
+              book={book}
+              chapter={chapter}
+              verses={verses}
+            />
+          </>
+        ),
+        //rightSidebar: (),
+      }}
+    </StandardLayout>
+  );
 
   //return <div>Something went wrong</div>;
 }

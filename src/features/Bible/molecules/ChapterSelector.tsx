@@ -25,14 +25,7 @@ export const ChapterSelector: React.FC<ChapterSelectorProps> = ({
             className={[chapter === _chapter ? 'active' : ''].join(' ')}
             key={`${book.id}_${_chapter}`}
           >
-            <Link
-              to={`/bible/${versionId}/${book.id}/${_chapter}`}
-              onClick={() => window.scrollTo({
-                top: 0,
-                left: 0,
-                behavior: 'instant',
-              } as any)}
-            >
+            <Link to={`/bible/${versionId}/${book.id}/${_chapter}`}>
               {_chapter}
             </Link>
             {' '}

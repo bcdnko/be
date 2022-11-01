@@ -1,6 +1,5 @@
-import {useEffect, useRef} from 'react';
 import { useQuery } from 'react-query';
-import { ScrollRestoration, useParams } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 import { fetchBibleBooks, fetchBibleVersions } from '../../../core/api/bible';
 import { fetchVerses } from '../../../core/api/bible/verse';
 import { StandardLayout } from '../../shared/templates/StandardLayout';

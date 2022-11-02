@@ -1,18 +1,35 @@
 import React  from 'react';
 import { Button, ButtonGroup, ToggleButton } from "react-bootstrap"
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faHandFist, faGear, faRectangleXmark } from '@fortawesome/free-solid-svg-icons'
+import { faHandFist, faGear, faRectangleXmark, faShare } from '@fortawesome/free-solid-svg-icons'
+import { faCopy } from '@fortawesome/free-regular-svg-icons';
 import { useSettingsContext } from "../../../core/contexts/SettingsContext";
 import { useState } from "react";
 import { SettingsModal } from "../../Settings/pages/SettingsModal";
 import { useNavigate } from 'react-router-dom';
+import { BibleBookStored, IVerseSelection } from '../../../core/interfaces/Bible.interfaces';
 
 type Props = {
-  hasVerseSelection: boolean,
+  selectedVerses: IVerseSelection,
+  book?: BibleBookStored,
+  chapter: number,
+}
+
+function copyVerses(selectedVerses: IVerseSelection, book: BibleBookStored, chapter: number): void {
+  const verses = selectedVerses.map(verseNo => {
+    const el = document.querySelector(`#v-${verseNo} .content`) as any;
+    return el.innerText;
+  });
+
+  const text = verses.join('\n\n') + '\n\n' + book.titleShort + ' ' + chapter;
+  console.log(text)
+  navigator.clipboard.writeText(text);
 }
 
 export const ChapterToolbar: React.FC<Props> = ({
-  hasVerseSelection,
+  selectedVerses,
+  book,
+  chapter,
 }) => {
   const navigate = useNavigate();
   const { settings, updateSettings } = useSettingsContext();
@@ -25,7 +42,6 @@ export const ChapterToolbar: React.FC<Props> = ({
     />
 
     <div style={{position: 'sticky', top: '0.5rem'}}>
-      <ButtonGroup>
         <ToggleButton
           type="checkbox"
           checked={settings.chapter.showStrong}
@@ -38,15 +54,39 @@ export const ChapterToolbar: React.FC<Props> = ({
         >
           <FontAwesomeIcon icon={faHandFist} />
         </ToggleButton>
+        {' '}
 
-        {hasVerseSelection &&
-          <Button
-            title="Unselect Verses"
-            variant='danger'
-            onClick={() => navigate('#', { preventScrollReset: true })}
-          >
-            <FontAwesomeIcon icon={faRectangleXmark} />
-          </Button>
+        {(!!selectedVerses.length && book) &&
+          <>
+            <ButtonGroup>
+              <Button
+                title="Copy Selected Verses"
+                variant="secondary"
+                onClick={() => copyVerses(selectedVerses, book, chapter)}
+              >
+                <FontAwesomeIcon icon={faCopy} />
+              </Button>
+
+              <Button
+                title="Share Selected Verses"
+                variant="secondary"
+                onClick={() => {
+                  navigator.clipboard.writeText(window.location.href);
+                }}
+              >
+                <FontAwesomeIcon icon={faShare} />
+              </Button>
+
+              <Button
+                title="Unselect Verses"
+                variant="secondary"
+                onClick={() => navigate('#', { preventScrollReset: true })}
+              >
+                <FontAwesomeIcon icon={faRectangleXmark} />
+              </Button>
+            </ButtonGroup>
+          {' '}
+          </>
         }
 
         <Button
@@ -55,7 +95,6 @@ export const ChapterToolbar: React.FC<Props> = ({
         >
           <FontAwesomeIcon icon={faGear} />
         </Button>
-      </ButtonGroup>
     </div>
   </>
 }

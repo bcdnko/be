@@ -58,7 +58,7 @@ export const Verse: React.FC<Props> = ({
   const isSelected = selectedVerses.includes(verse.no);
 
   return (
-    <p
+    <p id={'v-' + verse.no}
       className={[
         styles.verse,
         isSelected ? styles.selected : null,
@@ -71,13 +71,15 @@ export const Verse: React.FC<Props> = ({
         );
       }}
     >
-      {settings.chapter.showVerseNumber && <VerseNumber no={verse.no} />}
+      <span className="content">
+        {settings.chapter.showVerseNumber && <VerseNumber no={verse.no} />}
 
-      {verse.textParsed.map((token, i) =>
-        <span key={i} className={markersToClassNames(token.markers)}>
-          {mapToken(token)}
-        </span>
-      )}
+        {verse.textParsed.map((token, i) =>
+          <span key={i} className={markersToClassNames(token.markers)}>
+            {mapToken(token)}
+          </span>
+        )}
+      </span>
     </p>
   );
 }

@@ -51,7 +51,7 @@ export const Chapter: React.FC<Props> = ({
 
   useEffect(() => {
     scrollToTheFirstSelectedVerse(selectedVerses, verses);
-  }, [verses]);
+  }, [versionId, book && book.id, chapter]);
 
   return (
     <div style={{
@@ -67,7 +67,11 @@ export const Chapter: React.FC<Props> = ({
       }
 
       <div className={['chapter', styles.content].join(' ')}>
-        <ChapterToolbar hasVerseSelection={!!selectedVerses.length} />
+        <ChapterToolbar
+          selectedVerses={selectedVerses}
+          book={book}
+          chapter={chapter}
+        />
 
         {chapters}
 

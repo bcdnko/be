@@ -9,6 +9,7 @@ import { PagetopChapterSelector } from '../molecules/PagetopChapterSelector';
 import { VersesSkeleton } from '../molecules/VersesSkeleton';
 import { PageSubHeader } from '../../shared/atoms/PageSubHeader';
 import { ChapterSkeleton } from './ChapterSkeleton';
+import { useEffect } from 'react';
 import styles from './Chapter.module.scss';
 
 type Props = {
@@ -17,6 +18,15 @@ type Props = {
   chapter: number,
   verses?: BibleVerse[],
   selectedVerses: IVerseSelection,
+}
+
+function scrollToTheFirstSelectedVerse(selectedVerses: IVerseSelection, verses: any) {
+  if (verses && selectedVerses.length) {
+    const firstSelectedVerse = document.getElementById('v-' + Math.min(...selectedVerses));
+    if (firstSelectedVerse) {
+      firstSelectedVerse.scrollIntoView({ block: 'center' });
+    }
+  }
 }
 
 export const Chapter: React.FC<Props> = ({
@@ -38,6 +48,10 @@ export const Chapter: React.FC<Props> = ({
 
   const prevChapterLink = book ? BibleNavigationService.getPreviousChapterUrl(versionId, book, chapter) : null;
   const nextChapterLink = book ? BibleNavigationService.getNextChapterUrl(versionId, book, chapter) : null;
+
+  useEffect(() => {
+    scrollToTheFirstSelectedVerse(selectedVerses, verses);
+  }, [verses]);
 
   return (
     <div style={{

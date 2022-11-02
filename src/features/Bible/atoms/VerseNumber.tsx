@@ -9,7 +9,7 @@ export const VerseNumber: React.FC<Props> = ({
 }) => {
   return (
     <>
-      <span>{no}.</span>
+      <span id={'v-' + no}>{no}.</span>
       &nbsp;
     </>
   );

@@ -32,7 +32,10 @@ export const VersionSelector: React.FC<Props> = ({
           key={version.id}
         >
           <Link
-            to={BibleNavigationService.chapterUrl(version.id, bookId, chapter)}
+            to={
+              BibleNavigationService.chapterUrl(version.id, bookId, chapter)
+                + window.location.hash
+            }
           >{version.title}</Link>
         </li>)}
       </ul>

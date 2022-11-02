@@ -70,3 +70,4 @@ export interface StrongDictionary {
   [key: string]: StrongWord;
 }
 
+export type IVerseSelection = number[];

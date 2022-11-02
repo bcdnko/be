@@ -1,14 +1,15 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useSettingsContext } from '../../../core/contexts/SettingsContext';
-import { BibleTextToken, BibleVerse } from '../../../core/interfaces/Bible.interfaces';
+import { BibleTextToken, BibleVerse, IVerseSelection } from '../../../core/interfaces/Bible.interfaces';
 import { ISettings } from '../../../core/interfaces/common.interfaces';
+import { selectionToHash, toggleVerse } from '../../../core/service/VerseHighlightService';
 import { VerseNumber } from '../atoms/VerseNumber';
 import styles from './Verse.module.scss';
 
 type Props = {
   verse: BibleVerse,
-  isSelected: boolean,
+  selectedVerses: IVerseSelection,
 }
 
 function markersToClassNames(markers?: string[]) {
@@ -35,7 +36,7 @@ function highlightedClassNames(settings: ISettings): string {
 
 export const Verse: React.FC<Props> = ({
   verse,
-  isSelected,
+  selectedVerses,
 }) => {
   const { settings } = useSettingsContext();
   const navigate = useNavigate();
@@ -54,6 +55,8 @@ export const Verse: React.FC<Props> = ({
     return <>UNKNOWN TOKEN</>;
   }
 
+  const isSelected = selectedVerses.includes(verse.no);
+
   return (
     <p
       className={[
@@ -62,7 +65,10 @@ export const Verse: React.FC<Props> = ({
         highlightedClassNames(settings),
       ].join(' ')}
       onMouseDown={() => {
-        navigate(isSelected ? '#' : ('#' + verse.no), { preventScrollReset: true });
+        navigate(
+          selectionToHash(toggleVerse(selectedVerses, verse, !isSelected)),
+          { preventScrollReset: true },
+        );
       }}
     >
       {settings.chapter.showVerseNumber && <VerseNumber no={verse.no} />}

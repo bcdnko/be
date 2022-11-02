@@ -3,7 +3,7 @@ import { useSettingsContext } from '../../../core/contexts/SettingsContext';
 import { PageHeader } from '../../shared/atoms/PageHeader';
 import { ChapterToolbar } from '../molecules/ChapterToolbar';
 import { Verse } from './Verse';
-import { BibleBookStored, BibleVerse } from '../../../core/interfaces/Bible.interfaces';
+import { BibleBookStored, BibleVerse, IVerseSelection } from '../../../core/interfaces/Bible.interfaces';
 import { BibleNavigationService } from '../../../core/service/BibleNavigationService';
 import { PagetopChapterSelector } from '../molecules/PagetopChapterSelector';
 import { VersesSkeleton } from '../molecules/VersesSkeleton';
@@ -16,7 +16,7 @@ type Props = {
   book?: BibleBookStored,
   chapter: number,
   verses?: BibleVerse[],
-  selectedVerses: [number, number],
+  selectedVerses: IVerseSelection,
 }
 
 export const Chapter: React.FC<Props> = ({
@@ -39,11 +39,6 @@ export const Chapter: React.FC<Props> = ({
   const prevChapterLink = book ? BibleNavigationService.getPreviousChapterUrl(versionId, book, chapter) : null;
   const nextChapterLink = book ? BibleNavigationService.getNextChapterUrl(versionId, book, chapter) : null;
 
-  const isVerseSelected = (verseNumber: number) => {
-    return verseNumber >= selectedVerses[0]
-      && verseNumber <= selectedVerses[1];
-  };
-
   return (
     <div style={{
       display: 'flex',
@@ -58,7 +53,7 @@ export const Chapter: React.FC<Props> = ({
       }
 
       <div className={['chapter', styles.content].join(' ')}>
-        <ChapterToolbar />
+        <ChapterToolbar hasVerseSelection={!!selectedVerses.length} />
 
         {chapters}
 
@@ -77,7 +72,7 @@ export const Chapter: React.FC<Props> = ({
                 <Verse
                   key={`${versionId}_${book.id}_${chapter}_${verse.no}`}
                   verse={verse}
-                  isSelected={isVerseSelected(verse.no)}
+                  selectedVerses={selectedVerses}
                 />))
               : (<VersesSkeleton />)
             }

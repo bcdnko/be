@@ -12,24 +12,13 @@ import { BibleBookStored, IVerseSelection } from '../../../core/interfaces/Bible
 type Props = {
   selectedVerses: IVerseSelection,
   book?: BibleBookStored,
-  chapter: number,
-}
-
-function copyVerses(selectedVerses: IVerseSelection, book: BibleBookStored, chapter: number): void {
-  const verses = selectedVerses.map(verseNo => {
-    const el = document.querySelector(`#v-${verseNo} .content`) as any;
-    return el.innerText;
-  });
-
-  const text = verses.join('\n\n') + '\n\n' + book.titleShort + ' ' + chapter;
-  console.log(text)
-  navigator.clipboard.writeText(text);
+  copySelectedVerses: () => void,
 }
 
 export const ChapterToolbar: React.FC<Props> = ({
   selectedVerses,
   book,
-  chapter,
+  copySelectedVerses,
 }) => {
   const navigate = useNavigate();
   const { settings, updateSettings } = useSettingsContext();
@@ -62,7 +51,7 @@ export const ChapterToolbar: React.FC<Props> = ({
               <Button
                 title="Copy Selected Verses"
                 variant="secondary"
-                onClick={() => copyVerses(selectedVerses, book, chapter)}
+                onClick={() => copySelectedVerses()}
               >
                 <FontAwesomeIcon icon={faCopy} />
               </Button>

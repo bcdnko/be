@@ -40,6 +40,37 @@ export const Chapter: React.FC<Props> = ({
   const { settings } = useSettingsContext();
   const navigate = useNavigate();
 
+  function copySelectedVerses() {
+    if (!verses || !book) {
+      alert('The chapter is still loading');
+      return;
+    }
+
+    function prepareText(verse: BibleVerse): string {
+      return verse.textParsed
+        .filter(token => token.type !== 'strong')
+        .map(token => token.text)
+        .join('');
+    }
+
+    const mappedVerses = selectedVerses.map(no => verses.find(v => v.no === no));
+    const text = mappedVerses.map(verse => {
+      if (!verse) {
+        return 'ERROR\n\n';
+      }
+
+      const versePrefix = mappedVerses.length === 1 ? '' : verse.no + '. ';
+      return versePrefix + prepareText(verse) + '\n\n';
+    });
+
+    const reference = book.titleShort + ' ' + chapter + (mappedVerses.length === 1 ? ':' + selectedVerses[0] : '');
+    const copy = text.join('') + reference;
+
+    console.log(copy);
+
+    navigator.clipboard.writeText(copy);
+  }
+
   useEffect(() => {
     scrollToTheFirstSelectedVerse(selectedVerses, verses);
   }, [versionId, book && book.id, chapter]);
@@ -106,6 +137,11 @@ export const Chapter: React.FC<Props> = ({
           e.preventDefault();
         }
 
+        if (e.key.toLowerCase() === 'y') {
+          copySelectedVerses();
+          e.preventDefault();
+        }
+
         if (e.key === 'g') {
           changeActiveVerse(1);
         }
@@ -151,7 +187,7 @@ export const Chapter: React.FC<Props> = ({
         <ChapterToolbar
           selectedVerses={selectedVerses}
           book={book}
-          chapter={chapter}
+          copySelectedVerses={copySelectedVerses}
         />
 
         {chapters}

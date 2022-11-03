@@ -16,6 +16,8 @@ export const defaultSettings: ISettings = {
     showStrong: false,
     highlightJesusWords: true,
     hugePrevNextChapterBtns: true,
+
+    vimKeys: false,
   },
   bookSelector: {
     showChaptersDropDown: true,

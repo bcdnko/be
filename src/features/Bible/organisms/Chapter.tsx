@@ -69,46 +69,48 @@ export const Chapter: React.FC<Props> = ({
         return;
       }
 
-      if (e.key === 'Escape') {
-        navigate('#', { preventScrollReset: true });
-      }
+      if (settings.chapter.vimKeys) {
+        if (e.key === 'Escape') {
+          navigate('#', { preventScrollReset: true });
+        }
 
-      const currentVerseNumber = (selectedVerses[0] || 0);
+        const currentVerseNumber = (selectedVerses[0] || 0);
 
-      if (e.key === 'j') {
-        changeActiveVerse(currentVerseNumber + 1);
-      }
+        if (e.key === 'j') {
+          changeActiveVerse(currentVerseNumber + 1);
+        }
 
-      if (e.key === 'k') {
-        changeActiveVerse(currentVerseNumber - 1);
-      }
+        if (e.key === 'k') {
+          changeActiveVerse(currentVerseNumber - 1);
+        }
 
-      if (e.key === 'b' && e.ctrlKey) {
-        changeActiveVerse(currentVerseNumber - 14);
-        e.preventDefault();
-      }
+        if (e.key === 'b' && e.ctrlKey) {
+          changeActiveVerse(currentVerseNumber - 14);
+          e.preventDefault();
+        }
 
-      if (e.key === 'f' && e.ctrlKey) {
-        changeActiveVerse(currentVerseNumber + 14);
-        e.preventDefault();
-      }
+        if (e.key === 'f' && e.ctrlKey) {
+          changeActiveVerse(currentVerseNumber + 14);
+          e.preventDefault();
+        }
 
-      if (e.key === 'u' && e.ctrlKey) {
-        changeActiveVerse(currentVerseNumber - 6);
-        e.preventDefault();
-      }
+        if (e.key === 'u' && e.ctrlKey) {
+          changeActiveVerse(currentVerseNumber - 6);
+          e.preventDefault();
+        }
 
-      if (e.key === 'd' && e.ctrlKey) {
-        changeActiveVerse(currentVerseNumber + 6);
-        e.preventDefault();
-      }
+        if (e.key === 'd' && e.ctrlKey) {
+          changeActiveVerse(currentVerseNumber + 6);
+          e.preventDefault();
+        }
 
-      if (e.key === 'g') {
-        changeActiveVerse(1);
-      }
+        if (e.key === 'g') {
+          changeActiveVerse(1);
+        }
 
-      if (e.key === 'G') {
-        changeActiveVerse(verses.length);
+        if (e.key === 'G') {
+          changeActiveVerse(verses.length);
+        }
       }
     };
 
@@ -117,7 +119,7 @@ export const Chapter: React.FC<Props> = ({
     return () => {
       document.removeEventListener('keydown', keydownHandler);
     };
-  }, [selectedVerses]);
+  }, [selectedVerses, settings.chapter.vimKeys]);
 
   const chapters = settings.chapter.showChapterList
     ? (<PagetopChapterSelector

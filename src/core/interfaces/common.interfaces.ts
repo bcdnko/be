@@ -14,6 +14,7 @@ export interface IChapterSettings {
   showStrong: boolean;
   highlightJesusWords: boolean;
   hugePrevNextChapterBtns: boolean;
+  vimKeys: boolean;
 }
 
 export interface IBookSelectorSettings {

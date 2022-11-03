@@ -7,6 +7,7 @@ import {
   faComment,
   faArrowsLeftRight,
   faA,
+  faV,
 } from '@fortawesome/free-solid-svg-icons'
 
 export function ChapterSettings() {
@@ -72,6 +73,16 @@ export function ChapterSettings() {
         checked={settings.chapter.hugePrevNextChapterBtns}
         onChange={() => updateSettings(settings => {
           settings.chapter.hugePrevNextChapterBtns = !settings.chapter.hugePrevNextChapterBtns;
+          return settings;
+        })}
+      />
+
+      <SwitchSettingRow
+        label="Enable Vim keys"
+        icon={faV}
+        checked={settings.chapter.vimKeys}
+        onChange={() => updateSettings(settings => {
+          settings.chapter.vimKeys = !settings.chapter.vimKeys;
           return settings;
         })}
       />

@@ -1,4 +1,4 @@
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { useSettingsContext } from '../../../core/contexts/SettingsContext';
 import { PageHeader } from '../../shared/atoms/PageHeader';
 import { ChapterToolbar } from '../molecules/ChapterToolbar';
@@ -37,6 +37,7 @@ export const Chapter: React.FC<Props> = ({
   selectedVerses,
 }) => {
   const { settings } = useSettingsContext();
+  const navigate = useNavigate();
 
   const chapters = settings.chapter.showChapterList
     ? (<PagetopChapterSelector
@@ -52,6 +53,20 @@ export const Chapter: React.FC<Props> = ({
   useEffect(() => {
     scrollToTheFirstSelectedVerse(selectedVerses, verses);
   }, [versionId, book && book.id, chapter]);
+
+  useEffect(() => {
+    const keydownHandler = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') {
+        navigate('#', { preventScrollReset: true });
+      }
+    };
+
+    document.addEventListener('keydown', keydownHandler);
+
+    return () => {
+      document.removeEventListener('keydown', keydownHandler);
+    };
+  }, []);
 
   return (
     <div style={{

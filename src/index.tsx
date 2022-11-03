@@ -6,9 +6,10 @@ import reportWebVitals from './reportWebVitals';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import { BiblePage } from './features/Bible/pages/BiblePage';
 import { NotFoundPage } from './features/shared/pages/NotFoundPage';
-import {ErrorPage} from './features/shared/pages/ErrorPage';
+import { ErrorPage } from './features/shared/pages/ErrorPage';
 
 const errorElement = <ErrorPage />;
+const biblePage = <BiblePage key={window.location.href} />;
 
 const router = createBrowserRouter([
   {
@@ -18,27 +19,27 @@ const router = createBrowserRouter([
     children: [
       {
         path: '',
-        element: <BiblePage />,
+        element: biblePage,
         errorElement,
       },
       {
         path: '/bible',
-        element: <BiblePage />,
+        element: biblePage,
         errorElement,
       },
       {
         path: '/bible/:versionId',
-        element: <BiblePage />,
+        element: biblePage,
         errorElement,
       },
       {
         path: '/bible/:versionId/:bookId',
-        element: <BiblePage />,
+        element: biblePage,
         errorElement,
       },
       {
         path: '/bible/:versionId/:bookId/:chapter',
-        element: <BiblePage />,
+        element: biblePage,
         errorElement,
       },
       {

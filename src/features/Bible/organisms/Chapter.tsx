@@ -39,6 +39,86 @@ export const Chapter: React.FC<Props> = ({
   const { settings } = useSettingsContext();
   const navigate = useNavigate();
 
+  useEffect(() => {
+    scrollToTheFirstSelectedVerse(selectedVerses, verses);
+  }, [versionId, book && book.id, chapter]);
+
+  function changeActiveVerse(no: number): void {
+    if (!verses) {
+      return;
+    }
+
+    if (no > verses.length) {
+      no = verses.length;
+    }
+
+    if (no < 1) {
+      no = 1;
+    }
+
+    navigate('#' + no, { preventScrollReset: true });
+
+    document
+    .getElementById('v-' + no)
+    ?.scrollIntoView({ block: 'center'});
+  }
+
+  useEffect(() => {
+    const keydownHandler = (e: KeyboardEvent) => {
+      if (!verses) {
+        return;
+      }
+
+      if (e.key === 'Escape') {
+        navigate('#', { preventScrollReset: true });
+      }
+
+      const currentVerseNumber = (selectedVerses[0] || 0);
+
+      if (e.key === 'j') {
+        changeActiveVerse(currentVerseNumber + 1);
+      }
+
+      if (e.key === 'k') {
+        changeActiveVerse(currentVerseNumber - 1);
+      }
+
+      if (e.key === 'b' && e.ctrlKey) {
+        changeActiveVerse(currentVerseNumber - 14);
+        e.preventDefault();
+      }
+
+      if (e.key === 'f' && e.ctrlKey) {
+        changeActiveVerse(currentVerseNumber + 14);
+        e.preventDefault();
+      }
+
+      if (e.key === 'u' && e.ctrlKey) {
+        changeActiveVerse(currentVerseNumber - 6);
+        e.preventDefault();
+      }
+
+      if (e.key === 'd' && e.ctrlKey) {
+        changeActiveVerse(currentVerseNumber + 6);
+        e.preventDefault();
+      }
+
+      if (e.key === 'g') {
+        changeActiveVerse(1);
+      }
+
+      if (e.key === 'G') {
+        changeActiveVerse(verses.length);
+      }
+    };
+
+    document.addEventListener('keydown', keydownHandler);
+
+    return () => {
+      document.removeEventListener('keydown', keydownHandler);
+    };
+  }, [selectedVerses]);
+
   const chapters = settings.chapter.showChapterList
     ? (<PagetopChapterSelector
         versionId={versionId}
@@ -49,24 +129,6 @@ export const Chapter: React.FC<Props> = ({
 
   const prevChapterLink = book ? BibleNavigationService.getPreviousChapterUrl(versionId, book, chapter) : null;
   const nextChapterLink = book ? BibleNavigationService.getNextChapterUrl(versionId, book, chapter) : null;
-
-  useEffect(() => {
-    scrollToTheFirstSelectedVerse(selectedVerses, verses);
-  }, [versionId, book && book.id, chapter]);
-
-  useEffect(() => {
-    const keydownHandler = (e: KeyboardEvent) => {
-      if (e.key === 'Escape') {
-        navigate('#', { preventScrollReset: true });
-      }
-    };
-
-    document.addEventListener('keydown', keydownHandler);
-
-    return () => {
-      document.removeEventListener('keydown', keydownHandler);
-    };
-  }, []);
 
   return (
     <div style={{

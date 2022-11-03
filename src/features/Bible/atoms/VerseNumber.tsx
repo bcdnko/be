@@ -1,15 +1,34 @@
 import React  from 'react';
+import { useNavigate } from 'react-router-dom';
+import { IVerseSelection } from '../../../core/interfaces/Bible.interfaces';
+import { selectionToHash, toggleVerse } from '../../../core/service/VerseHighlightService';
+import styles from './VerseNumber.module.scss';
 
 type Props = {
   no: number,
+  selectedVerses: IVerseSelection,
+  isSelected: boolean,
 }
 
 export const VerseNumber: React.FC<Props> = ({
   no,
+  selectedVerses,
+  isSelected,
 }) => {
+  const navigate = useNavigate();
+
   return (
     <>
-      <span>{no}.</span>
+      <span
+        className={styles.verseNumber}
+        onMouseDown={(e) => {
+          navigate(
+            selectionToHash(toggleVerse(selectedVerses, no, !isSelected)),
+            { preventScrollReset: true },
+          );
+          e.stopPropagation();
+        }}
+      >{no}</span>
       &nbsp;
     </>
   );

@@ -3,7 +3,6 @@ import { useNavigate } from 'react-router-dom';
 import { useSettingsContext } from '../../../core/contexts/SettingsContext';
 import { BibleTextToken, BibleVerse, IVerseSelection } from '../../../core/interfaces/Bible.interfaces';
 import { ISettings } from '../../../core/interfaces/common.interfaces';
-import { selectionToHash, toggleVerse } from '../../../core/service/VerseHighlightService';
 import { VerseNumber } from '../atoms/VerseNumber';
 import styles from './Verse.module.scss';
 
@@ -66,19 +65,30 @@ export const Verse: React.FC<Props> = ({
       ].join(' ')}
       onMouseDown={() => {
         navigate(
-          selectionToHash(toggleVerse(selectedVerses, verse, !isSelected)),
+          '#' + verse.no,
           { preventScrollReset: true },
         );
       }}
     >
-      <span className="content">
-        {settings.chapter.showVerseNumber && <VerseNumber no={verse.no} />}
+      <span className="content" style={{ display: 'flex' }}>
+        {settings.chapter.showVerseNumber &&
+          <VerseNumber
+            no={verse.no}
+            selectedVerses={selectedVerses}
+            isSelected={isSelected}
+          />
+        }
 
-        {verse.textParsed.map((token, i) =>
-          <span key={i} className={markersToClassNames(token.markers)}>
-            {mapToken(token)}
-          </span>
-        )}
+        <span>
+          {verse.textParsed.map((token, i) =>
+            <span
+              key={i}
+              className={markersToClassNames(token.markers)}
+            >
+              {mapToken(token)}
+            </span>
+          )}
+        </span>
       </span>
     </p>
   );

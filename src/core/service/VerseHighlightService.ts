@@ -1,5 +1,5 @@
-import { BibleVerse, IVerseSelection } from '../interfaces/Bible.interfaces';
-import {cloneDeepJson} from '../util/serialization';
+import { IVerseSelection } from '../interfaces/Bible.interfaces';
+import { cloneDeepJson } from '../util/serialization';
 
 export function getSelectedVersesFromHash(hashString: string): IVerseSelection {
   const hash = hashString.slice(1);
@@ -37,15 +37,15 @@ export function selectionToHash(selectedVerses: IVerseSelection): string {
 
 export function toggleVerse(
   selectedVerses: IVerseSelection,
-  currentVerse: BibleVerse,
+  verseNo: number,
   flag: boolean,
 ): IVerseSelection {
   let selected = cloneDeepJson(selectedVerses);
 
   if (flag) {
-    selected.push(currentVerse.no);
+    selected.push(verseNo);
   } else {
-    selected = selected.filter(value => value !== currentVerse.no);
+    selected = selected.filter(value => value !== verseNo);
   }
 
   selected.sort((a, b) => a - b);

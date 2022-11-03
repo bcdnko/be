@@ -10,6 +10,7 @@ import { VersesSkeleton } from '../molecules/VersesSkeleton';
 import { PageSubHeader } from '../../shared/atoms/PageSubHeader';
 import { ChapterSkeleton } from './ChapterSkeleton';
 import { useEffect } from 'react';
+import { isOffscreen } from '../../../core/util/htmlView';
 import styles from './Chapter.module.scss';
 
 type Props = {
@@ -58,9 +59,10 @@ export const Chapter: React.FC<Props> = ({
 
     navigate('#' + no, { preventScrollReset: true });
 
-    document
-    .getElementById('v-' + no)
-    ?.scrollIntoView({ block: 'center'});
+    const el = document.getElementById('v-' + no);
+    if (el && isOffscreen(el).any) {
+      el.scrollIntoView({ block: 'center'});
+    }
   }
 
   useEffect(() => {

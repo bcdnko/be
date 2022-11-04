@@ -3,12 +3,14 @@ import { useNavigate } from 'react-router-dom';
 import { useSettingsContext } from '../../../core/contexts/SettingsContext';
 import { BibleTextToken, BibleVerse, IVerseSelection } from '../../../core/interfaces/Bible.interfaces';
 import { ISettings } from '../../../core/interfaces/common.interfaces';
+import { StrongWord } from '../../StrongDictionary/atom/StrongWord';
 import { VerseNumber } from '../atoms/VerseNumber';
 import styles from './Verse.module.scss';
 
 type Props = {
   verse: BibleVerse,
   selectedVerses: IVerseSelection,
+  setStrongId: (strongId: string) => void,
 }
 
 function markersToClassNames(markers?: string[]) {
@@ -36,6 +38,7 @@ function highlightedClassNames(settings: ISettings): string {
 export const Verse: React.FC<Props> = ({
   verse,
   selectedVerses,
+  setStrongId,
 }) => {
   const { settings } = useSettingsContext();
   const navigate = useNavigate();
@@ -46,7 +49,12 @@ export const Verse: React.FC<Props> = ({
     } else if (token.type === 'punctuation') {
       return <>{token.text}</>;
     } else if (token.type === 'strong') {
-      return settings.chapter.showStrong ? <>{' '}{token.text}</> : null;
+      const strongId = token.text;
+      const handleClick = () => setStrongId(strongId);
+
+      return settings.chapter.showStrong
+        ? <StrongWord strongId={strongId} onClick={handleClick} />
+        : null;
     } else if (token.type === 'space') {
       return <>{' '}</>;
     }

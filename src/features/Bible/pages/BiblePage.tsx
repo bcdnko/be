@@ -1,9 +1,11 @@
+import { useState } from 'react';
 import { useQuery } from 'react-query';
 import { useParams } from 'react-router-dom';
 import { fetchBibleBooks, fetchBibleVersions } from '../../../core/api/bible';
 import { fetchVerses } from '../../../core/api/bible/verse';
 import { getSelectedVersesFromHash } from '../../../core/service/VerseHighlightService';
 import { StandardLayout } from '../../shared/templates/StandardLayout';
+import { StrongCard } from '../../StrongDictionary/organisms/StrongCard';
 import { BookSelector } from '../organisms/BookSelector';
 import { Chapter } from '../organisms/Chapter';
 import { VersionSelector } from '../organisms/VersionSelector';
@@ -23,6 +25,7 @@ export function BiblePage() {
   const chapter = (params.chapter && parseInt(params.chapter)) || 1;
 
   const versionsQuery = useQuery('versions', fetchBibleVersions);
+  const [strongId, setStrongId] = useState<string | null>(null);
 
   const booksQuery = useQuery(
     ['books', versionId],
@@ -71,10 +74,15 @@ export function BiblePage() {
               chapter={chapter}
               verses={versesQuery.data}
               selectedVerses={selectedVerses}
+              setStrongId={setStrongId}
             />
           </>
         ),
-        //rightSidebar: (),
+        rightSidebar: (
+          <>
+            {strongId && <StrongCard strongId={strongId} />}
+          </>
+        ),
       }}
     </StandardLayout>
   );

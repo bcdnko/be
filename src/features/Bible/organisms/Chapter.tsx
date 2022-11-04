@@ -19,6 +19,7 @@ type Props = {
   chapter: number,
   verses?: BibleVerse[],
   selectedVerses: IVerseSelection,
+  setStrongId: (strongId: string) => void,
 }
 
 function scrollToTheFirstSelectedVerse(selectedVerses: IVerseSelection, verses: any) {
@@ -36,6 +37,7 @@ export const Chapter: React.FC<Props> = ({
   chapter,
   verses,
   selectedVerses,
+  setStrongId,
 }) => {
   const { settings } = useSettingsContext();
   const navigate = useNavigate();
@@ -208,6 +210,7 @@ export const Chapter: React.FC<Props> = ({
                   key={`${versionId}_${book.id}_${chapter}_${verse.no}`}
                   verse={verse}
                   selectedVerses={selectedVerses}
+                  setStrongId={setStrongId}
                 />))
               : (<VersesSkeleton />)
             }

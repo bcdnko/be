@@ -1,12 +1,16 @@
+@use "sass:map";
+@import '../../../../node_modules/bootstrap/scss/functions';
+@import '../../../../node_modules/bootstrap/scss/variables';
 @import '../../../variables.scss';
 
 .pageHeader {
+  display: flex;
+
   .logo {
     a {
       background: $primary-color;
       padding: .65rem 1.25rem;
       margin: 1rem 0;
-      margin-left: -1.1rem;
       display: inline-block;
       color: white;
     }
@@ -16,9 +20,31 @@
     }
   }
 
+  .spacer {
+    flex-grow: 1;
+  }
+
   .bookmark {
+    padding-right: 6vw;
+
     img {
-      height: 100px; // TODO
+      height: 100px;
+    }
+  }
+
+  @media(max-width: map.get($grid-breakpoints, "sm")) {
+    .logo {
+      flex-grow: 1;
+    }
+
+    .logo a {
+      display: block;
+      margin: 0;
+    }
+
+    .bookmark, .spacer {
+      display: none;
     }
   }
 }
+

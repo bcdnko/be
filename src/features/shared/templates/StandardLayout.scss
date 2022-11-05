@@ -1,8 +1,88 @@
+@use "sass:map";
+@import '../../../../node_modules/bootstrap/scss/functions';
+@import '../../../../node_modules/bootstrap/scss/variables';
+
+body {
+  margin: 0;
+  padding: 0;
+}
+
+.be-container {
+  display: grid;
+  grid-template-columns:
+    minmax(min-content, 20rem)
+    minmax(400px, 6fr)
+    minmax(min-content, 3fr);
+
+  grid-template-rows: auto 12fr 1px;
+  grid-template-areas:
+    "header header header"
+    "left-sidebar main right-sidebar"
+    "footer footer footer" ;
+
+  height: 100vh;
+  width: 100vw;
+}
+
+@media(max-width: map.get($grid-breakpoints, "lg")) {
+  .be-container {
+    grid-template-columns: min-content 2fr 1fr;
+  }
+}
+
+@media(max-width: map.get($grid-breakpoints, "md")) {
+  .be-container {
+    grid-template-columns: 0px 2fr 1fr;
+  }
+}
+
+@media(max-width: map.get($grid-breakpoints, "sm")) {
+  .be-container {
+    grid-template-columns: 0px minmax(300px, 1fr) 0px;
+  }
+}
+
 main {
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
   padding: 0;
   background: rgb(255,255,255);
   background: linear-gradient(to bottom, rgba(241,242,246,1) 0%, rgba(255,255,255,1) 300px);
   color: #5a5b5e;
-  min-height: 300px;
+}
+
+header {
+  grid-area: header;
+}
+
+main, .leftSidebar, .rightSidebar {
+  overflow-y: scroll;
+  overflow-x: hidden;
+}
+
+main {
+  grid-area: main;
+}
+
+.leftSidebar, .rightSidebar {
+  padding: 0 1rem;
+}
+
+@media(max-width: map.get($grid-breakpoints, "md")) {
+  .leftSidebar, .rightSidebar {
+    padding: 0;
+  }
+}
+
+.leftSidebar {
+  grid-area: left-sidebar;
+}
+
+.rightSidebar {
+  grid-area: right-sidebar;
+}
+
+footer {
+  grid-area: footer;
+  border-top: 1px solid silver;
+  background: white;
 }

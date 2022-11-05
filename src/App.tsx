@@ -10,7 +10,7 @@ function App() {
   return (
     <>
       <QueryClientProvider client={queryClient}>
-        <div className="App container-fluid">
+        <div className="App">
           <SettingsProvider>
             <Outlet key={window.location.pathname} />
           </SettingsProvider>

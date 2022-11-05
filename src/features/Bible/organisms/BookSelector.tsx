@@ -5,7 +5,8 @@ import { BibleBooksByTestament, BibleBookStored } from '../../../core/interfaces
 import { BibleNavigationService } from '../../../core/service/BibleNavigationService';
 import { SidebarChapterSelector } from '../molecules/SidebarChapterSelector';
 import { BookSelectorSkeleton } from './BookSelectorSkeleton';
-import styles from './SideList.module.scss';
+import styles from './BookSelector.module.scss';
+import listStyles from './SideList.module.scss';
 
 type Props = {
   books?: BibleBookStored[],
@@ -40,11 +41,11 @@ export const BookSelector: React.FC<Props> = ({
     return <BookSelectorSkeleton />;
   }
 
-  return (<section className={styles.sideList}>
-    <div className="row">
+  return (
+    <section className={[listStyles.sideList, styles.bookSelector].join(' ')}>
       {booksGrouped.map(testament => (
         <div
-          className="col-md-12 col-lg-6"
+          className={styles.testament}
           key={`${testament.title}`}
         >
           <strong>{testament.title}</strong>
@@ -55,7 +56,7 @@ export const BookSelector: React.FC<Props> = ({
                 key={`${testament.title}_${book.id}`}
                 className={[
                   'sideListItem',
-                  bookId === book.id ? 'active ' + styles.active : null,
+                  bookId === book.id ? 'active ' + listStyles.active : null,
                 ].join(' ')}
               >
                 {settings.bookSelector.showChaptersDropDown && <SidebarChapterSelector
@@ -71,7 +72,7 @@ export const BookSelector: React.FC<Props> = ({
             ))}
           </ul>
         </div>
-    ))}
-    </div>
-  </section>);
+      ))}
+    </section>
+  );
 }

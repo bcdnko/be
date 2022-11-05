@@ -20,7 +20,7 @@ export const defaultSettings: ISettings = {
     vimKeys: false,
   },
   bookSelector: {
-    showChaptersDropDown: true,
+    showChaptersDropDown: false,
   },
 };
 

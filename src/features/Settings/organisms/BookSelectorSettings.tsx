@@ -12,7 +12,7 @@ export function BookSelectorSettings() {
       <h4>Sidebar Book Selector</h4>
 
       <SwitchSettingRow
-        label="Drop down chapter list"
+        label="Drop down chapter list (experimental)"
         icon={faListAlt}
         checked={settings.bookSelector.showChaptersDropDown}
         onChange={() => updateSettings(settings => {

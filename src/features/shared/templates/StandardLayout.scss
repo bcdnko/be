@@ -64,8 +64,14 @@ main, .leftSidebar, .rightSidebar {
   padding: 0 1rem;
 }
 
-@media(max-width: map.get($grid-breakpoints, "md")) {
+@media(max-width: map.get($grid-breakpoints, "sm")) {
   .leftSidebar, .rightSidebar {
+    padding: 0;
+  }
+}
+
+@media(max-width: map.get($grid-breakpoints, "md")) {
+  .leftSidebar {
     padding: 0;
   }
 }

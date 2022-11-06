@@ -46,6 +46,9 @@ export const Chapter: React.FC<Props> = ({
   const { settings } = useSettingsContext();
   const navigate = useNavigate();
 
+  const prevChapterLink = book ? BibleNavigationService.getPreviousChapterUrl(versionId, book, chapter) : null;
+  const nextChapterLink = book ? BibleNavigationService.getNextChapterUrl(versionId, book, chapter) : null;
+
   function copySelectedVerses() {
     if (!verses || !book) {
       alert('The chapter is still loading');
@@ -115,12 +118,20 @@ export const Chapter: React.FC<Props> = ({
 
         const currentVerseNumber = (selectedVerses[0] || 0);
 
-        if (e.key === 'j') {
+        if (e.key === 'j' || e.key === 'ArrowDown') {
           changeActiveVerse(currentVerseNumber + 1);
         }
 
-        if (e.key === 'k') {
+        if (e.key === 'k' || e.key === 'ArrowUp') {
           changeActiveVerse(currentVerseNumber - 1);
+        }
+
+        if (e.key === 'h' || e.key === 'ArrowLeft') {
+          prevChapterLink && navigate(prevChapterLink);
+        }
+
+        if (e.key === 'l' || e.key === 'ArrowRight') {
+          nextChapterLink && navigate(nextChapterLink);
         }
 
         if (e.key === 'b' && e.ctrlKey) {
@@ -172,9 +183,6 @@ export const Chapter: React.FC<Props> = ({
         chapter={chapter}
       />)
     : null;
-
-  const prevChapterLink = book ? BibleNavigationService.getPreviousChapterUrl(versionId, book, chapter) : null;
-  const nextChapterLink = book ? BibleNavigationService.getNextChapterUrl(versionId, book, chapter) : null;
 
   return (
     <div style={{

@@ -23,11 +23,15 @@ type Props = {
 }
 
 function scrollToTheFirstSelectedVerse(selectedVerses: IVerseSelection, verses: any) {
-  if (verses && selectedVerses.length) {
-    const firstSelectedVerse = document.getElementById('v-' + Math.min(...selectedVerses));
-    if (firstSelectedVerse) {
-      firstSelectedVerse.scrollIntoView({ block: 'center' });
-    }
+  if (!verses) {
+    return;
+  }
+
+  const firstVerse = selectedVerses.length ? Math.min(...selectedVerses) : 1;
+  const firstSelectedVerse = document.getElementById('v-' + firstVerse);
+
+  if (firstSelectedVerse) {
+    firstSelectedVerse.scrollIntoView({ block: 'center' });
   }
 }
 
@@ -75,7 +79,7 @@ export const Chapter: React.FC<Props> = ({
 
   useEffect(() => {
     scrollToTheFirstSelectedVerse(selectedVerses, verses);
-  }, [versionId, book && book.id, chapter]);
+  }, [versionId, book && book.id, chapter, verses]);
 
   function changeActiveVerse(no: number): void {
     if (!verses) {

@@ -35,7 +35,7 @@ export const ChapterToolbar: React.FC<Props> = ({
           type="checkbox"
           checked={settings.chapter.showStrong}
           value="1"
-          title="Enable/Disable Strong Numbers"
+          title="Enable/Disable Strong Numbers (s)"
           onClick={() => updateSettings(settings => {
             settings.chapter.showStrong = !settings.chapter.showStrong;
             return settings;

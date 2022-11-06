@@ -18,10 +18,10 @@ body {
   grid-template-areas:
     "header header header"
     "left-sidebar main right-sidebar"
-    "footer footer footer" ;
+    "footer footer footer";
 
   height: 100vh;
-  width: 100vw;
+  width: 100%;
 }
 
 @media(max-width: map.get($grid-breakpoints, "lg")) {
@@ -32,13 +32,25 @@ body {
 
 @media(max-width: map.get($grid-breakpoints, "md")) {
   .be-container {
-    grid-template-columns: 0px 2fr 1fr;
+    grid-template-columns: 0 2fr 1fr;
+    grid-template-areas:
+      "header header header"
+      "left-sidebar main right-sidebar"
+      "footer footer footer";
   }
 }
 
 @media(max-width: map.get($grid-breakpoints, "sm")) {
   .be-container {
-    grid-template-columns: 0px minmax(300px, 1fr) 0px;
+    height: auto;
+    grid-template-columns: 1fr;
+    grid-template-rows: auto;
+    grid-template-areas:
+      "header"
+      "main"
+      "left-sidebar"
+      "right-sidebar"
+      "footer";
   }
 }
 
@@ -60,14 +72,15 @@ main, .leftSidebar, .rightSidebar {
   overflow-x: hidden;
 }
 
-.leftSidebar, .rightSidebar {
-  padding: 0 1rem;
+@media(max-width: map.get($grid-breakpoints, "sm")) {
+  main, .leftSidebar, .rightSidebar {
+    overflow-y: visible;
+    overflow-x: visible;
+  }
 }
 
-@media(max-width: map.get($grid-breakpoints, "sm")) {
-  .leftSidebar, .rightSidebar {
-    padding: 0;
-  }
+.leftSidebar, .rightSidebar {
+  padding: 0 1rem;
 }
 
 @media(max-width: map.get($grid-breakpoints, "md")) {

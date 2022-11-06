@@ -43,7 +43,7 @@ export const Chapter: React.FC<Props> = ({
   selectedVerses,
   setStrongId,
 }) => {
-  const { settings } = useSettingsContext();
+  const { settings, updateSettings } = useSettingsContext();
   const navigate = useNavigate();
 
   const prevChapterLink = book ? BibleNavigationService.getPreviousChapterUrl(versionId, book, chapter) : null;
@@ -117,6 +117,14 @@ export const Chapter: React.FC<Props> = ({
         }
 
         const currentVerseNumber = (selectedVerses[0] || 0);
+
+        if (e.key === 's') {
+          updateSettings(settings => {
+            settings.chapter.showStrong = !settings.chapter.showStrong;
+            return settings;
+          });
+          e.preventDefault();
+        }
 
         if (e.key === 'j' || e.key === 'ArrowDown') {
           changeActiveVerse(currentVerseNumber + 1);

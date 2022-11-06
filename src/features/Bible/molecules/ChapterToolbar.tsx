@@ -49,7 +49,7 @@ export const ChapterToolbar: React.FC<Props> = ({
           <>
             <ButtonGroup>
               <Button
-                title="Copy Selected Verses"
+                title="Copy Selected Verses (y)"
                 variant="secondary"
                 onClick={() => copySelectedVerses()}
               >

@@ -1,6 +1,7 @@
-@import "../../../variables.scss";
+@use "sass:map";
 @import '../../../../node_modules/bootstrap/scss/functions';
 @import '../../../../node_modules/bootstrap/scss/variables';
+@import "../../../variables.scss";
 
 .chapterNav {
   display: block;
@@ -40,6 +41,12 @@ a.chapterNav:hover {
     color: $gray-600;
     margin: calc($heading-vertical-spacer / 2) 0;
     margin-bottom: $heading-vertical-spacer;
+  }
+
+  @media(max-width: map.get($grid-breakpoints, "sm")) {
+    h1, h2 {
+      margin: 1rem 0;
+    }
   }
 }
 

@@ -1,3 +1,6 @@
+@use "sass:map";
+@import '../../../../node_modules/bootstrap/scss/functions';
+@import '../../../../node_modules/bootstrap/scss/variables';
 @import '../../../variables.scss';
 
 .chapter {
@@ -30,6 +33,12 @@
       color: $primary-color;
       font-size: 1.3rem;
       font-weight: bold;
+    }
+  }
+
+  @media(max-width: map.get($grid-breakpoints, "sm")) {
+    .chapterList {
+      margin: 1rem 0;
     }
   }
 }

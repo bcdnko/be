@@ -193,61 +193,63 @@ export const Chapter: React.FC<Props> = ({
     : null;
 
   return (
-    <div style={{
-      display: 'flex',
-    }}>
-      {
-        (settings.chapter.hugePrevNextChapterBtns
-        && prevChapterLink
-        && <Link
-          to={prevChapterLink}
-          className={['fs-5', styles.chapterNav, styles.chapterPrev].join(' ')}
-        ><span>◄</span></Link>) || <div className={styles.chapterNav}></div>
-      }
+    <>
+      <ChapterToolbar
+        selectedVerses={selectedVerses}
+        book={book}
+        copySelectedVerses={copySelectedVerses}
+      />
 
-      <div className={['chapter', styles.content].join(' ')}>
-        <ChapterToolbar
-          selectedVerses={selectedVerses}
-          book={book}
-          copySelectedVerses={copySelectedVerses}
-        />
+      <div style={{
+        display: 'flex',
+      }}>
+        {
+          (settings.chapter.hugePrevNextChapterBtns
+          && prevChapterLink
+          && <Link
+            to={prevChapterLink}
+            className={['fs-5', styles.chapterNav, styles.chapterPrev].join(' ')}
+          ><span>◄</span></Link>) || <div className={styles.chapterNav}></div>
+        }
 
-        {chapters}
+        <div className={['chapter', styles.content].join(' ')}>
+          {chapters}
 
-        {!book && <ChapterSkeleton />}
+          {!book && <ChapterSkeleton />}
 
-        {book && (
-          <>
-            <PageHeader>
-              {settings.chapter.fullBookHeader ? book.title : book.titleShort}
-            </PageHeader>
+          {book && (
+            <>
+              <PageHeader>
+                {settings.chapter.fullBookHeader ? book.title : book.titleShort}
+              </PageHeader>
 
-            <PageSubHeader>Chapter {chapter}</PageSubHeader>
+              <PageSubHeader>Chapter {chapter}</PageSubHeader>
 
-            {(verses && book)
-              ? (verses.map(verse =>
-                <Verse
-                  key={`${versionId}_${book.id}_${chapter}_${verse.no}`}
-                  verse={verse}
-                  selectedVerses={selectedVerses}
-                  setStrongId={setStrongId}
-                />))
-              : (<VersesSkeleton />)
-            }
-          </>
-        )}
+              {(verses && book)
+                ? (verses.map(verse =>
+                  <Verse
+                    key={`${versionId}_${book.id}_${chapter}_${verse.no}`}
+                    verse={verse}
+                    selectedVerses={selectedVerses}
+                    setStrongId={setStrongId}
+                  />))
+                : (<VersesSkeleton />)
+              }
+            </>
+          )}
 
-        {chapters}
+          {chapters}
+        </div>
+
+        {
+          (settings.chapter.hugePrevNextChapterBtns
+          && nextChapterLink
+          && <Link
+            to={nextChapterLink}
+            className={['fs-5', styles.chapterNav, styles.chapterNext].join(' ')}
+          ><span>►</span></Link>) || <div className={styles.chapterNav}></div>
+        }
       </div>
-
-      {
-        (settings.chapter.hugePrevNextChapterBtns
-        && nextChapterLink
-        && <Link
-          to={nextChapterLink}
-          className={['fs-5', styles.chapterNav, styles.chapterNext].join(' ')}
-        ><span>►</span></Link>) || <div className={styles.chapterNav}></div>
-      }
-    </div>
+    </>
   );
 }

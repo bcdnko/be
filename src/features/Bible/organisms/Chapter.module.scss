@@ -1,4 +1,6 @@
 @import "../../../variables.scss";
+@import '../../../../node_modules/bootstrap/scss/functions';
+@import '../../../../node_modules/bootstrap/scss/variables';
 
 .chapterNav {
   display: block;
@@ -27,7 +29,17 @@ a.chapterNav:hover {
 }
 
 .content {
-  padding: 1rem 0.25rem;
   flex-grow: 2;
+
+  h1, h2 {
+    margin: 0 calc(1em + 1vw);
+    text-align: center;
+  }
+
+  h2 {
+    color: $gray-600;
+    margin: calc($heading-vertical-spacer / 2) 0;
+    margin-bottom: $heading-vertical-spacer;
+  }
 }
 

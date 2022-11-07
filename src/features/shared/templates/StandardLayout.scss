@@ -55,13 +55,14 @@ body {
 }
 
 main {
+  grid-area: main;
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
   padding: 0;
   background: rgb(255,255,255);
-  background: linear-gradient(to bottom, rgba(241,242,246,1) 0%, rgba(255,255,255,1) 300px);
+  background: linear-gradient(to bottom, rgba(241,242,246,1) 3rem, rgba(255,255,255,1) 300px);
   color: #5a5b5e;
-  grid-area: main;
   position: relative;
+  border-top: 10px solid #f38328;
 }
 
 header {
@@ -82,6 +83,7 @@ main, .leftSidebar, .rightSidebar {
 
 .leftSidebar, .rightSidebar {
   padding: 0 1rem;
+  padding-top: 2rem;
 }
 
 @media(max-width: map.get($grid-breakpoints, "md")) {

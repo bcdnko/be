@@ -2,10 +2,10 @@
 
 .chapter {
   .chapterList {
-    background: white;
-    padding: 1.25rem 1.5rem;
-    margin: 1rem 0;
-    border: 1px solid #e0e0e0;
+    text-align: center;
+    margin: $heading-vertical-spacer calc(2rem + 2vw);
+    padding: 0;
+    // border: 1px solid #e0e0e0;
 
     a {
       text-decoration: none;
@@ -28,7 +28,7 @@
 
     .active, .active a {
       color: $primary-color;
-      font-size: 1.2rem;
+      font-size: 1.3rem;
       font-weight: bold;
     }
   }

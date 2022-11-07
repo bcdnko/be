@@ -8,6 +8,7 @@ import { useState } from "react";
 import { SettingsModal } from "../../Settings/pages/SettingsModal";
 import { useNavigate } from 'react-router-dom';
 import { BibleBookStored, IVerseSelection } from '../../../core/interfaces/Bible.interfaces';
+import styles from './ChapterToolbar.module.scss';
 
 type Props = {
   selectedVerses: IVerseSelection,
@@ -30,7 +31,7 @@ export const ChapterToolbar: React.FC<Props> = ({
       onHide={() => setShowSettingsModal(false)}
     />
 
-    <div style={{position: 'sticky', top: '0.5rem'}}>
+    <div className={styles.toolbar}>
         <ToggleButton
           type="checkbox"
           checked={settings.chapter.showStrong}

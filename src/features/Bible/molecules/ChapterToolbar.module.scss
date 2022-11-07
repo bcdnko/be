@@ -1,0 +1,12 @@
+@import '../../../variables.scss';
+
+.toolbar {
+  background: rgba(241,242,246,1);
+  margin-top: 1rem;
+  padding: 0.5rem;
+  position: sticky;
+  top: 0;
+  text-align: center;
+  // border-bottom: 1px solid #f8f9fa;
+  // border-bottom: 1px solid #e9ecef;
+}

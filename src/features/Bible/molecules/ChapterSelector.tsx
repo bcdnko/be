@@ -15,7 +15,6 @@ export const ChapterSelector: React.FC<ChapterSelectorProps> = (props) => {
 
   return (
     <div className="chapterList">
-      <span>Chapters:</span>
       {' '}
       <ul>
         {[...Array(book.chapters)].map((_, i) => {

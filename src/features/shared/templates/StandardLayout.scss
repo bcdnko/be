@@ -76,8 +76,8 @@ main, .leftSidebar, .rightSidebar {
 
 @media(max-width: map.get($grid-breakpoints, "sm")) {
   main, .leftSidebar, .rightSidebar {
-    overflow-y: visible;
-    overflow-x: visible;
+    overflow-y: auto;
+    overflow-x: auto;
   }
 }
 

@@ -1,6 +1,6 @@
 import React from 'react';
 import { QueryClient, QueryClientProvider } from 'react-query';
-import { Outlet, ScrollRestoration } from "react-router-dom";
+import { Outlet } from "react-router-dom";
 import './App.scss';
 import { SettingsProvider } from './core/contexts/SettingsContext';
 
@@ -16,8 +16,6 @@ function App() {
           </SettingsProvider>
         </div>
       </QueryClientProvider>
-
-      <ScrollRestoration />
     </>
   );
 }

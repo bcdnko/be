@@ -27,11 +27,18 @@ function scrollToTheFirstSelectedVerse(selectedVerses: IVerseSelection, verses: 
     return;
   }
 
-  const firstVerse = selectedVerses.length ? Math.min(...selectedVerses) : 1;
-  const firstSelectedVerse = document.getElementById('v-' + firstVerse);
+  const firstVerse = selectedVerses.length ? Math.min(...selectedVerses) : null;
 
-  if (firstSelectedVerse) {
-    firstSelectedVerse.scrollIntoView({ block: 'center' });
+  if (!firstVerse) {
+    const el = document.querySelector('.scroll-anchor');
+    el?.scrollIntoView();
+    return;
+  }
+
+  const el = document.getElementById('v-' + firstVerse);
+
+  if (el) {
+    el.scrollIntoView({ block: 'center' });
   }
 }
 
@@ -194,6 +201,8 @@ export const Chapter: React.FC<Props> = ({
 
   return (
     <>
+      <div className="scroll-anchor"></div>
+
       <ChapterToolbar
         selectedVerses={selectedVerses}
         book={book}

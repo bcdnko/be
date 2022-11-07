@@ -46,38 +46,39 @@ export const ChapterToolbar: React.FC<Props> = ({
         </ToggleButton>
         {' '}
 
-        {(!!selectedVerses.length && book) &&
-          <>
-            <ButtonGroup>
-              <Button
-                title="Copy Selected Verses (y)"
-                variant="secondary"
-                onClick={() => copySelectedVerses()}
-              >
-                <FontAwesomeIcon icon={faCopy} />
-              </Button>
+        <>
+          <ButtonGroup>
+            <Button
+              title="Copy Selected Verses (y)"
+              disabled={!(selectedVerses.length && book)}
+              variant="primary"
+              onClick={() => copySelectedVerses()}
+            >
+              <FontAwesomeIcon icon={faCopy} />
+            </Button>
 
-              <Button
-                title="Share Selected Verses"
-                variant="secondary"
-                onClick={() => {
-                  navigator.clipboard.writeText(window.location.href);
-                }}
-              >
-                <FontAwesomeIcon icon={faShare} />
-              </Button>
+            <Button
+              title="Share Selected Verses"
+              disabled={!(selectedVerses.length && book)}
+              variant="primary"
+              onClick={() => {
+                navigator.clipboard.writeText(window.location.href);
+              }}
+            >
+              <FontAwesomeIcon icon={faShare} />
+            </Button>
 
-              <Button
-                title="Unselect Verses"
-                variant="secondary"
-                onClick={() => navigate('#', { preventScrollReset: true })}
-              >
-                <FontAwesomeIcon icon={faRectangleXmark} />
-              </Button>
-            </ButtonGroup>
-          {' '}
-          </>
-        }
+            <Button
+              title="Unselect Verses (esc)"
+              disabled={!(selectedVerses.length && book)}
+              variant="primary"
+              onClick={() => navigate('#', { preventScrollReset: true })}
+            >
+              <FontAwesomeIcon icon={faRectangleXmark} />
+            </Button>
+          </ButtonGroup>
+        {' '}
+        </>
 
         <Button
           title="Settings"

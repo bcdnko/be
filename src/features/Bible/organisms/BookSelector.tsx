@@ -2,9 +2,9 @@ import React, { useMemo }  from 'react';
 import { Link } from 'react-router-dom';
 import { useSettingsContext } from '../../../core/contexts/SettingsContext';
 import { BibleBooksByTestament, BibleBookStored } from '../../../core/interfaces/Bible.interfaces';
-import { BibleNavigationService } from '../../../core/service/BibleNavigationService';
 import { SidebarChapterSelector } from '../molecules/SidebarChapterSelector';
 import { BookSelectorSkeleton } from './BookSelectorSkeleton';
+import { useBibleNavigate } from '../hooks/useBibleNavigate';
 import styles from './BookSelector.module.scss';
 import listStyles from './SideList.module.scss';
 
@@ -36,6 +36,7 @@ export const BookSelector: React.FC<Props> = ({
 }) => {
   const booksGrouped = useMemo(() => groupBooksByTestament(books || []), [books]);
   const { settings } = useSettingsContext();
+  const { chapterUrl } = useBibleNavigate({});
 
   if (!books) {
     return <BookSelectorSkeleton />;
@@ -64,7 +65,7 @@ export const BookSelector: React.FC<Props> = ({
                   book={book}
                   chapter={chapter}
                 />}
-                <Link to={BibleNavigationService.chapterUrl(versionId, book.id, 1)}>
+                <Link to={chapterUrl(versionId, book.id, 1)}>
                   {book.titleShort}
                 </Link>
 

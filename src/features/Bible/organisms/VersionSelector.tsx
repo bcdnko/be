@@ -2,7 +2,7 @@ import React  from 'react';
 import { Link } from 'react-router-dom';
 import { BibleVersionStored } from '../../../core/interfaces/Bible.interfaces';
 import { VersionSelectorSkeleton } from './VersionSelectorSkeleton';
-import { BibleNavigationService } from '../../../core/service/BibleNavigationService';
+import { useBibleNavigate } from '../hooks/useBibleNavigate';
 import styles from './SideList.module.scss';
 
 type Props = {
@@ -18,6 +18,8 @@ export const VersionSelector: React.FC<Props> = ({
   bookId,
   chapter,
 }) => {
+  const { chapterUrl } = useBibleNavigate({});
+
   return (<section className={styles.sideList}>
     <strong>Bible Versions</strong>
 
@@ -32,10 +34,7 @@ export const VersionSelector: React.FC<Props> = ({
           key={version.id}
         >
           <Link
-            to={
-              BibleNavigationService.chapterUrl(version.id, bookId, chapter)
-                + window.location.hash
-            }
+            to={chapterUrl(version.id, bookId, chapter) + window.location.hash}
           >{version.title}</Link>
         </li>)}
       </ul>

@@ -1,16 +1,17 @@
-import { Link, useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { useSettingsContext } from '../../../core/contexts/SettingsContext';
 import { PageHeader } from '../../shared/atoms/PageHeader';
 import { ChapterToolbar } from '../molecules/ChapterToolbar';
 import { Verse } from './Verse';
 import { BibleBookStored, BibleVerse, IVerseSelection } from '../../../core/interfaces/Bible.interfaces';
-import { BibleNavigationService } from '../../../core/service/BibleNavigationService';
 import { PagetopChapterSelector } from '../molecules/PagetopChapterSelector';
 import { VersesSkeleton } from '../molecules/VersesSkeleton';
 import { PageSubHeader } from '../../shared/atoms/PageSubHeader';
 import { ChapterSkeleton } from './ChapterSkeleton';
 import { useEffect } from 'react';
-import { isOffscreen } from '../../../core/util/htmlView';
+import { useBibleClipboard } from '../hooks/useBibleClipboard';
+import { useBibleNavigate } from '../hooks/useBibleNavigate';
+import { useBibleVimKeys } from '../hooks/useBibleVimKeys';
 import styles from './Chapter.module.scss';
 
 type Props = {
@@ -50,146 +51,19 @@ export const Chapter: React.FC<Props> = ({
   selectedVerses,
   setStrongId,
 }) => {
-  const { settings, updateSettings } = useSettingsContext();
-  const navigate = useNavigate();
+  const { settings } = useSettingsContext();
+  const { copySelectedVerses } = useBibleClipboard(chapter, selectedVerses, verses, book);
+  const nav = useBibleNavigate({ versionId, book, chapter, verses });
 
-  const prevChapterLink = book ? BibleNavigationService.getPreviousChapterUrl(versionId, book, chapter) : null;
-  const nextChapterLink = book ? BibleNavigationService.getNextChapterUrl(versionId, book, chapter) : null;
+  useBibleVimKeys({ versionId, book, chapter, selectedVerses, verses });
 
-  function copySelectedVerses() {
-    if (!verses || !book) {
-      alert('The chapter is still loading');
-      return;
-    }
-
-    function prepareText(verse: BibleVerse): string {
-      return verse.textParsed
-        .filter(token => token.type !== 'strong')
-        .map(token => token.text)
-        .join('');
-    }
-
-    const mappedVerses = selectedVerses.map(no => verses.find(v => v.no === no));
-    const text = mappedVerses.map(verse => {
-      if (!verse) {
-        return 'ERROR\n\n';
-      }
-
-      const versePrefix = mappedVerses.length === 1 ? '' : verse.no + '. ';
-      return versePrefix + prepareText(verse) + '\n\n';
-    });
-
-    const reference = book.titleShort + ' ' + chapter + (mappedVerses.length === 1 ? ':' + selectedVerses[0] : '');
-    const copy = text.join('') + reference;
-
-    console.log(copy);
-
-    navigator.clipboard.writeText(copy);
-  }
+  const prevChapterLink = nav.getPrevChapterUrl();
+  const nextChapterLink = nav.getNextChapterUrl();
 
   useEffect(() => {
+    // TODO resolve dependency problem (can't depend on selectedVerses)
     scrollToTheFirstSelectedVerse(selectedVerses, verses);
-  }, [versionId, book && book.id, chapter, verses]);
-
-  function changeActiveVerse(no: number): void {
-    if (!verses) {
-      return;
-    }
-
-    if (no > verses.length) {
-      no = verses.length;
-    }
-
-    if (no < 1) {
-      no = 1;
-    }
-
-    navigate('#' + no, { preventScrollReset: true });
-
-    const el = document.getElementById('v-' + no);
-    if (el && isOffscreen(el).any) {
-      el.scrollIntoView({ block: 'center'});
-    }
-  }
-
-  useEffect(() => {
-    const keydownHandler = (e: KeyboardEvent) => {
-      if (!verses) {
-        return;
-      }
-
-      if (settings.chapter.vimKeys) {
-        if (e.key === 'Escape') {
-          navigate('#', { preventScrollReset: true });
-        }
-
-        const currentVerseNumber = (selectedVerses[0] || 0);
-
-        if (e.key === 's') {
-          updateSettings(settings => {
-            settings.chapter.showStrong = !settings.chapter.showStrong;
-            return settings;
-          });
-          e.preventDefault();
-        }
-
-        if (e.key === 'j' || e.key === 'ArrowDown') {
-          changeActiveVerse(currentVerseNumber + 1);
-        }
-
-        if (e.key === 'k' || e.key === 'ArrowUp') {
-          changeActiveVerse(currentVerseNumber - 1);
-        }
-
-        if (e.key === 'h' || e.key === 'ArrowLeft') {
-          prevChapterLink && navigate(prevChapterLink);
-        }
-
-        if (e.key === 'l' || e.key === 'ArrowRight') {
-          nextChapterLink && navigate(nextChapterLink);
-        }
-
-        if (e.key === 'b' && e.ctrlKey) {
-          changeActiveVerse(currentVerseNumber - 14);
-          e.preventDefault();
-        }
-
-        if (e.key === 'f' && e.ctrlKey) {
-          changeActiveVerse(currentVerseNumber + 14);
-          e.preventDefault();
-        }
-
-        if (e.key === 'u' && e.ctrlKey) {
-          changeActiveVerse(currentVerseNumber - 6);
-          e.preventDefault();
-        }
-
-        if (e.key === 'd' && e.ctrlKey) {
-          changeActiveVerse(currentVerseNumber + 6);
-          e.preventDefault();
-        }
-
-        if (e.key.toLowerCase() === 'y') {
-          copySelectedVerses();
-          e.preventDefault();
-        }
-
-        if (e.key === 'g') {
-          changeActiveVerse(1);
-        }
-
-        if (e.key === 'G') {
-          changeActiveVerse(verses.length);
-        }
-      }
-    };
-
-    document.addEventListener('keydown', keydownHandler);
-
-    return () => {
-      document.removeEventListener('keydown', keydownHandler);
-    };
-  }, [selectedVerses, settings.chapter.vimKeys]);
+  }, [versionId, book, chapter, verses]);
 
   const chapters = settings.chapter.showChapterList
     ? (<PagetopChapterSelector

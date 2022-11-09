@@ -3,7 +3,7 @@ import { useSettingsContext } from '../../../core/contexts/SettingsContext';
 import { PageHeader } from '../../shared/atoms/PageHeader';
 import { ChapterToolbar } from '../molecules/ChapterToolbar';
 import { Verse } from './Verse';
-import { BibleBookStored, BibleVerse, IVerseSelection } from '../../../core/interfaces/Bible.interfaces';
+import { IBibleBookStored, IBibleVerse, IVerseSelection } from '../../../core/interfaces/Bible.interfaces';
 import { PagetopChapterSelector } from '../molecules/PagetopChapterSelector';
 import { VersesSkeleton } from '../molecules/VersesSkeleton';
 import { PageSubHeader } from '../../shared/atoms/PageSubHeader';
@@ -16,9 +16,9 @@ import styles from './Chapter.module.scss';
 
 type Props = {
   versionId: string,
-  book?: BibleBookStored,
+  book?: IBibleBookStored,
   chapter: number,
-  verses?: BibleVerse[],
+  verses?: IBibleVerse[],
   selectedVerses: IVerseSelection,
   setStrongId: (strongId: string) => void,
 }

@@ -1,11 +1,11 @@
 import { ChapterSelector } from './ChapterSelector';
 import { PagetopChapterSelectorSkeleton } from './PagetopChapterSelectorSkeleton';
-import { BibleBookStored } from '../../../core/interfaces/Bible.interfaces';
+import { IBibleBookStored } from '../../../core/interfaces/Bible.interfaces';
 import './PagetopChapterSelector.scss';
 
 type PagetopChapterSelectorProps = {
   versionId: string,
-  book?: BibleBookStored,
+  book?: IBibleBookStored,
   chapter: number,
 }
 

@@ -1,14 +1,14 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useSettingsContext } from '../../../core/contexts/SettingsContext';
-import { BibleTextToken, BibleVerse, IVerseSelection } from '../../../core/interfaces/Bible.interfaces';
+import { IBibleTextToken, IBibleVerse, IVerseSelection } from '../../../core/interfaces/Bible.interfaces';
 import { ISettings } from '../../../core/interfaces/common.interfaces';
 import { StrongWord } from '../../StrongDictionary/atom/StrongWord';
 import { VerseNumber } from '../atoms/VerseNumber';
 import styles from './Verse.module.scss';
 
 type Props = {
-  verse: BibleVerse,
+  verse: IBibleVerse,
   selectedVerses: IVerseSelection,
   setStrongId: (strongId: string) => void,
 }
@@ -43,7 +43,7 @@ export const Verse: React.FC<Props> = ({
   const { settings } = useSettingsContext();
   const navigate = useNavigate();
 
-  const mapToken = (token: BibleTextToken) => {
+  const mapToken = (token: IBibleTextToken) => {
     if (token.type === 'word') {
       return <>{token.text}</>;
     } else if (token.type === 'punctuation') {

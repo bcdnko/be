@@ -1,7 +1,7 @@
 import {
-  BibleVersionStored,
-  BibleBookStored,
-  BibleVerseStored,
+  IBibleVersionStored,
+  IBibleBookStored,
+  IBibleVerseStored,
 } from 'core/interfaces/Bible.interfaces';
 import { BqParser } from '../bq-parser';
 
@@ -10,7 +10,7 @@ export default class BqRstParser extends BqParser {
   protected _verseRegex = /^(<p><sup>(\d+)<\/sup> (.+)$)/;
   protected _jesusWordsRegex = null;
 
-  parseVersion(): BibleVersionStored {
+  parseVersion(): IBibleVersionStored {
     return Object.assign(
       {},
       super.parseVersion(),
@@ -25,7 +25,7 @@ export default class BqRstParser extends BqParser {
     );
   }
 
-  parseBookVerses(book: BibleBookStored): BibleVerseStored[] {
+  parseBookVerses(book: IBibleBookStored): IBibleVerseStored[] {
     return super.parseBookVerses(book)
       .map(verse => {
         const text = verse.text

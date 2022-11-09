@@ -1,6 +1,6 @@
-import { StrongWord } from 'core/interfaces/Bible.interfaces';
+import { IStrongWord } from 'core/interfaces/Bible.interfaces';
 
 export interface StrongParser {
-  parseStrong(): Promise<StrongWord>;
+  parseStrong(): Promise<IStrongWord>;
 }
 

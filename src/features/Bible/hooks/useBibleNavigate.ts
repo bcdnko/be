@@ -1,14 +1,14 @@
 import { useMemo } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { BibleBookStored, BibleVerse } from '../../../core/interfaces/Bible.interfaces';
+import { IBibleBookStored, IBibleVerse } from '../../../core/interfaces/Bible.interfaces';
 import { isOffscreen } from '../../../core/util/htmlView';
 import { url } from '../../../core/util/url';
 
 type Props = {
   versionId?: string,
   chapter?: number,
-  book?: BibleBookStored,
-  verses?: BibleVerse[],
+  book?: IBibleBookStored,
+  verses?: IBibleVerse[],
 };
 
 function chapterUrl(versionId: string, bookId: number, chapter: number): string {

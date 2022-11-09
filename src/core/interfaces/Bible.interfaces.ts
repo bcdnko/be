@@ -1,15 +1,15 @@
 import {
-  Language,
   LanguageId,
 } from './Language.interfaces';
 
 export type BibleVersionId = string;
 export type BibleBookId = number;
 export type BibleBookAlias = string;
+export type BibleVerseId = number;
 export type TestamentId = 'old' | 'new';
 export type CrossVersionId = string;
 
-export interface BibleVersionStored {
+export interface IBibleVersionStored {
   id: BibleVersionId;
   title: string;
   titleShortest: string;
@@ -21,7 +21,10 @@ export interface BibleVersionStored {
   strongId?: string;
 }
 
-export interface BibleBookStored {
+export interface IBibleVersion extends IBibleVersionStored {
+}
+
+export interface IBibleBookStored {
   id: BibleBookId;
   cvId: CrossVersionId;
   versionId: BibleVersionId;
@@ -34,13 +37,16 @@ export interface BibleBookStored {
   aliases: BibleBookAlias[];
 }
 
+export interface IBibleBook extends IBibleBookStored {
+}
+
 export type BibleBooksByTestament = {
   title: string;
-  books: BibleBookStored[];
+  books: IBibleBook[];
 }[];
 
-export interface BibleVerseStored {
-  id: number;
+export interface IBibleVerseStored {
+  id: BibleVerseId;
   cvId: CrossVersionId;
   bookId: BibleBookId;
   chapter: number;
@@ -48,17 +54,17 @@ export interface BibleVerseStored {
   text: string;
 }
 
-export interface BibleTextToken {
+export interface IBibleTextToken {
   type: 'strong' | 'punctuation' | 'word' | 'space';
   text: string;
   markers?: string[];
 }
 
-export interface BibleVerse extends BibleVerseStored {
-  textParsed: BibleTextToken[];
+export interface IBibleVerse extends IBibleVerseStored {
+  textParsed: IBibleTextToken[];
 }
 
-export interface StrongWord {
+export interface IStrongWord {
   id: string;
   word: string;
   pron: string;
@@ -66,8 +72,8 @@ export interface StrongWord {
   meaning: string;
 }
 
-export interface StrongDictionary {
-  [key: string]: StrongWord;
+export interface IStrongDictionary {
+  [key: string]: IStrongWord;
 }
 
 export type IVerseSelection = number[];

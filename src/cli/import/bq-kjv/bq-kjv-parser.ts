@@ -1,5 +1,5 @@
 import {
-  BibleVersionStored,
+  IBibleVersionStored,
 } from 'core/interfaces/Bible.interfaces';
 import { BqParser } from '../bq-parser';
 
@@ -7,7 +7,7 @@ export default class BqKjvParser extends BqParser {
   protected _chapterRegex = /^<h4>[0-9 a-zA-Z]+ (\d+)<\/h4>$/;
   protected _verseRegex = /^(<p>(\d+) (.+)$)/;
 
-  parseVersion(): BibleVersionStored {
+  parseVersion(): IBibleVersionStored {
     return Object.assign(
       {},
       super.parseVersion(),

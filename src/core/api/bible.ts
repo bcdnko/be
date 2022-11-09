@@ -1,13 +1,20 @@
-import { BibleBookStored, BibleVersionStored } from '../interfaces/Bible.interfaces';
+import { IBibleBookStored, IBibleVersion } from '../interfaces/Bible.interfaces';
 import { url } from '../util/url';
 
-export function fetchBibleVersions(): Promise<BibleVersionStored[]> {
-  return fetch('/bible/versions.json')
-    .then(res => res.json());
+export async function fetchBibleVersions(): Promise<IBibleVersion[]> {
+  const fetchedVersions = await fetch('/bible/versions.json');
+  return fetchedVersions.json();
 }
 
-export function fetchBibleBooks(versionId: string): Promise<BibleBookStored[]> {
-  return fetch(url(['bible', 'versions', versionId, 'books.json']))
-    .then(res => res.json());
-}
+export async function fetchBibleBooks(
+  versionId: string,
+): Promise<IBibleBookStored[]> {
+  const fetchedBooks = await fetch(url([
+    'bible',
+    'versions',
+    versionId,
+    'books.json'
+  ]));
 
+  return fetchedBooks.json();
+}

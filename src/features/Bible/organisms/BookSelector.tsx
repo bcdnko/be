@@ -1,7 +1,7 @@
 import React, { useMemo }  from 'react';
 import { Link } from 'react-router-dom';
 import { useSettingsContext } from '../../../core/contexts/SettingsContext';
-import { BibleBooksByTestament, BibleBookStored } from '../../../core/interfaces/Bible.interfaces';
+import { BibleBooksByTestament, IBibleBookStored } from '../../../core/interfaces/Bible.interfaces';
 import { SidebarChapterSelector } from '../molecules/SidebarChapterSelector';
 import { BookSelectorSkeleton } from './BookSelectorSkeleton';
 import { useBibleNavigate } from '../hooks/useBibleNavigate';
@@ -9,16 +9,16 @@ import styles from './BookSelector.module.scss';
 import listStyles from './SideList.module.scss';
 
 type Props = {
-  books?: BibleBookStored[],
+  books?: IBibleBookStored[],
   versionId: string,
   bookId: number,
   chapter: number,
 }
 
-function groupBooksByTestament(books: BibleBookStored[]): BibleBooksByTestament {
+function groupBooksByTestament(books: IBibleBookStored[]): BibleBooksByTestament {
   const result = [
-    { title: 'Old Testament', books: [] as BibleBookStored[]},
-    { title: 'New Testament', books: [] as BibleBookStored[]},
+    { title: 'Old Testament', books: [] as IBibleBookStored[]},
+    { title: 'New Testament', books: [] as IBibleBookStored[]},
   ];
 
   return books.reduce((acc, book) => {

@@ -1,4 +1,4 @@
-import { StrongWord } from 'core/interfaces/Bible.interfaces';
+import { IStrongWord } from 'core/interfaces/Bible.interfaces';
 
 const fs = require('fs');
 const path = require('path');
@@ -73,7 +73,7 @@ export abstract class MbStrongParser {
     });
   }
 
-  async parseStrong(): Promise<StrongWord> {
+  async parseStrong(): Promise<IStrongWord> {
     const row: any = await this.getRow();
     if (!row) {
       return null;

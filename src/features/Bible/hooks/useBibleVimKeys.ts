@@ -1,6 +1,6 @@
 import { useEffect } from 'react';
 import { useSettingsContext } from '../../../core/contexts/SettingsContext';
-import { BibleBookStored, BibleVerse, IVerseSelection } from '../../../core/interfaces/Bible.interfaces';
+import { IBibleBookStored, IBibleVerse, IVerseSelection } from '../../../core/interfaces/Bible.interfaces';
 import { useBibleClipboard } from './useBibleClipboard';
 import { useBibleNavigate } from './useBibleNavigate';
 
@@ -8,8 +8,8 @@ type Props = {
   versionId: string,
   chapter: number,
   selectedVerses: IVerseSelection,
-  book?: BibleBookStored,
-  verses?: BibleVerse[],
+  book?: IBibleBookStored,
+  verses?: IBibleVerse[],
 };
 
 export function useBibleVimKeys({

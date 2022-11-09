@@ -1,9 +1,8 @@
 import { BibleParser } from './parser';
 import {
-  BibleVersionStored,
-  BibleBookStored,
-  BibleVerseStored,
-  BibleBookId,
+  IBibleVersionStored,
+  IBibleBookStored,
+  IBibleVerseStored,
 } from 'core/interfaces/Bible.interfaces';
 import { parseBqIni } from './parse-bq-ini';
 
@@ -20,7 +19,7 @@ export class BqParser extends BibleParser {
   protected _verseNewLineRegex = /^(?!.*<.*?>).*$/;
   protected _jesusWordsRegex = null;
 
-  parseVersion(): BibleVersionStored {
+  parseVersion(): IBibleVersionStored {
     return {
       id: this.module['BibleShortName'],
       title: this.module['ModuleName'],
@@ -32,7 +31,7 @@ export class BqParser extends BibleParser {
     };
   }
 
-  parseBooks(): BibleBookStored[] {
+  parseBooks(): IBibleBookStored[] {
     const version = this.parseVersion();
     const books = this.module['PathName']
       .map((_, i) => {
@@ -80,7 +79,7 @@ export class BqParser extends BibleParser {
     return result;
   }
 
-  parseBookVerses(book: BibleBookStored): BibleVerseStored[] {
+  parseBookVerses(book: IBibleBookStored): IBibleVerseStored[] {
     const file = this.module['PathName'].sort()[book.id - 1];
     const rawVerses = fs.readFileSync(path.join(this._path, file));
     this._currentChapter = null;
@@ -91,7 +90,7 @@ export class BqParser extends BibleParser {
       .split('\n')
       .map(row => row.trim())
       .reduce(
-        (acc: BibleVerseStored[], row: string) => this._parseRow(book, row, acc),
+        (acc: IBibleVerseStored[], row: string) => this._parseRow(book, row, acc),
         [],
       )
       .filter(_ => !!_);
@@ -100,10 +99,10 @@ export class BqParser extends BibleParser {
   }
 
   private _parseRow(
-    book: BibleBookStored,
+    book: IBibleBookStored,
     row: string,
-    acc: BibleVerseStored[],
-  ): BibleVerseStored[] {
+    acc: IBibleVerseStored[],
+  ): IBibleVerseStored[] {
     const chapterMatch = row.match(this._chapterRegex);
     const verseMatch = row.match(this._verseRegex);
     const verseNewLineMatch = row.match(this._verseNewLineRegex);

@@ -1,10 +1,10 @@
 import { useMemo } from 'react';
-import { BibleBookStored, BibleVerse, IVerseSelection } from '../../../core/interfaces/Bible.interfaces';
+import { IBibleBookStored, IBibleVerse, IVerseSelection } from '../../../core/interfaces/Bible.interfaces';
 
 type Props = {
   chapter?: number,
-  book?: BibleBookStored,
-  verses?: BibleVerse[],
+  book?: IBibleBookStored,
+  verses?: IBibleVerse[],
   selectedVerses: IVerseSelection,
 };
 
@@ -21,7 +21,7 @@ export function useBibleClipboard({
         return;
       }
 
-      function prepareText(verse: BibleVerse): string {
+      function prepareText(verse: IBibleVerse): string {
         return verse.textParsed
           .filter(token => token.type !== 'strong')
           .map(token => token.text)

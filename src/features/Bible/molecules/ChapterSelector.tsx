@@ -1,11 +1,11 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { BibleBookStored } from '../../../core/interfaces/Bible.interfaces';
+import { IBibleBookStored } from '../../../core/interfaces/Bible.interfaces';
 import { useBibleNavigate } from '../hooks/useBibleNavigate';
 
 export type ChapterSelectorProps = {
   versionId: string,
-  book: BibleBookStored,
+  book: IBibleBookStored,
   chapter: number,
 }
 

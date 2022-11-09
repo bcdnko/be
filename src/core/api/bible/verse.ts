@@ -1,10 +1,10 @@
-import { BibleTextToken, BibleVerse } from '../../interfaces/Bible.interfaces';
+import { IBibleTextToken, IBibleVerse } from '../../interfaces/Bible.interfaces';
 import { url } from '../../util/url';
 
-function parseVerseText(verseText: string): BibleTextToken[] {
+function parseVerseText(verseText: string): IBibleTextToken[] {
   const markers: string[] = [];
 
-  function parseToken(rawToken: string): BibleTextToken | null {
+  function parseToken(rawToken: string): IBibleTextToken | null {
     if (rawToken === '')  {
       return null;
     }
@@ -60,7 +60,7 @@ function parseVerseText(verseText: string): BibleTextToken[] {
         acc.push(token);
       }
       return acc;
-    }, [] as BibleTextToken[]);
+    }, [] as IBibleTextToken[]);
 
   return parsedText;
 }
@@ -79,7 +79,7 @@ export function fetchVerses(
     chapter.toString() + '.json'
   ]))
     .then(res => res.json())
-    .then((verses: BibleVerse[]) => {
+    .then((verses: IBibleVerse[]) => {
       return verses.map(verse => ({
         ...verse,
         textParsed: parseVerseText(verse.text),

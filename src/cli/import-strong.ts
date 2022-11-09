@@ -1,7 +1,7 @@
 import { parseArguments } from './helper/parse-arguments';
 import {
-  StrongWord,
-  StrongDictionary,
+  IStrongWord,
+  IStrongDictionary,
 } from 'core/interfaces/Bible.interfaces';
 
 const fs = require('fs');
@@ -10,13 +10,13 @@ const mkdirp = require('mkdirp');
 
 const paths = require('./helper/dirs');
 
-function saveDict(id, dict: StrongDictionary): void {
+function saveDict(id, dict: IStrongDictionary): void {
   const filePath = path.join(paths.strongDicts, id + '.json');
   mkdirp.sync(paths.strongDicts);
   fs.writeFileSync(filePath, JSON.stringify(dict));
 }
 
-function saveWordDict(strongId, wordId, dict: StrongDictionary): void {
+function saveWordDict(strongId, wordId, dict: IStrongDictionary): void {
   const filePath = path.join(paths.strongDicts, strongId, wordId + '.json');
   mkdirp.sync(path.join(paths.strongDicts, strongId));
   fs.writeFileSync(filePath, JSON.stringify(dict));
@@ -40,7 +40,7 @@ function saveWordDict(strongId, wordId, dict: StrongDictionary): void {
     const parser = new Parser.default(dataPath, parserDir);
 
     let word;
-    let dict: StrongDictionary = {};
+    let dict: IStrongDictionary = {};
 
     while (word = await parser.parseStrong()) {
       dict[word.id] = word;

@@ -1,12 +1,12 @@
 import React  from 'react';
 import { Link } from 'react-router-dom';
-import { BibleVersionStored } from '../../../core/interfaces/Bible.interfaces';
+import { IBibleVersion } from '../../../core/interfaces/Bible.interfaces';
 import { VersionSelectorSkeleton } from './VersionSelectorSkeleton';
 import { useBibleNavigate } from '../hooks/useBibleNavigate';
 import styles from './SideList.module.scss';
 
 type Props = {
-  versions?: BibleVersionStored[],
+  versions?: IBibleVersion[],
   versionId: string,
   bookId: number,
   chapter: number,

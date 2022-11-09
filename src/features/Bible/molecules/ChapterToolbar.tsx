@@ -6,13 +6,13 @@ import { faCopy } from '@fortawesome/free-regular-svg-icons';
 import { useSettingsContext } from "../../../core/contexts/SettingsContext";
 import { useState } from "react";
 import { SettingsModal } from "../../Settings/pages/SettingsModal";
-import { BibleBookStored, IVerseSelection } from '../../../core/interfaces/Bible.interfaces';
+import { IBibleBookStored, IVerseSelection } from '../../../core/interfaces/Bible.interfaces';
 import { useBibleNavigate } from '../hooks/useBibleNavigate';
 import styles from './ChapterToolbar.module.scss';
 
 type Props = {
   selectedVerses: IVerseSelection,
-  book?: BibleBookStored,
+  book?: IBibleBookStored,
   copySelectedVerses: () => void,
 }
 

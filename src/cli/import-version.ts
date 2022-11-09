@@ -1,8 +1,8 @@
 import { parseArguments } from './helper/parse-arguments';
 import {
-  BibleVersionStored,
-  BibleBookStored,
-  BibleVerseStored,
+  IBibleVersionStored,
+  IBibleBookStored,
+  IBibleVerseStored,
 } from 'core/interfaces/Bible.interfaces';
 
 const fs = require('fs');
@@ -13,7 +13,7 @@ const path = require('path');
 
 const paths = require('./helper/dirs');
 
-function saveVersion(version: BibleVersionStored): void {
+function saveVersion(version: IBibleVersionStored): void {
   const versionPath = path.join(paths.bibleVersions, version.id);
   const versionFilePath = versionPath + '.json';
 
@@ -34,7 +34,7 @@ function saveVersion(version: BibleVersionStored): void {
   );
 }
 
-function saveBooks(version: BibleVersionStored, books: BibleBookStored[]): void {
+function saveBooks(version: IBibleVersionStored, books: IBibleBookStored[]): void {
   const versionPath = path.join(paths.bibleVersions, version.id);
   const versionBooksPath = path.join(versionPath, 'books.json');
 
@@ -45,9 +45,9 @@ function saveBooks(version: BibleVersionStored, books: BibleBookStored[]): void 
 }
 
 function saveChapter(
-  book: BibleBookStored,
+  book: IBibleBookStored,
   chapter: number,
-  verses: BibleVerseStored[],
+  verses: IBibleVerseStored[],
 ): void {
   const bookPath = path.join(paths.bibleVersions, book.versionId, 'books', book.id.toString());
   mkdirp.sync(bookPath);
@@ -89,7 +89,7 @@ try {
       for (const book of books) {
         const verses = parser.parseBookVerses(book);
         for (let chapter = 1; chapter <= book.chapters; chapter++) {
-          const data = verses.filter((_: BibleVerseStored) => _.chapter === chapter);
+          const data = verses.filter((_: IBibleVerseStored) => _.chapter === chapter);
           saveChapter(book, chapter, data);
         }
         bar.tick();

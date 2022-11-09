@@ -52,7 +52,7 @@ export const Chapter: React.FC<Props> = ({
   setStrongId,
 }) => {
   const { settings } = useSettingsContext();
-  const { copySelectedVerses } = useBibleClipboard(chapter, selectedVerses, verses, book);
+  const { copySelectedVerses } = useBibleClipboard({ chapter, selectedVerses, verses, book });
   const nav = useBibleNavigate({ versionId, book, chapter, verses });
 
   useBibleVimKeys({ versionId, book, chapter, selectedVerses, verses });

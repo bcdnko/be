@@ -20,7 +20,7 @@ export function useBibleVimKeys({
   verses,
 }: Props): void {
   const { settings, updateSettings } = useSettingsContext();
-  const { copySelectedVerses } = useBibleClipboard(chapter, selectedVerses, verses, book);
+  const { copySelectedVerses } = useBibleClipboard({ chapter, selectedVerses, verses, book });
   const nav = useBibleNavigate({ versionId, chapter, book, verses });
 
   useEffect(() => {

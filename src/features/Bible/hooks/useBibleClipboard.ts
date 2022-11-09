@@ -1,12 +1,19 @@
 import { useMemo } from 'react';
 import { BibleBookStored, BibleVerse, IVerseSelection } from '../../../core/interfaces/Bible.interfaces';
 
-export function useBibleClipboard(
-  chapter: number,
-  selectedVerses: IVerseSelection,
-  verses?: BibleVerse[],
+type Props = {
+  chapter?: number,
   book?: BibleBookStored,
-) {
+  verses?: BibleVerse[],
+  selectedVerses: IVerseSelection,
+};
+
+export function useBibleClipboard({
+  chapter,
+  selectedVerses,
+  verses,
+  book,
+}: Props) {
   return useMemo(() => ({
     copySelectedVerses: function() {
       if (!verses || !book) {

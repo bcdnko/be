@@ -1,15 +1,21 @@
 import { ChapterSelector } from './ChapterSelector';
-import { PagetopChapterSelectorSkeleton } from './PagetopChapterSelectorSkeleton';
 import { IBibleChapterRef } from '../../../core/interfaces/Bible.interfaces';
 import './PagetopChapterSelector.scss';
+import {SimplePlaceholder} from '../../shared/atoms/SimplePlaceholder';
 
 type PagetopChapterSelectorProps = {
   chapterRef: IBibleChapterRef | null,
+}
+
+function Skeleton() {
+  return (<div className="chapterList">
+    <SimplePlaceholder xs={12} />
+  </div>);
 }
 
 export const PagetopChapterSelector: React.FC<PagetopChapterSelectorProps> =
   ({ chapterRef }) => {
     return chapterRef
       ? <ChapterSelector chapterRef={chapterRef} />
-      : <PagetopChapterSelectorSkeleton />;
+      : <Skeleton />
   };

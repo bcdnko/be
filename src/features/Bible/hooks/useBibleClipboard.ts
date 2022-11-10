@@ -1,22 +1,20 @@
 import { useMemo } from 'react';
-import { IBibleBookStored, IBibleVerse, IVerseSelection } from '../../../core/interfaces/Bible.interfaces';
+import { IBibleChapterRef, IBibleVerse, IVerseRange } from '../../../core/interfaces/Bible.interfaces';
 
 type Props = {
-  chapter?: number,
-  book?: IBibleBookStored,
-  verses?: IBibleVerse[],
-  selectedVerses: IVerseSelection,
+  chapterRef: IBibleChapterRef | null,
+  verses: IBibleVerse[] | null,
+  selectedVerses: IVerseRange,
 };
 
 export function useBibleClipboard({
-  chapter,
+  chapterRef,
   selectedVerses,
   verses,
-  book,
 }: Props) {
   return useMemo(() => ({
     copySelectedVerses: function() {
-      if (!verses || !book) {
+      if (!verses || !chapterRef) {
         alert('The chapter is still loading');
         return;
       }
@@ -38,12 +36,12 @@ export function useBibleClipboard({
         return versePrefix + prepareText(verse) + '\n\n';
       });
 
-      const reference = book.titleShort + ' ' + chapter + (mappedVerses.length === 1 ? ':' + selectedVerses[0] : '');
+      const reference = chapterRef.book.titleShort + ' ' + chapterRef.chapter + (mappedVerses.length === 1 ? ':' + selectedVerses[0] : '');
       const copy = text.join('') + reference;
 
       console.log(copy);
 
       navigator.clipboard.writeText(copy);
     }
-  }), [chapter, selectedVerses, verses, book]);
+  }), [chapterRef, selectedVerses, verses]);
 }

@@ -1,17 +1,10 @@
 import { useMemo } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { IBibleBookStored, IBibleVerse } from '../../../core/interfaces/Bible.interfaces';
+import { BibleBookId, BibleChapterId, BibleVerseId, BibleVersionId, IBibleBookStored, IBibleChapterRef, IBibleVerse } from '../../../core/interfaces/Bible.interfaces';
 import { isOffscreen } from '../../../core/util/htmlView';
 import { url } from '../../../core/util/url';
 
-type Props = {
-  versionId?: string,
-  chapter?: number,
-  book?: IBibleBookStored,
-  verses?: IBibleVerse[],
-};
-
-function chapterUrl(versionId: string, bookId: number, chapter: number): string {
+function chapterUrl(versionId: BibleVersionId, bookId: BibleBookId, chapter: BibleChapterId): string {
   return url([
    'bible',
     versionId,
@@ -20,40 +13,43 @@ function chapterUrl(versionId: string, bookId: number, chapter: number): string 
   ]);
 }
 
+type Props = {
+  chapterRef: IBibleChapterRef | null,
+  verses?: IBibleVerse[] | null,
+};
+
 export function useBibleNavigate({
-  versionId,
-  chapter,
-  book,
+  chapterRef,
   verses,
 }: Props) {
   const navigate = useNavigate();
 
   return useMemo(() => {
-    const goTo = (versionId: string, bookId: number, chapter: number) => {
+    const goTo = (versionId: BibleVersionId, bookId: BibleBookId, chapter: BibleChapterId) => {
       navigate(
         chapterUrl(versionId, bookId, chapter),
         { preventScrollReset: true}
       );
     };
 
-    const changeChapter = (chapter: number) => {
-      versionId && book && goTo(versionId, book.id, chapter);
+    const changeChapter = (chapter: BibleChapterId) => {
+      chapterRef && goTo(chapterRef.version.id, chapterRef.book.id, chapter);
     };
 
     const getPrevChapterUrl = (): string | null => {
-      if (!versionId || !book || !chapter || chapter <= 1) {
+      if (!chapterRef || chapterRef.chapter <= 1) {
         return null;
       }
 
-      return chapterUrl(versionId, book.id, chapter - 1);
+      return chapterUrl(chapterRef.version.id, chapterRef.book.id, chapterRef.chapter - 1);
     };
 
     const getNextChapterUrl = (): string | null => {
-      if (!versionId || !book || !chapter || chapter >= book.chapters) {
+      if (!chapterRef || chapterRef.chapter >= chapterRef.book.chapters) {
         return null;
       }
 
-      return chapterUrl(versionId, book.id, chapter + 1);
+      return chapterUrl(chapterRef.version.id, chapterRef.book.id, chapterRef.chapter + 1);
     };
 
     return {
@@ -73,32 +69,37 @@ export function useBibleNavigate({
         url && navigate(url, { preventScrollReset: true });
       },
 
-      changeActiveVerse: (no: number | null) => {
-        if (!verses) {
-          return;
-        }
-
-        if (!no) {
+      // TODO move outside
+      changeActiveVerse: (num: BibleVerseId | null) => {
+        if (num === null) {
           navigate('#', { preventScrollReset: true });
           return;
         }
 
-        if (no > verses.length) {
-          no = verses.length;
+        if (num <= 0) {
+          return;
         }
 
-        if (no < 1) {
-          no = 1;
+        if (!verses) {
+          return;
         }
 
-        navigate('#' + no, { preventScrollReset: true });
+        if (num > verses.length) {
+          num = verses.length;
+        }
 
-        const el = document.getElementById('v-' + no);
+        if (num < 1) {
+          num = 1;
+        }
+
+        navigate('#' + num, { preventScrollReset: true });
+
+        const el = document.getElementById('v-' + num);
 
         if (el && isOffscreen(el).any) {
           el.scrollIntoView({ block: 'center'});
         }
       },
     };
-  }, [navigate, versionId, book, chapter, verses]);
+  }, [navigate, chapterRef, verses]);
 }

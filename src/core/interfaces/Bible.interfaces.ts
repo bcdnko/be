@@ -6,6 +6,7 @@ export type BibleVersionId = string;
 export type BibleBookId = number;
 export type BibleBookAlias = string;
 export type BibleVerseId = number;
+export type BibleChapterId = number;
 export type TestamentId = 'old' | 'new';
 export type CrossVersionId = string;
 
@@ -76,4 +77,17 @@ export interface IStrongDictionary {
   [key: string]: IStrongWord;
 }
 
-export type IVerseSelection = number[];
+export type IVerseRange = number[];
+
+export interface IBibleBookRef {
+  version: IBibleVersion;
+  book: IBibleBook;
+}
+
+export interface IBibleChapterRef extends IBibleBookRef {
+  chapter: BibleChapterId;
+}
+
+export interface IBibleVersesRef extends IBibleChapterRef {
+  verses: IVerseRange;
+}

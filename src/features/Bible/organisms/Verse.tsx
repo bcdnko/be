@@ -1,7 +1,7 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useSettingsContext } from '../../../core/contexts/SettingsContext';
-import { IBibleTextToken, IBibleVerse, IVerseSelection } from '../../../core/interfaces/Bible.interfaces';
+import { IBibleTextToken, IBibleVerse, IVerseRange } from '../../../core/interfaces/Bible.interfaces';
 import { ISettings } from '../../../core/interfaces/common.interfaces';
 import { StrongWord } from '../../StrongDictionary/atom/StrongWord';
 import { VerseNumber } from '../atoms/VerseNumber';
@@ -9,7 +9,7 @@ import styles from './Verse.module.scss';
 
 type Props = {
   verse: IBibleVerse,
-  selectedVerses: IVerseSelection,
+  selectedVerses: IVerseRange,
   setStrongId: (strongId: string) => void,
 }
 

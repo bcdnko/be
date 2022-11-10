@@ -1,27 +1,23 @@
 import { useEffect } from 'react';
 import { useSettingsContext } from '../../../core/contexts/SettingsContext';
-import { IBibleBookStored, IBibleVerse, IVerseSelection } from '../../../core/interfaces/Bible.interfaces';
+import { IBibleChapterRef, IBibleVerse, IVerseRange } from '../../../core/interfaces/Bible.interfaces';
 import { useBibleClipboard } from './useBibleClipboard';
 import { useBibleNavigate } from './useBibleNavigate';
 
 type Props = {
-  versionId: string,
-  chapter: number,
-  selectedVerses: IVerseSelection,
-  book?: IBibleBookStored,
-  verses?: IBibleVerse[],
+  chapterRef: IBibleChapterRef | null,
+  verses: IBibleVerse[] | null,
+  selectedVerses: IVerseRange,
 };
 
 export function useBibleVimKeys({
-  versionId,
-  chapter,
-  selectedVerses,
-  book,
+  chapterRef,
   verses,
+  selectedVerses,
 }: Props): void {
   const { settings, updateSettings } = useSettingsContext();
-  const { copySelectedVerses } = useBibleClipboard({ chapter, selectedVerses, verses, book });
-  const nav = useBibleNavigate({ versionId, chapter, book, verses });
+  const { copySelectedVerses } = useBibleClipboard({ chapterRef, verses, selectedVerses });
+  const nav = useBibleNavigate({ chapterRef, verses });
 
   useEffect(() => {
     const keydownHandler = (e: KeyboardEvent) => {

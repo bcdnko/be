@@ -1,40 +1,36 @@
 import React  from 'react';
 import { Link } from 'react-router-dom';
-import { IBibleVersion } from '../../../core/interfaces/Bible.interfaces';
+import { IBibleChapterRef, IBibleVersion } from '../../../core/interfaces/Bible.interfaces';
 import { VersionSelectorSkeleton } from './VersionSelectorSkeleton';
 import { useBibleNavigate } from '../hooks/useBibleNavigate';
 import styles from './SideList.module.scss';
 
 type Props = {
-  versions?: IBibleVersion[],
-  versionId: string,
-  bookId: number,
-  chapter: number,
+  chapterRef: IBibleChapterRef | null,
+  versions: IBibleVersion[] | null,
 }
 
 export const VersionSelector: React.FC<Props> = ({
   versions,
-  versionId,
-  bookId,
-  chapter,
+  chapterRef,
 }) => {
-  const { chapterUrl } = useBibleNavigate({});
+  const { chapterUrl } = useBibleNavigate({ chapterRef });
 
   return (<section className={styles.sideList}>
     <strong>Bible Versions</strong>
 
-    {!versions && <VersionSelectorSkeleton />}
+    {(!versions || !chapterRef) && <VersionSelectorSkeleton />}
 
-    {versions &&
+    {(versions && chapterRef ) &&
       <ul>
         {versions.map(version => <li
           className={[
-            versionId === version.id ? styles.active: null,
+            chapterRef.version.id === version.id ? styles.active: null,
           ].join(' ')}
           key={version.id}
         >
           <Link
-            to={chapterUrl(version.id, bookId, chapter) + window.location.hash}
+            to={chapterUrl(version.id, chapterRef.book.id, chapterRef.chapter) + window.location.hash}
           >{version.title}</Link>
         </li>)}
       </ul>

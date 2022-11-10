@@ -3,7 +3,7 @@ import { useSettingsContext } from '../../../core/contexts/SettingsContext';
 import { PageHeader } from '../../shared/atoms/PageHeader';
 import { ChapterToolbar } from '../molecules/ChapterToolbar';
 import { Verse } from './Verse';
-import { IBibleBookStored, IBibleVerse, IVerseSelection } from '../../../core/interfaces/Bible.interfaces';
+import { IBibleChapterRef, IBibleVerse, IVerseRange } from '../../../core/interfaces/Bible.interfaces';
 import { PagetopChapterSelector } from '../molecules/PagetopChapterSelector';
 import { VersesSkeleton } from '../molecules/VersesSkeleton';
 import { PageSubHeader } from '../../shared/atoms/PageSubHeader';
@@ -15,15 +15,13 @@ import { useBibleVimKeys } from '../hooks/useBibleVimKeys';
 import styles from './Chapter.module.scss';
 
 type Props = {
-  versionId: string,
-  book?: IBibleBookStored,
-  chapter: number,
-  verses?: IBibleVerse[],
-  selectedVerses: IVerseSelection,
+  chapterRef: IBibleChapterRef | null,
+  verses: IBibleVerse[] | null,
+  selectedVerses: IVerseRange,
   setStrongId: (strongId: string) => void,
 }
 
-function scrollToTheFirstSelectedVerse(selectedVerses: IVerseSelection, verses: any) {
+function scrollToTheFirstSelectedVerse(selectedVerses: IVerseRange, verses: any) {
   if (!verses) {
     return;
   }
@@ -44,18 +42,16 @@ function scrollToTheFirstSelectedVerse(selectedVerses: IVerseSelection, verses: 
 }
 
 export const Chapter: React.FC<Props> = ({
-  versionId,
-  book,
-  chapter,
+  chapterRef,
   verses,
   selectedVerses,
   setStrongId,
 }) => {
   const { settings } = useSettingsContext();
-  const { copySelectedVerses } = useBibleClipboard({ chapter, selectedVerses, verses, book });
-  const nav = useBibleNavigate({ versionId, book, chapter, verses });
+  const { copySelectedVerses } = useBibleClipboard({ chapterRef, selectedVerses, verses });
+  const nav = useBibleNavigate({ chapterRef, verses });
 
-  useBibleVimKeys({ versionId, book, chapter, selectedVerses, verses });
+  useBibleVimKeys({ chapterRef, selectedVerses, verses });
 
   const prevChapterLink = nav.getPrevChapterUrl();
   const nextChapterLink = nav.getNextChapterUrl();
@@ -63,14 +59,10 @@ export const Chapter: React.FC<Props> = ({
   useEffect(() => {
     // TODO resolve dependency problem (can't depend on selectedVerses)
     scrollToTheFirstSelectedVerse(selectedVerses, verses);
-  }, [versionId, book, chapter, verses]);
+  }, [chapterRef, verses]);
 
   const chapters = settings.chapter.showChapterList
-    ? (<PagetopChapterSelector
-        versionId={versionId}
-        book={book}
-        chapter={chapter}
-      />)
+    ? (<PagetopChapterSelector chapterRef={chapterRef} />)
     : null;
 
   return (
@@ -78,8 +70,8 @@ export const Chapter: React.FC<Props> = ({
       <div className="scroll-anchor"></div>
 
       <ChapterToolbar
+        chapterRef={chapterRef}
         selectedVerses={selectedVerses}
-        book={book}
         copySelectedVerses={copySelectedVerses}
       />
 
@@ -98,20 +90,20 @@ export const Chapter: React.FC<Props> = ({
         <div className={['chapter', styles.content].join(' ')}>
           {chapters}
 
-          {!book && <ChapterSkeleton />}
+          {!chapterRef && <ChapterSkeleton />}
 
-          {book && (
+          {chapterRef && (
             <>
               <PageHeader>
-                {settings.chapter.fullBookHeader ? book.title : book.titleShort}
+                {settings.chapter.fullBookHeader ? chapterRef.book.title : chapterRef.book.titleShort}
               </PageHeader>
 
-              <PageSubHeader>Chapter {chapter}</PageSubHeader>
+              <PageSubHeader>Chapter {chapterRef.chapter}</PageSubHeader>
 
-              {(verses && book)
+              {(verses && chapterRef)
                 ? (verses.map(verse =>
                   <Verse
-                    key={`${versionId}_${book.id}_${chapter}_${verse.no}`}
+                    key={`${Object.values(chapterRef).join('_')}_${verse.no}`}
                     verse={verse}
                     selectedVerses={selectedVerses}
                     setStrongId={setStrongId}

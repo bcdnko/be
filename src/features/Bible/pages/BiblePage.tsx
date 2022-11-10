@@ -1,8 +1,10 @@
-import { useState } from 'react';
+import { useMemo, useState } from 'react';
 import { useQuery } from 'react-query';
 import { useParams } from 'react-router-dom';
+import { config } from '../../../config';
 import { fetchBibleBooks, fetchBibleVersions } from '../../../core/api/bible';
 import { fetchVerses } from '../../../core/api/bible/verse';
+import { BibleBookId, BibleChapterId, BibleVersionId, IBibleChapterRef } from '../../../core/interfaces/Bible.interfaces';
 import { getSelectedVersesFromHash } from '../../../core/service/VerseHighlightService';
 import { StandardLayout } from '../../shared/templates/StandardLayout';
 import { StrongCard } from '../../StrongDictionary/organisms/StrongCard';
@@ -20,9 +22,9 @@ export function BiblePage() {
   const params = useParams<RouteParams>();
   const selectedVerses = getSelectedVersesFromHash(window.location.hash);
 
-  const versionId = params.versionId || 'kjv';
-  const bookId = (params.bookId && parseInt(params.bookId)) || 1;
-  const chapter = (params.chapter && parseInt(params.chapter)) || 1;
+  const versionId: BibleVersionId = params.versionId || config.defaultVersionId;
+  const bookId: BibleBookId = (params.bookId && parseInt(params.bookId)) || 1;
+  const chapter: BibleChapterId = (params.chapter && parseInt(params.chapter)) || 1;
 
   const versionsQuery = useQuery('versions', fetchBibleVersions);
   const [strongId, setStrongId] = useState<string | null>(null);
@@ -42,9 +44,20 @@ export function BiblePage() {
     throw [versionsQuery.error, booksQuery.error, versesQuery.error].filter(e => e !== null);
   }
 
-  const book = (booksQuery.data && booksQuery.data.length)
-    ? booksQuery.data.find(b => b.id === bookId)
-    : undefined;
+  const versions = versionsQuery.data || null;
+  const books = booksQuery.data || null;
+  const verses = versesQuery.data || null;
+
+  const version = versionsQuery.data ? versionsQuery.data.find(v => v.id === versionId) : null;
+  const book = booksQuery.data ? booksQuery.data.find(b => b.id === bookId) || null : null;
+
+  const chapterRef: IBibleChapterRef | null = useMemo(() => {
+    return (version && book && chapter) ? {
+      version,
+      book,
+      chapter,
+    } : null;
+  }, [version, book, chapter]);
 
   return (
     <StandardLayout>
@@ -52,27 +65,21 @@ export function BiblePage() {
         leftSidebar: (
           <div>
             <VersionSelector
-              versions={versionsQuery.data}
-              versionId={versionId}
-              bookId={bookId}
-              chapter={chapter}
+              versions={versions}
+              chapterRef={chapterRef}
             />
 
             <BookSelector
-              books={booksQuery.data}
-              versionId={versionId}
-              bookId={bookId}
-              chapter={chapter}
+              books={books}
+              chapterRef={chapterRef}
             />
           </div>
         ),
         main: (
           <>
             <Chapter
-              versionId={versionId}
-              book={book}
-              chapter={chapter}
-              verses={versesQuery.data}
+              chapterRef={chapterRef}
+              verses={verses}
               selectedVerses={selectedVerses}
               setStrongId={setStrongId}
             />

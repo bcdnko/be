@@ -1,7 +1,7 @@
 import React, { useMemo }  from 'react';
 import { Link } from 'react-router-dom';
 import { useSettingsContext } from '../../../core/contexts/SettingsContext';
-import { BibleBooksByTestament, IBibleBookStored } from '../../../core/interfaces/Bible.interfaces';
+import { BibleBooksByTestament, IBibleBookStored, IBibleChapterRef } from '../../../core/interfaces/Bible.interfaces';
 import { SidebarChapterSelector } from '../molecules/SidebarChapterSelector';
 import { BookSelectorSkeleton } from './BookSelectorSkeleton';
 import { useBibleNavigate } from '../hooks/useBibleNavigate';
@@ -9,10 +9,8 @@ import styles from './BookSelector.module.scss';
 import listStyles from './SideList.module.scss';
 
 type Props = {
-  books?: IBibleBookStored[],
-  versionId: string,
-  bookId: number,
-  chapter: number,
+  chapterRef: IBibleChapterRef | null,
+  books: IBibleBookStored[] | null,
 }
 
 function groupBooksByTestament(books: IBibleBookStored[]): BibleBooksByTestament {
@@ -30,15 +28,13 @@ function groupBooksByTestament(books: IBibleBookStored[]): BibleBooksByTestament
 
 export const BookSelector: React.FC<Props> = ({
   books,
-  versionId,
-  bookId,
-  chapter,
+  chapterRef,
 }) => {
   const booksGrouped = useMemo(() => groupBooksByTestament(books || []), [books]);
   const { settings } = useSettingsContext();
-  const { chapterUrl } = useBibleNavigate({});
+  const { chapterUrl } = useBibleNavigate({ chapterRef });
 
-  if (!books) {
+  if (!books || !chapterRef) {
     return <BookSelectorSkeleton />;
   }
 
@@ -57,15 +53,13 @@ export const BookSelector: React.FC<Props> = ({
                 key={`${testament.title}_${book.id}`}
                 className={[
                   'sideListItem',
-                  bookId === book.id ? 'active ' + listStyles.active : null,
+                  chapterRef.book.id === book.id ? 'active ' + listStyles.active : null,
                 ].join(' ')}
               >
                 {settings.bookSelector.showChaptersDropDown && <SidebarChapterSelector
-                  versionId={versionId}
-                  book={book}
-                  chapter={chapter}
+                  chapterRef={chapterRef}
                 />}
-                <Link to={chapterUrl(versionId, book.id, 1)}>
+                <Link to={chapterUrl(chapterRef.version.id, book.id, 1)}>
                   {book.titleShort}
                 </Link>
 

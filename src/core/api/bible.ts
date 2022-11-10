@@ -1,4 +1,4 @@
-import { IBibleBookStored, IBibleVersion } from '../interfaces/Bible.interfaces';
+import { BibleVersionId, IBibleBook, IBibleVersion } from '../interfaces/Bible.interfaces';
 import { url } from '../util/url';
 
 export async function fetchBibleVersions(): Promise<IBibleVersion[]> {
@@ -7,8 +7,8 @@ export async function fetchBibleVersions(): Promise<IBibleVersion[]> {
 }
 
 export async function fetchBibleBooks(
-  versionId: string,
-): Promise<IBibleBookStored[]> {
+  versionId: BibleVersionId,
+): Promise<IBibleBook[]> {
   const fetchedBooks = await fetch(url([
     'bible',
     'versions',

@@ -1,4 +1,4 @@
-import {Placeholder} from "react-bootstrap";
+import { Placeholder } from "react-bootstrap";
 
 export function PagetopChapterSelectorSkeleton() {
   return (

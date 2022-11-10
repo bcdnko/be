@@ -1,12 +1,12 @@
 import React  from 'react';
 import { useNavigate } from 'react-router-dom';
-import { IVerseSelection } from '../../../core/interfaces/Bible.interfaces';
+import { BibleVerseId, IVerseRange } from '../../../core/interfaces/Bible.interfaces';
 import { selectionToHash, toggleVerse } from '../../../core/service/VerseHighlightService';
 import styles from './VerseNumber.module.scss';
 
 type Props = {
-  no: number,
-  selectedVerses: IVerseSelection,
+  no: BibleVerseId,
+  selectedVerses: IVerseRange,
   isSelected: boolean,
 }
 

@@ -2,12 +2,12 @@ import { Link } from 'react-router-dom';
 import { useSettingsContext } from '../../../core/contexts/SettingsContext';
 import { PageHeader } from '../../shared/atoms/PageHeader';
 import { ChapterToolbar } from '../molecules/ChapterToolbar';
-import { Verse } from './Verse';
+import { Verse } from '../molecules/Verse';
 import { IBibleChapterRef, IBibleVerse, IVerseRange } from '../../../core/interfaces/Bible.interfaces';
 import { PagetopChapterSelector } from '../molecules/PagetopChapterSelector';
 import { VersesSkeleton } from '../molecules/VersesSkeleton';
+import { SimplePlaceholder } from '../../shared/atoms/SimplePlaceholder';
 import { PageSubHeader } from '../../shared/atoms/PageSubHeader';
-import { ChapterSkeleton } from './ChapterSkeleton';
 import { useEffect } from 'react';
 import { useBibleClipboard } from '../hooks/useBibleClipboard';
 import { useBibleNavigate } from '../hooks/useBibleNavigate';
@@ -65,19 +65,23 @@ export const Chapter: React.FC<Props> = ({
     ? (<PagetopChapterSelector chapterRef={chapterRef} />)
     : null;
 
+  const bookHeader = chapterRef && (settings.chapter.fullBookHeader
+    ? chapterRef.book.title : chapterRef.book.titleShort);
+
+  const chapterHeader = chapterRef && (<>Chapter {chapterRef.chapter}</>);
+
   return (
     <>
       <div className="scroll-anchor"></div>
 
       <ChapterToolbar
         chapterRef={chapterRef}
+        verses={verses}
         selectedVerses={selectedVerses}
         copySelectedVerses={copySelectedVerses}
       />
 
-      <div style={{
-        display: 'flex',
-      }}>
+      <div className={styles.wrapper}>
         {
           (settings.chapter.hugePrevNextChapterBtns
           && prevChapterLink
@@ -90,28 +94,22 @@ export const Chapter: React.FC<Props> = ({
         <div className={['chapter', styles.content].join(' ')}>
           {chapters}
 
-          {!chapterRef && <ChapterSkeleton />}
+          <PageHeader>{bookHeader || <SimplePlaceholder xs={10} />}</PageHeader>
 
-          {chapterRef && (
-            <>
-              <PageHeader>
-                {settings.chapter.fullBookHeader ? chapterRef.book.title : chapterRef.book.titleShort}
-              </PageHeader>
+          <PageSubHeader>
+            {chapterHeader || <SimplePlaceholder xs={3} />}
+          </PageSubHeader>
 
-              <PageSubHeader>Chapter {chapterRef.chapter}</PageSubHeader>
-
-              {(verses && chapterRef)
-                ? (verses.map(verse =>
-                  <Verse
-                    key={`${Object.values(chapterRef).join('_')}_${verse.no}`}
-                    verse={verse}
-                    selectedVerses={selectedVerses}
-                    setStrongId={setStrongId}
-                  />))
-                : (<VersesSkeleton />)
-              }
-            </>
-          )}
+          {(verses && chapterRef)
+            ? (verses.map(verse =>
+              <Verse
+                key={`${Object.values(chapterRef).join('_')}_${verse.no}`}
+                verse={verse}
+                selectedVerses={selectedVerses}
+                setStrongId={setStrongId}
+              />))
+            : (<VersesSkeleton />)
+          }
 
           {chapters}
         </div>

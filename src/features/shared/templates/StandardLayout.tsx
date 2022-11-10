@@ -1,6 +1,6 @@
 import React, { ReactNode } from 'react';
 import { useSettingsContext } from '../../../core/contexts/SettingsContext';
-import { GoToTop } from '../organisms/GoToTop';
+import { GoToTop } from '../molecules/GoToTop';
 import { StandardFooter } from '../organisms/StandardFooter';
 import { StandardHeader } from '../organisms/StandardHeader'
 

@@ -4,6 +4,11 @@ import { IBibleChapterRef, IBibleVerse, IVerseRange } from '../../../core/interf
 import { useBibleClipboard } from './useBibleClipboard';
 import { useBibleNavigate } from './useBibleNavigate';
 
+interface KeyMap {
+  key: (e: KeyboardEvent) => boolean;
+  action: () => void;
+}
+
 type Props = {
   chapterRef: IBibleChapterRef | null,
   verses: IBibleVerse[] | null,
@@ -21,73 +26,80 @@ export function useBibleVimKeys({
 
   useEffect(() => {
     const keydownHandler = (e: KeyboardEvent) => {
-      if (!verses) {
+
+      if (!settings.chapter.vimKeys) {
         return;
       }
 
-      if (settings.chapter.vimKeys) {
-        if (e.key === 'Escape') {
-          nav.changeActiveVerse(null);
-        }
+      const currentVerseNumber = (selectedVerses[0] || 0);
 
-        const currentVerseNumber = (selectedVerses[0] || 0);
+      const keymap: KeyMap[] = [
+        {
+          key: (e) => e.key === 'Escape',
+          action: () => nav.changeActiveVerse(null),
+        },
+        {
+          key: (e) => e.key === 'j' || e.key === 'ArrowDown',
+          action: () => nav.changeActiveVerse(currentVerseNumber + 1),
+        },
+        {
+          key: (e) => e.key === 'k' || e.key === 'ArrowUp',
+          action: () => nav.changeActiveVerse(currentVerseNumber - 1),
+        },
+        {
+          key: (e) => e.key === 'h' || e.key === 'ArrowLeft',
+          action: () => nav.goToPrevChapter(),
+        },
+        {
+          key: (e) => e.key === 'l' || e.key === 'ArrowRight',
+          action: () => nav.goToNextChapter(),
+        },
+        {
+          key: (e) => e.key === 'b' && e.ctrlKey,
+          action: () => nav.changeActiveVerse(currentVerseNumber - 14),
+        },
+        {
+          key: (e) => e.key === 'f' && e.ctrlKey,
+          action: () => nav.changeActiveVerse(currentVerseNumber + 14),
+        },
+        {
+          key: (e) => e.key === 'u' && e.ctrlKey,
+          action: () => nav.changeActiveVerse(currentVerseNumber - 6),
+        },
+        {
+          key: (e) => e.key === 'd' && e.ctrlKey,
+          action: () => nav.changeActiveVerse(currentVerseNumber + 6),
+        },
+        {
+          key: (e) => e.key === 'g',
+          action: () => nav.changeActiveVerse(1),
+        },
+        {
+          key: (e) => e.key === 'G',
+          action: () => verses && nav.changeActiveVerse(verses.length),
+        },
 
-        if (e.key === 's') {
-          updateSettings(settings => {
+        {
+          key: (e) => e.key === 's',
+          action: () => updateSettings(settings => {
             settings.chapter.showStrong = !settings.chapter.showStrong;
             return settings;
-          });
-          e.preventDefault();
+          }),
+        },
+
+        {
+          key: (e) => e.key.toLowerCase() === 'y',
+          action: () => copySelectedVerses(),
+        },
+      ];
+
+      for (let entry of keymap) {
+        if(!entry.key(e)) {
+          continue;
         }
 
-        if (e.key === 'j' || e.key === 'ArrowDown') {
-          nav.changeActiveVerse(currentVerseNumber + 1);
-        }
-
-        if (e.key === 'k' || e.key === 'ArrowUp') {
-          nav.changeActiveVerse(currentVerseNumber - 1);
-        }
-
-        if (e.key === 'h' || e.key === 'ArrowLeft') {
-          nav.goToPrevChapter();
-        }
-
-        if (e.key === 'l' || e.key === 'ArrowRight') {
-          nav.goToNextChapter();
-        }
-
-        if (e.key === 'b' && e.ctrlKey) {
-          nav.changeActiveVerse(currentVerseNumber - 14);
-          e.preventDefault();
-        }
-
-        if (e.key === 'f' && e.ctrlKey) {
-          nav.changeActiveVerse(currentVerseNumber + 14);
-          e.preventDefault();
-        }
-
-        if (e.key === 'u' && e.ctrlKey) {
-          nav.changeActiveVerse(currentVerseNumber - 6);
-          e.preventDefault();
-        }
-
-        if (e.key === 'd' && e.ctrlKey) {
-          nav.changeActiveVerse(currentVerseNumber + 6);
-          e.preventDefault();
-        }
-
-        if (e.key.toLowerCase() === 'y') {
-          copySelectedVerses();
-          e.preventDefault();
-        }
-
-        if (e.key === 'g') {
-          nav.changeActiveVerse(1);
-        }
-
-        if (e.key === 'G') {
-          nav.changeActiveVerse(verses.length);
-        }
+        e.preventDefault();
+        entry.action();
       }
     };
 

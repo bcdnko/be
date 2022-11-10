@@ -41,10 +41,11 @@ export interface IBibleBookStored {
 export interface IBibleBook extends IBibleBookStored {
 }
 
-export type BibleBooksByTestament = {
+export type IBibleBooksByTestament = {
+  testament: 'old' | 'new';
   title: string;
-  books: IBibleBook[];
-}[];
+  books: (IBibleBook | null)[];
+};
 
 export interface IBibleVerseStored {
   id: BibleVerseId;
@@ -79,15 +80,9 @@ export interface IStrongDictionary {
 
 export type IVerseRange = number[];
 
-export interface IBibleBookRef {
+export interface IBibleChapterRef {
   version: IBibleVersion;
   book: IBibleBook;
-}
-
-export interface IBibleChapterRef extends IBibleBookRef {
   chapter: BibleChapterId;
 }
 
-export interface IBibleVersesRef extends IBibleChapterRef {
-  verses: IVerseRange;
-}

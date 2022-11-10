@@ -8,9 +8,9 @@ import { BibleBookId, BibleChapterId, BibleVersionId, IBibleChapterRef } from '.
 import { getSelectedVersesFromHash } from '../../../core/service/VerseHighlightService';
 import { StandardLayout } from '../../shared/templates/StandardLayout';
 import { StrongCard } from '../../StrongDictionary/organisms/StrongCard';
-import { BookSelector } from '../organisms/BookSelector';
+import { BookSelector } from '../molecules/BookSelector';
 import { Chapter } from '../organisms/Chapter';
-import { VersionSelector } from '../organisms/VersionSelector';
+import { VersionSelector } from '../molecules/VersionSelector';
 
 type RouteParams = {
   versionId?: string,
@@ -52,11 +52,7 @@ export function BiblePage() {
   const book = booksQuery.data ? booksQuery.data.find(b => b.id === bookId) || null : null;
 
   const chapterRef: IBibleChapterRef | null = useMemo(() => {
-    return (version && book && chapter) ? {
-      version,
-      book,
-      chapter,
-    } : null;
+    return (version && book && chapter) ? { version, book, chapter } : null;
   }, [version, book, chapter]);
 
   return (
@@ -65,6 +61,9 @@ export function BiblePage() {
         leftSidebar: (
           <div>
             <VersionSelector
+              currentVersionId={versionId}
+              currentBookId={bookId}
+              currentChapter={chapter}
               versions={versions}
               chapterRef={chapterRef}
             />

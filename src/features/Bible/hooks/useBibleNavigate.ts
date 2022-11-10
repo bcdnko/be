@@ -1,6 +1,6 @@
 import { useMemo } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { BibleBookId, BibleChapterId, BibleVerseId, BibleVersionId, IBibleBookStored, IBibleChapterRef, IBibleVerse } from '../../../core/interfaces/Bible.interfaces';
+import { BibleBookId, BibleChapterId, BibleVerseId, BibleVersionId, IBibleChapterRef, IBibleVerse } from '../../../core/interfaces/Bible.interfaces';
 import { isOffscreen } from '../../../core/util/htmlView';
 import { url } from '../../../core/util/url';
 
@@ -15,7 +15,7 @@ function chapterUrl(versionId: BibleVersionId, bookId: BibleBookId, chapter: Bib
 
 type Props = {
   chapterRef: IBibleChapterRef | null,
-  verses?: IBibleVerse[] | null,
+  verses?: IBibleVerse[] | null, // TODO move outside
 };
 
 export function useBibleNavigate({

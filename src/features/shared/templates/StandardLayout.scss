@@ -79,6 +79,10 @@ main, .leftSidebar, .rightSidebar {
     overflow-y: auto;
     overflow-x: auto;
   }
+
+  main {
+    border: none;
+  }
 }
 
 .leftSidebar, .rightSidebar {

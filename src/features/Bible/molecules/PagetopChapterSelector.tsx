@@ -1,7 +1,7 @@
 import { ChapterSelector } from './ChapterSelector';
 import { IBibleChapterRef } from '../../../core/interfaces/Bible.interfaces';
+import { SimplePlaceholder } from '../../shared/atoms/SimplePlaceholder';
 import './PagetopChapterSelector.scss';
-import {SimplePlaceholder} from '../../shared/atoms/SimplePlaceholder';
 
 type PagetopChapterSelectorProps = {
   chapterRef: IBibleChapterRef | null,

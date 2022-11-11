@@ -100,15 +100,15 @@ export const Chapter: React.FC<Props> = ({
             {chapterHeader || <SimplePlaceholder xs={3} />}
           </PageSubHeader>
 
-          {(verses && chapterRef)
-            ? (verses.map(verse =>
+          {!(verses && chapterRef)
+            ? <VersesSkeleton />
+            : (verses.map(verse =>
               <Verse
                 key={`${Object.values(chapterRef).join('_')}_${verse.no}`}
                 verse={verse}
                 selectedVerses={selectedVerses}
                 setStrongId={setStrongId}
               />))
-            : (<VersesSkeleton />)
           }
 
           {chapters}

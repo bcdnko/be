@@ -1,6 +1,7 @@
 import React  from 'react';
 import { Placeholder } from 'react-bootstrap';
 import { useQuery } from 'react-query';
+import { config } from '../../../config';
 import { fetchStrongWord } from '../../../core/api/strong';
 import { useSettingsContext } from '../../../core/contexts/SettingsContext';
 
@@ -23,7 +24,7 @@ export const StrongCard: React.FC<Props> = ({
   strongId,
 }) => {
   const { settings } = useSettingsContext();
-  const dictionaryId = settings.chapter.defaultDictionaryId;
+  const dictionaryId = settings.general.defaultDictionaryId || config.defaultDictionaryId;
 
   const query = useQuery(
     [dictionaryId, strongId],

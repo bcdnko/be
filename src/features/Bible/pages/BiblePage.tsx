@@ -11,6 +11,7 @@ import { StrongCard } from '../../StrongDictionary/organisms/StrongCard';
 import { BookSelector } from '../molecules/BookSelector';
 import { Chapter } from '../organisms/Chapter';
 import { VersionSelector } from '../molecules/VersionSelector';
+import { useSettingsContext } from '../../../core/contexts/SettingsContext';
 
 type RouteParams = {
   versionId?: string,
@@ -20,9 +21,11 @@ type RouteParams = {
 
 export function BiblePage() {
   const params = useParams<RouteParams>();
+  const { settings } = useSettingsContext();
+
   const selectedVerses = getSelectedVersesFromHash(window.location.hash);
 
-  const versionId: BibleVersionId = params.versionId || config.defaultVersionId;
+  const versionId: BibleVersionId = params.versionId || settings.general.defaultBibleVersionId || config.defaultVersionId;
   const bookId: BibleBookId = (params.bookId && parseInt(params.bookId)) || 1;
   const chapter: BibleChapterId = (params.chapter && parseInt(params.chapter)) || 1;
 

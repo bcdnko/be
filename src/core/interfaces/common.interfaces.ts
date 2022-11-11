@@ -15,7 +15,6 @@ export interface IChapterSettings {
   highlightJesusWords: boolean;
   hugePrevNextChapterBtns: boolean;
   vimKeys: boolean;
-  defaultDictionaryId: string;
 }
 
 export interface IBookSelectorSettings {
@@ -26,6 +25,8 @@ export interface ISettings {
   version: number;
   general: {
     showGoToTopButton: boolean,
+    defaultBibleVersionId: BibleVersionId,
+    defaultDictionaryId: string,
   };
   chapter: IChapterSettings;
   bookSelector: IBookSelectorSettings;

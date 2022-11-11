@@ -8,6 +8,9 @@ export const defaultSettings: ISettings = {
   version: 1,
   general: {
     showGoToTopButton: true,
+
+    defaultBibleVersionId: config.defaultVersionId,
+    defaultDictionaryId: config.defaultDictionaryId,
   },
   chapter: {
     showVerseNumber: true,
@@ -17,8 +20,6 @@ export const defaultSettings: ISettings = {
     showStrong: false,
     highlightJesusWords: true,
     hugePrevNextChapterBtns: true,
-
-    defaultDictionaryId: config.defaultDictionaryId,
 
     vimKeys: false,
   },

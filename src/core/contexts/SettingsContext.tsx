@@ -1,4 +1,5 @@
 import React from 'react';
+import { config } from '../../config';
 import { useLocalStorage } from '../hooks/useLocalStorage';
 import { ISettings } from '../interfaces/common.interfaces';
 import { cloneDeepJson } from '../util/serialization';
@@ -16,6 +17,8 @@ export const defaultSettings: ISettings = {
     showStrong: false,
     highlightJesusWords: true,
     hugePrevNextChapterBtns: true,
+
+    defaultDictionaryId: config.defaultDictionaryId,
 
     vimKeys: false,
   },

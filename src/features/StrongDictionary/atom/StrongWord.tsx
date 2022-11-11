@@ -1,4 +1,5 @@
 import React  from 'react';
+import styles from './StrongWord.module.scss';
 
 type Props = {
   strongId: string,
@@ -10,8 +11,11 @@ export const StrongWord: React.FC<Props> = ({
   onClick,
 }) => {
   return (
-    <span onClick={onClick} style={{ cursor: 'pointer' }}>
-      {' '}{strongId}
-    </span>
+    <>
+      {' '}
+      <span className={styles.word} onClick={onClick}>
+        {strongId}
+      </span>
+    </>
   );
 }

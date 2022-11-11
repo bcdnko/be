@@ -32,7 +32,9 @@ function markersToClassNames(markers?: string[]) {
 function highlightedClassNames(settings: ISettings): string {
   return [
     settings.chapter.highlightJesusWords ? styles.highlightJesusWords : '',
-  ].join(' ');
+  ]
+    .filter(c => !!c)
+    .join(' ');
 }
 
 export const Verse: React.FC<Props> = ({
@@ -43,20 +45,20 @@ export const Verse: React.FC<Props> = ({
   const { settings } = useSettingsContext();
   const navigate = useNavigate();
 
-  const mapToken = (token: IBibleTextToken) => {
-    if (token.type === 'word') {
-      return <>{token.text}</>;
-    } else if (token.type === 'punctuation') {
-      return <>{token.text}</>;
+  const mapToken = (token: IBibleTextToken, key: number) => {
+    const classNames = markersToClassNames(token.markers);
+
+    if (['word', 'punctuation'].includes(token.type)) {
+      return <span key={key} className={classNames}>{token.text}</span>;
     } else if (token.type === 'strong') {
       const strongId = token.text;
       const handleClick = () => setStrongId(strongId);
 
       return settings.chapter.showStrong
-        ? <StrongWord strongId={strongId} onClick={handleClick} />
+        ? <StrongWord key={key} strongId={strongId} onClick={handleClick} />
         : null;
     } else if (token.type === 'space') {
-      return <>{' '}</>;
+      return <React.Fragment key={key}>{' '}</React.Fragment>;
     }
 
     return <>UNKNOWN TOKEN</>;
@@ -78,25 +80,16 @@ export const Verse: React.FC<Props> = ({
         );
       }}
     >
-      <span className="content" style={{ display: 'flex' }}>
-        {settings.chapter.showVerseNumber &&
-          <VerseNumber
-            no={verse.no}
-            selectedVerses={selectedVerses}
-            isSelected={isSelected}
-          />
-        }
+      {settings.chapter.showVerseNumber &&
+        <VerseNumber
+          no={verse.no}
+          selectedVerses={selectedVerses}
+          isSelected={isSelected}
+        />
+      }
 
-        <span>
-          {verse.textParsed.map((token, i) =>
-            <span
-              key={i}
-              className={markersToClassNames(token.markers)}
-            >
-              {mapToken(token)}
-            </span>
-          )}
-        </span>
+      <span>
+        {verse.textParsed.map((token, i) => mapToken(token, i))}
       </span>
     </p>
   );

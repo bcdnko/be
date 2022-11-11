@@ -4,6 +4,7 @@ export interface Config {
   projectName: string;
   defaultVersionId: BibleVersionId;
   defaultLanguage: string;
+  defaultDictionaryId: string;
 }
 
 export interface IChapterSettings {
@@ -14,6 +15,7 @@ export interface IChapterSettings {
   highlightJesusWords: boolean;
   hugePrevNextChapterBtns: boolean;
   vimKeys: boolean;
+  defaultDictionaryId: string;
 }
 
 export interface IBookSelectorSettings {

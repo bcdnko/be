@@ -1,0 +1,11 @@
+@import "../../../variables.scss";
+
+.word {
+  cursor: pointer;
+  color: $link-color;
+  font-size: .8em;
+}
+
+.word:hover {
+  text-decoration: underline;
+}

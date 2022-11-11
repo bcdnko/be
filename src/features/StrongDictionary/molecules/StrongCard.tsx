@@ -1,4 +1,4 @@
-import React  from 'react';
+import React from 'react';
 import { CloseButton, Placeholder } from 'react-bootstrap';
 import { useQuery } from 'react-query';
 import { config } from '../../../config';
@@ -50,6 +50,23 @@ export const StrongCard: React.FC<Props> = ({
     return <>Something went wrong</>;
   };
 
+  const handleClick = (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
+    const target = e.target as HTMLElement;
+
+    if (target.tagName.toLowerCase() !== 'a') {
+      return;
+    }
+
+    const href = target.getAttribute('href');
+    console.log(href && href.substring(0, 2))
+    if (!href || href.substring(0, 2) !== 'S:') {
+      return;
+    }
+
+    e.preventDefault();
+    setStrongId(href.substring(2));
+  };
+
   return (
     <div className="card" style={{
       boxShadow: '2px 2px 4px 0 rgba(0, 0, 0, 0.1)',
@@ -62,7 +79,7 @@ export const StrongCard: React.FC<Props> = ({
           onClick={() => setStrongId(null)}
         />
       </div>
-      <div className="card-body">
+      <div className="card-body" onClick={handleClick}>
         {cardContent()}
       </div>
     </div>

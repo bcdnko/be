@@ -7,7 +7,7 @@ import { fetchVerses } from '../../../core/api/bible/verse';
 import { BibleBookId, BibleChapterId, BibleVersionId, IBibleChapterRef } from '../../../core/interfaces/Bible.interfaces';
 import { getSelectedVersesFromHash } from '../../../core/service/VerseHighlightService';
 import { StandardLayout } from '../../shared/templates/StandardLayout';
-import { StrongCard } from '../../StrongDictionary/organisms/StrongCard';
+import { StrongCard } from '../../StrongDictionary/molecules/StrongCard';
 import { BookSelector } from '../molecules/BookSelector';
 import { Chapter } from '../organisms/Chapter';
 import { VersionSelector } from '../molecules/VersionSelector';
@@ -89,7 +89,12 @@ export function BiblePage() {
         ),
         rightSidebar: (
           <>
-            {strongId && <StrongCard strongId={strongId} />}
+            {strongId &&
+              <StrongCard
+                strongId={strongId}
+                setStrongId={setStrongId}
+              />
+            }
           </>
         ),
       }}

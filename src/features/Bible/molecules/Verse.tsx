@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { useSettingsContext } from '../../../core/contexts/SettingsContext';
 import { IBibleTextToken, IBibleVerse, IVerseRange } from '../../../core/interfaces/Bible.interfaces';
 import { ISettings } from '../../../core/interfaces/common.interfaces';
-import { StrongWord } from '../../StrongDictionary/atom/StrongWord';
+import { StrongWord } from '../../StrongDictionary/atoms/StrongWord';
 import { VerseNumber } from '../atoms/VerseNumber';
 import styles from './Verse.module.scss';
 

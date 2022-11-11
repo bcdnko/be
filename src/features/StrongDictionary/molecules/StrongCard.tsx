@@ -1,5 +1,5 @@
 import React  from 'react';
-import { Placeholder } from 'react-bootstrap';
+import { CloseButton, Placeholder } from 'react-bootstrap';
 import { useQuery } from 'react-query';
 import { config } from '../../../config';
 import { fetchStrongWord } from '../../../core/api/strong';
@@ -18,10 +18,12 @@ function Skeleton() {
 
 type Props = {
   strongId: string,
+  setStrongId: (strongId: string | null) => void;
 }
 
 export const StrongCard: React.FC<Props> = ({
   strongId,
+  setStrongId,
 }) => {
   const { settings } = useSettingsContext();
   const dictionaryId = settings.general.defaultDictionaryId || config.defaultDictionaryId;
@@ -52,7 +54,14 @@ export const StrongCard: React.FC<Props> = ({
     <div className="card" style={{
       boxShadow: '2px 2px 4px 0 rgba(0, 0, 0, 0.1)',
     }}>
-      <div className="card-header">Strong's Dictionary</div>
+      <div className="card-header">
+        <span>Strong's Dictionary</span>
+
+        <CloseButton
+          className="btn-close float-end"
+          onClick={() => setStrongId(null)}
+        />
+      </div>
       <div className="card-body">
         {cardContent()}
       </div>

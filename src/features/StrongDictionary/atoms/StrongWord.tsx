@@ -13,7 +13,10 @@ export const StrongWord: React.FC<Props> = ({
   return (
     <>
       {' '}
-      <span className={styles.word} onClick={onClick}>
+      <span
+        className={`${styles.word} link-primary`}
+        onClick={onClick}
+      >
         {strongId}
       </span>
     </>

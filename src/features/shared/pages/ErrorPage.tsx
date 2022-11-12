@@ -1,10 +1,10 @@
-import { StandardLayout } from '../templates/StandardLayout';
+import { TextPageLayout } from '../templates/TextPageLayout';
 import { PageHeader } from '../atoms/PageHeader';
 import { TakeMeHomeButton } from '../atoms/buttons/TakeMeHome';
 import { ReportIssueButton } from '../atoms/buttons/ReportIssue';
 
 export function ErrorPage() {
-  return (<StandardLayout>
+  return (<TextPageLayout>
     {{
       main: (
         <>
@@ -19,5 +19,5 @@ export function ErrorPage() {
         </>
       ),
     }}
-  </StandardLayout>);
+  </TextPageLayout>);
 }

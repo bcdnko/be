@@ -6,7 +6,7 @@ import { StandardHeader } from '../organisms/StandardHeader'
 
 import './StandardLayout.scss';
 
-type Props = {
+export type StandardLayoutProps = {
   children: {
     main: ReactNode,
     leftSidebar?: ReactNode,
@@ -14,27 +14,29 @@ type Props = {
   },
 }
 
-export const StandardLayout: React.FC<Props> = ({
+export const StandardLayout: React.FC<StandardLayoutProps> = ({
   children,
 }) => {
   const { settings } = useSettingsContext();
 
-  return (<div className="be-container">
-    <StandardHeader />
+  return (
+    <div className="be-container">
+      <StandardHeader />
 
-    <aside className="leftSidebar">
-      {children.leftSidebar}
-    </aside>
+      <aside className="leftSidebar">
+        {children.leftSidebar}
+      </aside>
 
-    <main>
-      {children.main}
-      {settings.general.showGoToTopButton && <GoToTop />}
-    </main>
+      <main>
+        {children.main}
+        {settings.general.showGoToTopButton && <GoToTop />}
+      </main>
 
-    <aside className="rightSidebar">
-      {children.rightSidebar}
-    </aside>
+      <aside className="rightSidebar">
+        {children.rightSidebar}
+      </aside>
 
-    <StandardFooter />
-  </div>);
+      <StandardFooter />
+    </div>
+  );
 }

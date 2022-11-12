@@ -82,6 +82,7 @@ main, .leftSidebar, .rightSidebar {
 
   main {
     border: none;
+    box-shadow: none;
   }
 }
 
@@ -106,6 +107,5 @@ main, .leftSidebar, .rightSidebar {
 
 footer {
   grid-area: footer;
-  border-top: 1px solid silver;
   background: white;
 }

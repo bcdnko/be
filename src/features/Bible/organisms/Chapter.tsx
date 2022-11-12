@@ -68,7 +68,11 @@ export const Chapter: React.FC<Props> = ({
   const bookHeader = chapterRef && (settings.chapter.fullBookHeader
     ? chapterRef.book.title : chapterRef.book.titleShort);
 
-  const chapterHeader = chapterRef && (<>Chapter {chapterRef.chapter}</>);
+  const chapterHeader = chapterRef && (
+    <>
+      {chapterRef.book.chapterTitle || 'Chapter'} {chapterRef.chapter}
+    </>
+  );
 
   return (
     <>

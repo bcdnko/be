@@ -48,7 +48,7 @@ a.chapterNav:hover {
     margin-bottom: $heading-vertical-spacer;
   }
 
-  @media(max-width: map.get($grid-breakpoints, "sm")) {
+  @media(max-width: map.get($grid-breakpoints, "md")) {
     h1, h2 {
       margin: 1rem 0;
     }

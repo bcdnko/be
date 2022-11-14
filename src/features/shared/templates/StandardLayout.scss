@@ -24,36 +24,6 @@ body {
   width: 100%;
 }
 
-@media(max-width: map.get($grid-breakpoints, "lg")) {
-  .be-container {
-    grid-template-columns: min-content 2fr 1fr;
-  }
-}
-
-@media(max-width: map.get($grid-breakpoints, "md")) {
-  .be-container {
-    grid-template-columns: 0 2fr 1fr;
-    grid-template-areas:
-      "header header header"
-      "left-sidebar main right-sidebar"
-      "footer footer footer";
-  }
-}
-
-@media(max-width: map.get($grid-breakpoints, "sm")) {
-  .be-container {
-    height: auto;
-    grid-template-columns: 1fr;
-    grid-template-rows: auto;
-    grid-template-areas:
-      "header"
-      "main"
-      "left-sidebar"
-      "right-sidebar"
-      "footer";
-  }
-}
-
 main {
   grid-area: main;
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
@@ -74,27 +44,9 @@ main, .leftSidebar, .rightSidebar {
   overflow-x: hidden;
 }
 
-@media(max-width: map.get($grid-breakpoints, "sm")) {
-  main, .leftSidebar, .rightSidebar {
-    overflow-y: unset;
-    overflow-x: unset;
-  }
-
-  main {
-    border: none;
-    box-shadow: none;
-  }
-}
-
 .leftSidebar, .rightSidebar {
   padding: 0 1rem;
   padding-top: 2rem;
-}
-
-@media(max-width: map.get($grid-breakpoints, "md")) {
-  .leftSidebar {
-    padding: 0;
-  }
 }
 
 .leftSidebar {
@@ -109,3 +61,35 @@ footer {
   grid-area: footer;
   background: white;
 }
+
+@media(max-width: map.get($grid-breakpoints, "lg")) {
+  .be-container {
+    grid-template-columns: min-content 2fr 1fr;
+  }
+}
+
+@media(max-width: map.get($grid-breakpoints, "md")) {
+  .be-container {
+    height: auto;
+    grid-template-columns: 1fr;
+    grid-template-rows: auto;
+    grid-template-areas:
+      "header"
+      "main"
+      "left-sidebar"
+      "right-sidebar"
+      "footer";
+  }
+
+  main, .leftSidebar, .rightSidebar {
+    overflow-y: unset;
+    overflow-x: unset;
+  }
+
+  main {
+    border: none;
+    box-shadow: none;
+  }
+
+}
+

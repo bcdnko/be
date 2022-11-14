@@ -32,7 +32,7 @@
     }
   }
 
-  @media(max-width: map.get($grid-breakpoints, "sm")) {
+  @media(max-width: map.get($grid-breakpoints, "md")) {
     .logo {
       flex-grow: 1;
     }

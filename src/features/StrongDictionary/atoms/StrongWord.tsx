@@ -1,15 +1,12 @@
-import React  from 'react';
+import React from 'react';
 import styles from './StrongWord.module.scss';
 
 type Props = {
-  strongId: string,
-  onClick: () => void,
-}
+  strongId: string;
+  onClick: () => void;
+};
 
-export const StrongWord: React.FC<Props> = ({
-  strongId,
-  onClick,
-}) => {
+export const StrongWord: React.FC<Props> = ({ strongId, onClick }) => {
   return (
     <>
       {' '}
@@ -21,4 +18,4 @@ export const StrongWord: React.FC<Props> = ({
       </span>
     </>
   );
-}
+};

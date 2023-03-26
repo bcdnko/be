@@ -1,6 +1,4 @@
-import {
-  LanguageId,
-} from './Language.interfaces';
+import { LanguageId } from './Language.interfaces';
 
 export type BibleVersionId = string;
 export type BibleBookId = number;
@@ -22,8 +20,7 @@ export interface IBibleVersionStored {
   strongId?: string;
 }
 
-export interface IBibleVersion extends IBibleVersionStored {
-}
+export interface IBibleVersion extends IBibleVersionStored {}
 
 export interface IBibleBookStored {
   id: BibleBookId;
@@ -38,8 +35,7 @@ export interface IBibleBookStored {
   aliases: BibleBookAlias[];
 }
 
-export interface IBibleBook extends IBibleBookStored {
-}
+export interface IBibleBook extends IBibleBookStored {}
 
 export type IBibleBooksByTestament = {
   testament: 'old' | 'new';
@@ -85,4 +81,3 @@ export interface IBibleChapterRef {
   book: IBibleBook;
   chapter: BibleChapterId;
 }
-

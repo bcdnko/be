@@ -26,7 +26,9 @@ function saveWordDict(strongId, wordId, dict: IStrongDictionary): void {
   try {
     const args = parseArguments();
     if (!args['id'] || typeof args['id'] !== 'string' || !args['id'].length) {
-      throw new Error('Strong ID was not provided. Please specify it by using -id ID');
+      throw new Error(
+        'Strong ID was not provided. Please specify it by using -id ID'
+      );
     }
 
     const strongId = args['id'];
@@ -42,9 +44,9 @@ function saveWordDict(strongId, wordId, dict: IStrongDictionary): void {
     let word;
     let dict: IStrongDictionary = {};
 
-    while (word = await parser.parseStrong()) {
+    while ((word = await parser.parseStrong())) {
       dict[word.id] = word;
-      saveWordDict(strongId, word.id, word)
+      saveWordDict(strongId, word.id, word);
     }
 
     saveDict(strongId, dict);

@@ -1,6 +1,10 @@
 import { useEffect } from 'react';
 import { useSettingsContext } from '../../../core/contexts/SettingsContext';
-import { IBibleChapterRef, IBibleVerse, IVerseRange } from '../../../core/interfaces/Bible.interfaces';
+import {
+  IBibleChapterRef,
+  IBibleVerse,
+  IVerseRange,
+} from '../../../core/interfaces/Bible.interfaces';
 import { useBibleClipboard } from './useBibleClipboard';
 import { useBibleNavigate } from './useBibleNavigate';
 
@@ -10,9 +14,9 @@ interface KeyMap {
 }
 
 type Props = {
-  chapterRef: IBibleChapterRef | null,
-  verses: IBibleVerse[] | null,
-  selectedVerses: IVerseRange,
+  chapterRef: IBibleChapterRef | null;
+  verses: IBibleVerse[] | null;
+  selectedVerses: IVerseRange;
 };
 
 export function useBibleVimKeys({
@@ -21,17 +25,20 @@ export function useBibleVimKeys({
   selectedVerses,
 }: Props): void {
   const { settings, updateSettings } = useSettingsContext();
-  const { copySelectedVerses } = useBibleClipboard({ chapterRef, verses, selectedVerses });
+  const { copySelectedVerses } = useBibleClipboard({
+    chapterRef,
+    verses,
+    selectedVerses,
+  });
   const nav = useBibleNavigate({ chapterRef, verses });
 
   useEffect(() => {
     const keydownHandler = (e: KeyboardEvent) => {
-
       if (!settings.chapter.vimKeys) {
         return;
       }
 
-      const currentVerseNumber = (selectedVerses[0] || 0);
+      const currentVerseNumber = selectedVerses[0] || 0;
 
       const keymap: KeyMap[] = [
         {
@@ -81,10 +88,11 @@ export function useBibleVimKeys({
 
         {
           key: (e) => e.key === 's',
-          action: () => updateSettings(settings => {
-            settings.chapter.showStrong = !settings.chapter.showStrong;
-            return settings;
-          }),
+          action: () =>
+            updateSettings((settings) => {
+              settings.chapter.showStrong = !settings.chapter.showStrong;
+              return settings;
+            }),
         },
 
         {
@@ -94,7 +102,7 @@ export function useBibleVimKeys({
       ];
 
       for (let entry of keymap) {
-        if(!entry.key(e)) {
+        if (!entry.key(e)) {
           continue;
         }
 
@@ -108,5 +116,12 @@ export function useBibleVimKeys({
     return () => {
       document.removeEventListener('keydown', keydownHandler);
     };
-  }, [copySelectedVerses, nav, selectedVerses, settings, updateSettings, verses]);
+  }, [
+    copySelectedVerses,
+    nav,
+    selectedVerses,
+    settings,
+    updateSettings,
+    verses,
+  ]);
 }

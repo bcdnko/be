@@ -1,14 +1,20 @@
-import React  from 'react';
+import React from 'react';
 import { useNavigate } from 'react-router-dom';
-import { BibleVerseId, IVerseRange } from '../../../core/interfaces/Bible.interfaces';
-import { selectionToHash, toggleVerse } from '../../../core/service/VerseHighlightService';
+import {
+  BibleVerseId,
+  IVerseRange,
+} from '../../../core/interfaces/Bible.interfaces';
+import {
+  selectionToHash,
+  toggleVerse,
+} from '../../../core/service/VerseHighlightService';
 import styles from './VerseNumber.module.scss';
 
 type Props = {
-  no: BibleVerseId,
-  selectedVerses: IVerseRange,
-  isSelected: boolean,
-}
+  no: BibleVerseId;
+  selectedVerses: IVerseRange;
+  isSelected: boolean;
+};
 
 export const VerseNumber: React.FC<Props> = ({
   no,
@@ -24,12 +30,14 @@ export const VerseNumber: React.FC<Props> = ({
         onMouseDown={(e) => {
           navigate(
             selectionToHash(toggleVerse(selectedVerses, no, !isSelected)),
-            { preventScrollReset: true },
+            { preventScrollReset: true }
           );
           e.stopPropagation();
         }}
-      >{no}</span>
+      >
+        {no}
+      </span>
       &nbsp;
     </>
   );
-}
+};

@@ -15,7 +15,7 @@ export abstract class BibleParser {
 
   constructor(dataPath, parserPath) {
     if (!fs.existsSync(dataPath)) {
-      throw new Error('Path doesn\'t exit: ' + dataPath);
+      throw new Error(`Path doesn't exit: ${dataPath}`);
     }
 
     this._path = dataPath;

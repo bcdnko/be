@@ -1,35 +1,41 @@
 import { useMemo } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { BibleBookId, BibleChapterId, BibleVerseId, BibleVersionId, IBibleChapterRef, IBibleVerse } from '../../../core/interfaces/Bible.interfaces';
+import {
+  BibleBookId,
+  BibleChapterId,
+  BibleVerseId,
+  BibleVersionId,
+  IBibleChapterRef,
+  IBibleVerse,
+} from '../../../core/interfaces/Bible.interfaces';
 import { isOffscreen } from '../../../core/util/htmlView';
 import { url } from '../../../core/util/url';
 
-function chapterUrl(versionId: BibleVersionId, bookId: BibleBookId, chapter: BibleChapterId): string {
-  return url([
-   'bible',
-    versionId,
-    bookId.toString(),
-    chapter.toString(),
-  ]);
+function chapterUrl(
+  versionId: BibleVersionId,
+  bookId: BibleBookId,
+  chapter: BibleChapterId
+): string {
+  return url(['bible', versionId, bookId.toString(), chapter.toString()]);
 }
 
 type Props = {
-  chapterRef: IBibleChapterRef | null,
-  verses?: IBibleVerse[] | null, // TODO move outside
+  chapterRef: IBibleChapterRef | null;
+  verses?: IBibleVerse[] | null; // TODO move outside
 };
 
-export function useBibleNavigate({
-  chapterRef,
-  verses,
-}: Props) {
+export function useBibleNavigate({ chapterRef, verses }: Props) {
   const navigate = useNavigate();
 
   return useMemo(() => {
-    const goTo = (versionId: BibleVersionId, bookId: BibleBookId, chapter: BibleChapterId) => {
-      navigate(
-        chapterUrl(versionId, bookId, chapter),
-        { preventScrollReset: true}
-      );
+    const goTo = (
+      versionId: BibleVersionId,
+      bookId: BibleBookId,
+      chapter: BibleChapterId
+    ) => {
+      navigate(chapterUrl(versionId, bookId, chapter), {
+        preventScrollReset: true,
+      });
     };
 
     const changeChapter = (chapter: BibleChapterId) => {
@@ -41,7 +47,11 @@ export function useBibleNavigate({
         return null;
       }
 
-      return chapterUrl(chapterRef.version.id, chapterRef.book.id, chapterRef.chapter - 1);
+      return chapterUrl(
+        chapterRef.version.id,
+        chapterRef.book.id,
+        chapterRef.chapter - 1
+      );
     };
 
     const getNextChapterUrl = (): string | null => {
@@ -49,7 +59,11 @@ export function useBibleNavigate({
         return null;
       }
 
-      return chapterUrl(chapterRef.version.id, chapterRef.book.id, chapterRef.chapter + 1);
+      return chapterUrl(
+        chapterRef.version.id,
+        chapterRef.book.id,
+        chapterRef.chapter + 1
+      );
     };
 
     return {
@@ -97,7 +111,7 @@ export function useBibleNavigate({
         const el = document.getElementById('v-' + num);
 
         if (el && isOffscreen(el).any) {
-          el.scrollIntoView({ block: 'center'});
+          el.scrollIntoView({ block: 'center' });
         }
       },
     };

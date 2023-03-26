@@ -9,24 +9,23 @@ export function getSelectedVersesFromHash(hashString: string): IVerseRange {
   }
 
   // TODO validate
-  const groups = hash.split(';')
-    .flatMap(group => {
-      const values = group.split('-').map(verseNo => parseInt(verseNo));
+  const groups = hash.split(';').flatMap((group) => {
+    const values = group.split('-').map((verseNo) => parseInt(verseNo));
 
-      if (values.length > 1) {
-        const min = Math.min(...values);
-        const max = Math.max(...values);
-        const arr = [];
+    if (values.length > 1) {
+      const min = Math.min(...values);
+      const max = Math.max(...values);
+      const arr = [];
 
-        for (let i = min; i <= max; i++) {
-          arr.push(i);
-        }
-
-        return arr;
+      for (let i = min; i <= max; i++) {
+        arr.push(i);
       }
 
-      return values;
-    });
+      return arr;
+    }
+
+    return values;
+  });
 
   return groups;
 }
@@ -38,18 +37,17 @@ export function selectionToHash(selectedVerses: IVerseRange): string {
 export function toggleVerse(
   selectedVerses: IVerseRange,
   verseNo: BibleVerseId,
-  flag: boolean,
+  flag: boolean
 ): IVerseRange {
   let selected = cloneDeepJson(selectedVerses);
 
   if (flag) {
     selected.push(verseNo);
   } else {
-    selected = selected.filter(value => value !== verseNo);
+    selected = selected.filter((value) => value !== verseNo);
   }
 
   selected.sort((a, b) => a - b);
 
   return selected;
 }
-

@@ -1,14 +1,28 @@
-import React, { useMemo }  from 'react';
-import { IBibleBooksByTestament, IBibleBook, IBibleChapterRef } from '../../../core/interfaces/Bible.interfaces';
+import React, { useMemo } from 'react';
+import {
+  IBibleBooksByTestament,
+  IBibleBook,
+  IBibleChapterRef,
+} from '../../../core/interfaces/Bible.interfaces';
 import { BookSelectorListItem } from '../atoms/BookSelectorListItem';
 import styles from './BookSelector.module.scss';
 import listStyles from './SideList.module.scss';
 
-function groupBooksByTestament(books: IBibleBook[] | null): IBibleBooksByTestament[] {
+function groupBooksByTestament(
+  books: IBibleBook[] | null
+): IBibleBooksByTestament[] {
   // TODO l18n
   const result: IBibleBooksByTestament[] = [
-    { title: 'Old Testament', testament: 'old', books: (books ? [] : Array(39).fill(null))},
-    { title: 'New Testament', testament: 'new', books: (books ? [] : Array(27).fill(null))},
+    {
+      title: 'Old Testament',
+      testament: 'old',
+      books: books ? [] : Array(39).fill(null),
+    },
+    {
+      title: 'New Testament',
+      testament: 'new',
+      books: books ? [] : Array(27).fill(null),
+    },
   ];
 
   if (!books) {
@@ -26,22 +40,16 @@ function groupBooksByTestament(books: IBibleBook[] | null): IBibleBooksByTestame
 }
 
 type Props = {
-  chapterRef: IBibleChapterRef | null,
-  books: IBibleBook[] | null,
-}
+  chapterRef: IBibleChapterRef | null;
+  books: IBibleBook[] | null;
+};
 
-export const BookSelector: React.FC<Props> = ({
-  books,
-  chapterRef,
-}) => {
-  const booksGrouped = useMemo(
-    () => groupBooksByTestament(books),
-    [books],
-  );
+export const BookSelector: React.FC<Props> = ({ books, chapterRef }) => {
+  const booksGrouped = useMemo(() => groupBooksByTestament(books), [books]);
 
   return (
     <section className={[listStyles.sideList, styles.bookSelector].join(' ')}>
-      {booksGrouped.map(testament => (
+      {booksGrouped.map((testament) => (
         <div
           className={styles.testament}
           key={`${testament.title}`}
@@ -62,4 +70,4 @@ export const BookSelector: React.FC<Props> = ({
       ))}
     </section>
   );
-}
+};

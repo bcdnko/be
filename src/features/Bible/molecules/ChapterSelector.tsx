@@ -5,9 +5,11 @@ import { useBibleNavigate } from '../hooks/useBibleNavigate';
 
 export type ChapterSelectorProps = {
   chapterRef: IBibleChapterRef | null;
-}
+};
 
-export const ChapterSelector: React.FC<ChapterSelectorProps> = ({ chapterRef }) => {
+export const ChapterSelector: React.FC<ChapterSelectorProps> = ({
+  chapterRef,
+}) => {
   const { chapterUrl } = useBibleNavigate({ chapterRef });
 
   if (!chapterRef) {
@@ -21,17 +23,26 @@ export const ChapterSelector: React.FC<ChapterSelectorProps> = ({ chapterRef }) 
         {[...Array(chapterRef.book.chapters)].map((_, i) => {
           const chapter = i + 1;
 
-          return <li
-            className={[chapterRef?.chapter === chapter ? 'active' : ''].join(' ')}
-            key={`${chapterRef.book.id}_${chapter}`}
-          >
-            <Link to={chapterUrl(chapterRef.version.id, chapterRef.book.id, chapter)}>
-              {chapter}
-            </Link>
-            {' '}
-          </li>
+          return (
+            <li
+              className={[chapterRef?.chapter === chapter ? 'active' : ''].join(
+                ' '
+              )}
+              key={`${chapterRef.book.id}_${chapter}`}
+            >
+              <Link
+                to={chapterUrl(
+                  chapterRef.version.id,
+                  chapterRef.book.id,
+                  chapter
+                )}
+              >
+                {chapter}
+              </Link>{' '}
+            </li>
+          );
         })}
       </ul>
     </div>
   );
-}
+};

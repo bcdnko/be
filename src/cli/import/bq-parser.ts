@@ -38,11 +38,13 @@ export class BqParser extends BibleParser {
         const idMatch = _.match(/^\d+/);
 
         if (!idMatch) {
-          throw new Error('Book didn\'t match');
+          throw new Error("Book didn't match");
         }
 
         const id = parseInt(idMatch[0], 10);
-        const defaults = this._defaults && this._defaults.books.find(_ => _.id === id) || {};
+        const defaults =
+          (this._defaults && this._defaults.books.find((_) => _.id === id)) ||
+          {};
 
         return {
           id: id,
@@ -53,7 +55,10 @@ export class BqParser extends BibleParser {
           chapters: parseInt(this.module['ChapterQty'][i], 10),
           testament: id < 40 ? 'old' : 'new',
           ...defaults,
-          aliases: this._parseAliases(this.module['ShortName'][i], defaults.aliases || []),
+          aliases: this._parseAliases(
+            this.module['ShortName'][i],
+            defaults.aliases || []
+          ),
         };
       })
       .sort((a, b) => a.id - b.id);
@@ -72,8 +77,7 @@ export class BqParser extends BibleParser {
     const result = [...defaults];
 
     for (let alias of aliases.split(' ')) {
-      if (!result.includes(alias))
-      result.push(alias);
+      if (!result.includes(alias)) result.push(alias);
     }
 
     return result;
@@ -85,15 +89,18 @@ export class BqParser extends BibleParser {
     this._currentChapter = null;
     this._currentVerseNo = null;
 
-    const verses = rawVerses.toString()
-      .split('<p>').join('\n<p>')
+    const verses = rawVerses
+      .toString()
+      .split('<p>')
+      .join('\n<p>')
       .split('\n')
-      .map(row => row.trim())
+      .map((row) => row.trim())
       .reduce(
-        (acc: IBibleVerseStored[], row: string) => this._parseRow(book, row, acc),
-        [],
+        (acc: IBibleVerseStored[], row: string) =>
+          this._parseRow(book, row, acc),
+        []
       )
-      .filter(_ => !!_);
+      .filter((_) => !!_);
 
     return verses;
   }
@@ -101,7 +108,7 @@ export class BqParser extends BibleParser {
   private _parseRow(
     book: IBibleBookStored,
     row: string,
-    acc: IBibleVerseStored[],
+    acc: IBibleVerseStored[]
   ): IBibleVerseStored[] {
     const chapterMatch = row.match(this._chapterRegex);
     const verseMatch = row.match(this._verseRegex);
@@ -140,10 +147,12 @@ export class BqParser extends BibleParser {
         text: verseMatch[3],
       });
     } else if (verseNewLineMatch && this._currentVerseNo) {
-      const verse = acc.find(v => {
-        return v.bookId === book.id
-          && v.chapter === this._currentChapter
-          && v.no === this._currentVerseNo;
+      const verse = acc.find((v) => {
+        return (
+          v.bookId === book.id &&
+          v.chapter === this._currentChapter &&
+          v.no === this._currentVerseNo
+        );
       });
 
       if (!verse) {
@@ -154,9 +163,9 @@ export class BqParser extends BibleParser {
     } else {
       console.log(
         'Malformed row: ' +
-        ' Book: ' + book.id +
-        ' Chapter: ' + this._currentChapter +
-        ' Text: ' + JSON.stringify(row)
+          ` Book: ${book.id}` +
+          ` Chapter: ${this._currentChapter}` +
+          ` Text: ${JSON.stringify(row)}`
       );
       acc[acc.length - 1].text += ' ' + row;
       throw new Error('Malformed rows');

@@ -1,11 +1,18 @@
-import { BibleBookId, BibleChapterId, BibleVersionId, IBibleTextToken, IBibleVerse, IBibleVerseStored } from '../../interfaces/Bible.interfaces';
+import {
+  BibleBookId,
+  BibleChapterId,
+  BibleVersionId,
+  IBibleTextToken,
+  IBibleVerse,
+  IBibleVerseStored,
+} from '../../interfaces/Bible.interfaces';
 import { url } from '../../util/url';
 
 function parseVerseText(verseText: string): IBibleTextToken[] {
   const markers: string[] = [];
 
   function parseToken(rawToken: string): IBibleTextToken | null {
-    if (rawToken === '')  {
+    if (rawToken === '') {
       return null;
     }
 
@@ -68,20 +75,22 @@ function parseVerseText(verseText: string): IBibleTextToken[] {
 export async function fetchVerses(
   versionId: BibleVersionId,
   bookId: BibleBookId,
-  chapter: BibleChapterId,
+  chapter: BibleChapterId
 ): Promise<IBibleVerse[]> {
-  const res = await fetch(url([
-    'bible',
-    'versions',
-    versionId,
-    'books',
-    bookId.toString(),
-    chapter.toString() + '.json'
-  ]));
+  const res = await fetch(
+    url([
+      'bible',
+      'versions',
+      versionId,
+      'books',
+      bookId.toString(),
+      chapter.toString() + '.json',
+    ])
+  );
 
   const verses: IBibleVerseStored[] = await res.json();
 
-  return verses.map(verse => ({
+  return verses.map((verse) => ({
     ...verse,
     textParsed: parseVerseText(verse.text),
   }));

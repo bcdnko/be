@@ -1,4 +1,4 @@
-@use "sass:map";
+@use 'sass:map';
 @import '../../../../node_modules/bootstrap/scss/functions';
 @import '../../../../node_modules/bootstrap/scss/variables';
 
@@ -7,7 +7,7 @@
   bottom: 0;
 
   button {
-    transition: opacity .2s linear;
+    transition: opacity 0.2s linear;
     opacity: 1;
     display: block;
     width: 100%;

@@ -18,17 +18,16 @@ export interface IChapterSettings {
 }
 
 export interface IBookSelectorSettings {
-  showChaptersDropDown: boolean,
+  showChaptersDropDown: boolean;
 }
 
 export interface ISettings {
   version: number;
   general: {
-    showGoToTopButton: boolean,
-    defaultBibleVersionId: BibleVersionId,
-    defaultDictionaryId: string,
+    showGoToTopButton: boolean;
+    defaultBibleVersionId: BibleVersionId;
+    defaultDictionaryId: string;
   };
   chapter: IChapterSettings;
   bookSelector: IBookSelectorSettings;
 }
-

@@ -13,4 +13,3 @@ export function parseArguments() {
 
   return args;
 }
-

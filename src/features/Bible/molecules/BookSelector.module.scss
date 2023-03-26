@@ -1,16 +1,15 @@
-@use "sass:map";
+@use 'sass:map';
 @import '../../../../node_modules/bootstrap/scss/functions';
 @import '../../../../node_modules/bootstrap/scss/variables';
 
 .bookSelector {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  grid-gap: .5rem;
+  grid-gap: 0.5rem;
 }
 
-@media(max-width: map.get($grid-breakpoints, "lg")) {
+@media (max-width: map.get($grid-breakpoints, 'lg')) {
   .bookSelector {
     grid-template-columns: 1fr;
   }
 }
-

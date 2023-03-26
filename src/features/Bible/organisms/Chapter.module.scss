@@ -1,7 +1,7 @@
-@use "sass:map";
+@use 'sass:map';
 @import '../../../../node_modules/bootstrap/scss/functions';
 @import '../../../../node_modules/bootstrap/scss/variables';
-@import "../../../variables.scss";
+@import '../../../variables.scss';
 
 .chapterNav {
   display: block;
@@ -37,7 +37,8 @@ a.chapterNav:hover {
 .content {
   flex-grow: 2;
 
-  h1, h2 {
+  h1,
+  h2 {
     margin: 0 calc(1em + 1vw);
     text-align: center;
   }
@@ -48,10 +49,10 @@ a.chapterNav:hover {
     margin-bottom: $heading-vertical-spacer;
   }
 
-  @media(max-width: map.get($grid-breakpoints, "md")) {
-    h1, h2 {
+  @media (max-width: map.get($grid-breakpoints, 'md')) {
+    h1,
+    h2 {
       margin: 1rem 0;
     }
   }
 }
-

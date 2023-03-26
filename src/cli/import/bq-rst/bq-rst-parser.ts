@@ -11,32 +11,33 @@ export default class BqRstParser extends BqParser {
   protected _jesusWordsRegex = null;
 
   parseVersion(): IBibleVersionStored {
-    return Object.assign(
-      {},
-      super.parseVersion(),
-      {
-        id: 'rst',
-        title: 'Синодальный перевод',
-        titleShort: 'Синодальный',
-        titleShortest: 'RST',
-        langId: 'ru',
-        strongId: 'mb-strong-ru',
-      },
-    );
+    return Object.assign({}, super.parseVersion(), {
+      id: 'rst',
+      title: 'Синодальный перевод',
+      titleShort: 'Синодальный',
+      titleShortest: 'RST',
+      langId: 'ru',
+      strongId: 'mb-strong-ru',
+    });
   }
 
   parseBookVerses(book: IBibleBookStored): IBibleVerseStored[] {
-    return super.parseBookVerses(book)
-      .map(verse => {
+    return super
+      .parseBookVerses(book)
+      .map((verse) => {
         const text = verse.text
-          .split(/<font.*?>/).join('[Jesus]')
-          .split('</font>').join('[/Jesus]')
-          .split('<i>').join('[i]')
-          .split('</i>').join('[/i]');
+          .split(/<font.*?>/)
+          .join('[Jesus]')
+          .split('</font>')
+          .join('[/Jesus]')
+          .split('<i>')
+          .join('[i]')
+          .split('</i>')
+          .join('[/i]');
 
-        return {...verse, text};
+        return { ...verse, text };
       })
-      .map(verse => {
+      .map((verse) => {
         if (verse.text.includes('<')) {
           throw new Error('Verse should not contain tags');
         }

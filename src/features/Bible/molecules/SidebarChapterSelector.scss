@@ -8,21 +8,21 @@
     background: $hover-bg-color;
     display: none;
     position: absolute;
-    padding: .5rem;
+    padding: 0.5rem;
     left: 2.5rem;
     width: 200px;
     font-weight: normal;
     padding-top: 1rem;
 
     span {
-      margin: 0 .5rem;
+      margin: 0 0.5rem;
     }
 
-    >ul {
+    > ul {
       display: inline;
       padding: 0;
 
-      >li {
+      > li {
         display: inline-block;
       }
     }

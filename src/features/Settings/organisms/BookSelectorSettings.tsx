@@ -1,8 +1,6 @@
 import { useSettingsContext } from '../../../core/contexts/SettingsContext';
 import { SwitchSettingRow } from '../molecules/SwitchSettingRow';
-import {
-  faListAlt,
-} from '@fortawesome/free-regular-svg-icons'
+import { faListAlt } from '@fortawesome/free-regular-svg-icons';
 
 export function BookSelectorSettings() {
   const { settings, updateSettings } = useSettingsContext();
@@ -15,10 +13,13 @@ export function BookSelectorSettings() {
         label="Drop down chapter list (experimental)"
         icon={faListAlt}
         checked={settings.bookSelector.showChaptersDropDown}
-        onChange={() => updateSettings(settings => {
-          settings.bookSelector.showChaptersDropDown = !settings.bookSelector.showChaptersDropDown;
-          return settings;
-        })}
+        onChange={() =>
+          updateSettings((settings) => {
+            settings.bookSelector.showChaptersDropDown =
+              !settings.bookSelector.showChaptersDropDown;
+            return settings;
+          })
+        }
       />
     </div>
   );

@@ -1,4 +1,4 @@
-@use "sass:map";
+@use 'sass:map';
 @import '../../../../node_modules/bootstrap/scss/functions';
 @import '../../../../node_modules/bootstrap/scss/variables';
 
@@ -16,9 +16,9 @@ body {
 
   grid-template-rows: auto 12fr 1px;
   grid-template-areas:
-    "header header header"
-    "left-sidebar main right-sidebar"
-    "footer footer footer";
+    'header header header'
+    'left-sidebar main right-sidebar'
+    'footer footer footer';
 
   height: 100vh;
   width: 100%;
@@ -28,8 +28,12 @@ main {
   grid-area: main;
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
   padding: 0;
-  background: rgb(255,255,255);
-  background: linear-gradient(to bottom, rgba(241,242,246,1) 3rem, rgba(255,255,255,1) 300px);
+  background: rgb(255, 255, 255);
+  background: linear-gradient(
+    to bottom,
+    rgba(241, 242, 246, 1) 3rem,
+    rgba(255, 255, 255, 1) 300px
+  );
   color: #5a5b5e;
   position: relative;
   border-top: 10px solid #f38328;
@@ -39,12 +43,15 @@ header {
   grid-area: header;
 }
 
-main, .leftSidebar, .rightSidebar {
+main,
+.leftSidebar,
+.rightSidebar {
   overflow-y: scroll;
   overflow-x: hidden;
 }
 
-.leftSidebar, .rightSidebar {
+.leftSidebar,
+.rightSidebar {
   padding: 0 1rem;
   padding-top: 2rem;
 }
@@ -62,26 +69,28 @@ footer {
   background: white;
 }
 
-@media(max-width: map.get($grid-breakpoints, "lg")) {
+@media (max-width: map.get($grid-breakpoints, 'lg')) {
   .be-container {
     grid-template-columns: min-content 2fr 1fr;
   }
 }
 
-@media(max-width: map.get($grid-breakpoints, "md")) {
+@media (max-width: map.get($grid-breakpoints, 'md')) {
   .be-container {
     height: auto;
     grid-template-columns: 1fr;
     grid-template-rows: auto;
     grid-template-areas:
-      "header"
-      "main"
-      "left-sidebar"
-      "right-sidebar"
-      "footer";
+      'header'
+      'main'
+      'left-sidebar'
+      'right-sidebar'
+      'footer';
   }
 
-  main, .leftSidebar, .rightSidebar {
+  main,
+  .leftSidebar,
+  .rightSidebar {
     overflow-y: unset;
     overflow-x: unset;
   }
@@ -90,6 +99,4 @@ footer {
     border: none;
     box-shadow: none;
   }
-
 }
-

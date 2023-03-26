@@ -1,10 +1,9 @@
-import React  from 'react';
+import React from 'react';
 
-type Props = {
-}
+type Props = {};
 
 export const PageSubHeader: React.FC<React.PropsWithChildren<Props>> = ({
   children,
 }) => {
-  return (<h2>{children}</h2>);
-}
+  return <h2>{children}</h2>;
+};

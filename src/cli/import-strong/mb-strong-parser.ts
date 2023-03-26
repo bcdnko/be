@@ -49,7 +49,7 @@ export abstract class MbStrongParser {
 
   private countEntries(): Promise<any> {
     return new Promise((resolve, reject) => {
-      const sql = 'select count(*) as total from dictionary order by topic'
+      const sql = 'select count(*) as total from dictionary order by topic';
       this.db.get(sql, [], (err, rows) => {
         if (err) {
           reject(err);
@@ -67,7 +67,7 @@ export abstract class MbStrongParser {
         if (err) {
           reject(err);
         }
-        this.current ++;
+        this.current++;
         resolve(row);
       });
     });

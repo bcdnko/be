@@ -8,29 +8,32 @@ import { useSettingsContext } from '../../../core/contexts/SettingsContext';
 function Skeleton() {
   return (
     <Placeholder animation="glow">
-      <p><Placeholder xs={12} /></p>
-      {Array(10).fill(1).map((v, i) =>
-        <div key={i}><Placeholder xs={12} /></div>
-      )}
+      <p>
+        <Placeholder xs={12} />
+      </p>
+      {Array(10)
+        .fill(1)
+        .map((v, i) => (
+          <div key={i}>
+            <Placeholder xs={12} />
+          </div>
+        ))}
     </Placeholder>
   );
 }
 
 type Props = {
-  strongId: string,
+  strongId: string;
   setStrongId: (strongId: string | null) => void;
-}
+};
 
-export const StrongCard: React.FC<Props> = ({
-  strongId,
-  setStrongId,
-}) => {
+export const StrongCard: React.FC<Props> = ({ strongId, setStrongId }) => {
   const { settings } = useSettingsContext();
-  const dictionaryId = settings.general.defaultDictionaryId || config.defaultDictionaryId;
+  const dictionaryId =
+    settings.general.defaultDictionaryId || config.defaultDictionaryId;
 
-  const query = useQuery(
-    [dictionaryId, strongId],
-    () => fetchStrongWord(dictionaryId, strongId)
+  const query = useQuery([dictionaryId, strongId], () =>
+    fetchStrongWord(dictionaryId, strongId)
   );
 
   const cardContent = () => {
@@ -41,10 +44,14 @@ export const StrongCard: React.FC<Props> = ({
     if (query.data) {
       const strong = query.data;
 
-      return <>
-        <h3 className="card-title">{strong.id} {strong.word}</h3>
-        <div dangerouslySetInnerHTML={{__html: strong.meaning}}></div>
-      </>
+      return (
+        <>
+          <h3 className="card-title">
+            {strong.id} {strong.word}
+          </h3>
+          <div dangerouslySetInnerHTML={{ __html: strong.meaning }}></div>
+        </>
+      );
     }
 
     return <>Something went wrong</>;
@@ -58,7 +65,7 @@ export const StrongCard: React.FC<Props> = ({
     }
 
     const href = target.getAttribute('href');
-    console.log(href && href.substring(0, 2))
+    console.log(href && href.substring(0, 2));
     if (!href || href.substring(0, 2) !== 'S:') {
       return;
     }
@@ -68,9 +75,12 @@ export const StrongCard: React.FC<Props> = ({
   };
 
   return (
-    <div className="card" style={{
-      boxShadow: '2px 2px 4px 0 rgba(0, 0, 0, 0.1)',
-    }}>
+    <div
+      className="card"
+      style={{
+        boxShadow: '2px 2px 4px 0 rgba(0, 0, 0, 0.1)',
+      }}
+    >
       <div className="card-header">
         <span>Strong's Dictionary</span>
 
@@ -79,9 +89,12 @@ export const StrongCard: React.FC<Props> = ({
           onClick={() => setStrongId(null)}
         />
       </div>
-      <div className="card-body" onClick={handleClick}>
+      <div
+        className="card-body"
+        onClick={handleClick}
+      >
         {cardContent()}
       </div>
     </div>
   );
-}
+};

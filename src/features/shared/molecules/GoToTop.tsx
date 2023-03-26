@@ -1,4 +1,10 @@
-import { useCallback, useEffect, useLayoutEffect, useRef, useState } from "react";
+import {
+  useCallback,
+  useEffect,
+  useLayoutEffect,
+  useRef,
+  useState,
+} from 'react';
 import styles from './GoToTop.module.scss';
 
 function isSmallBreakpoint(): boolean {
@@ -46,12 +52,14 @@ export function GoToTop() {
       ref={ref}
       className={styles.wrapper}
     >
-      {!isHidden &&
+      {!isHidden && (
         <button
           className="btn btn-light"
-          onClick={() => el && el.scrollTo(0,0)}
-        >Go to the top ↑</button>
-      }
+          onClick={() => el && el.scrollTo(0, 0)}
+        >
+          Go to the top ↑
+        </button>
+      )}
     </div>
   );
 }

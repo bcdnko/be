@@ -1,5 +1,8 @@
-import React  from 'react';
-import { Placeholder as BootstrapPlaceholder, PlaceholderProps } from 'react-bootstrap';
+import React from 'react';
+import {
+  Placeholder as BootstrapPlaceholder,
+  PlaceholderProps,
+} from 'react-bootstrap';
 
 export const SimplePlaceholder: React.FC<PlaceholderProps> = ({
   animation,
@@ -10,4 +13,4 @@ export const SimplePlaceholder: React.FC<PlaceholderProps> = ({
       <BootstrapPlaceholder xs={xs}></BootstrapPlaceholder>
     </BootstrapPlaceholder>
   );
-}
+};

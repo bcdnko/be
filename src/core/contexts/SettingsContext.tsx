@@ -39,24 +39,30 @@ const SettingsContext = React.createContext({} as ISettingsContext);
 export const SettingsProvider: React.FC<React.PropsWithChildren<{}>> = ({
   children,
 }) => {
-  const [settings, setSettings] = useLocalStorage<ISettings>('settings', cloneDeepJson(defaultSettings));
+  const [settings, setSettings] = useLocalStorage<ISettings>(
+    'settings',
+    cloneDeepJson(defaultSettings)
+  );
 
-  function updateSettings(
-    setter: (prevValue: ISettings) => ISettings,
-  ) {
-    setSettings((prevSettings: ISettings) => setter(cloneDeepJson(prevSettings)));
+  function updateSettings(setter: (prevValue: ISettings) => ISettings) {
+    setSettings((prevSettings: ISettings) =>
+      setter(cloneDeepJson(prevSettings))
+    );
   }
 
-  return (<SettingsContext.Provider value={{
-    settings,
-    setSettings,
-    updateSettings,
-  }}>
-    {children}
-  </SettingsContext.Provider>);
-}
+  return (
+    <SettingsContext.Provider
+      value={{
+        settings,
+        setSettings,
+        updateSettings,
+      }}
+    >
+      {children}
+    </SettingsContext.Provider>
+  );
+};
 
 export function useSettingsContext() {
   return React.useContext(SettingsContext);
 }
-

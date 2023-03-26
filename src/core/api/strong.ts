@@ -3,8 +3,9 @@ import { url } from '../util/url';
 
 export function fetchStrongWord(
   dictionaryId: string,
-  strongId: string,
+  strongId: string
 ): Promise<IStrongWord> {
-  return fetch(url(['dicts', dictionaryId, strongId + '.json']))
-    .then(res => res.json());
+  return fetch(url(['dicts', dictionaryId, strongId + '.json'])).then((res) =>
+    res.json()
+  );
 }

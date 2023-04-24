@@ -7,7 +7,13 @@ import {
 const fs = require('fs');
 const path = require('path');
 
-export abstract class BibleParser {
+export interface IBibleParser {
+  parseVersion(): IBibleVersionStored;
+  parseBooks(): IBibleBookStored[];
+  parseBookVerses(book: IBibleBookStored): IBibleVerseStored[];
+}
+
+export abstract class BibleParser implements IBibleParser {
   protected _path: string;
   protected _defaults = {
     books: [],

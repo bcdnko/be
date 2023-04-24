@@ -30,8 +30,8 @@ type Props = {
   currentVersionId: BibleVersionId;
   currentBookId: BibleBookId;
   currentChapter: BibleChapterId;
-  versions: IBibleVersion[] | null;
-  chapterRef: IBibleChapterRef | null;
+  versions?: IBibleVersion[];
+  chapterRef?: IBibleChapterRef;
 };
 
 export const VersionSelector: React.FC<Props> = ({
@@ -56,7 +56,7 @@ export const VersionSelector: React.FC<Props> = ({
           {versions.map((version) => (
             <li
               className={[
-                currentVersionId === version.id ? styles.active : null,
+                currentVersionId === version.id ? styles.active : undefined,
               ].join(' ')}
               key={version.id}
             >

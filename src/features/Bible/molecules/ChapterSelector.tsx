@@ -4,7 +4,7 @@ import { IBibleChapterRef } from '../../../core/interfaces/Bible.interfaces';
 import { useBibleNavigate } from '../hooks/useBibleNavigate';
 
 export type ChapterSelectorProps = {
-  chapterRef: IBibleChapterRef | null;
+  chapterRef?: IBibleChapterRef;
 };
 
 export const ChapterSelector: React.FC<ChapterSelectorProps> = ({

@@ -8,26 +8,24 @@ import { BookSelectorListItem } from '../atoms/BookSelectorListItem';
 import styles from './BookSelector.module.scss';
 import listStyles from './SideList.module.scss';
 
-function groupBooksByTestament(
-  books: IBibleBook[] | null
-): IBibleBooksByTestament[] {
+function groupBooksByTestament(books?: IBibleBook[]): IBibleBooksByTestament[] {
   // TODO l18n
   const result: IBibleBooksByTestament[] = [
     {
       title: 'Old Testament',
       testament: 'old',
-      books: books ? [] : Array(39).fill(null),
+      books: books ? [] : Array(39).fill(undefined),
     },
     {
       title: 'New Testament',
       testament: 'new',
-      books: books ? [] : Array(27).fill(null),
+      books: books ? [] : Array(27).fill(undefined),
     },
   ];
 
   if (!books) {
-    result[0].books = Array(39).fill(null);
-    result[1].books = Array(27).fill(null);
+    result[0].books = Array(39).fill(undefined);
+    result[1].books = Array(27).fill(undefined);
 
     return result;
   }
@@ -40,8 +38,8 @@ function groupBooksByTestament(
 }
 
 type Props = {
-  chapterRef: IBibleChapterRef | null;
-  books: IBibleBook[] | null;
+  chapterRef?: IBibleChapterRef;
+  books?: IBibleBook[];
 };
 
 export const BookSelector: React.FC<Props> = ({ books, chapterRef }) => {

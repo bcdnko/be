@@ -67,13 +67,17 @@ export const Verse: React.FC<Props> = ({
       const strongId = token.text;
       const handleClick = () => setStrongId(strongId);
 
-      return settings.chapter.showStrong ? (
+      if (!settings.chapter.showStrong) {
+        return;
+      }
+
+      return (
         <StrongWord
           key={key}
           strongId={strongId}
           onClick={handleClick}
         />
-      ) : null;
+      );
     } else if (token.type === 'space') {
       return <React.Fragment key={key}> </React.Fragment>;
     }
@@ -88,7 +92,7 @@ export const Verse: React.FC<Props> = ({
       id={'v-' + verse.no}
       className={[
         styles.verse,
-        isSelected ? styles.selected : null,
+        isSelected && styles.selected,
         highlightedClassNames(settings),
       ].join(' ')}
       onMouseDown={() => {

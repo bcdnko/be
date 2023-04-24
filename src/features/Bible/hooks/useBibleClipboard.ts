@@ -6,8 +6,8 @@ import {
 } from '../../../core/interfaces/Bible.interfaces';
 
 type Props = {
-  chapterRef: IBibleChapterRef | null;
-  verses: IBibleVerse[] | null;
+  chapterRef?: IBibleChapterRef;
+  verses?: IBibleVerse[];
   selectedVerses: IVerseRange;
 };
 
@@ -18,7 +18,7 @@ export function useBibleClipboard({
 }: Props) {
   return useMemo(
     () => ({
-      copySelectedVerses: function () {
+      copySelectedVerses: function() {
         if (!verses || !chapterRef) {
           alert('The chapter is still loading');
           return;

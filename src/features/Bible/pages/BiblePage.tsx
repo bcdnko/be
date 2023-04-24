@@ -1,9 +1,6 @@
-import { useMemo, useState } from 'react';
-import { useQuery } from 'react-query';
+import { createRef, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { config } from '../../../config';
-import { fetchBibleBooks, fetchBibleVersions } from '../../../core/api/bible';
-import { fetchVerses } from '../../../core/api/bible/verse';
 import {
   BibleBookId,
   BibleChapterId,
@@ -17,6 +14,10 @@ import { BookSelector } from '../molecules/BookSelector';
 import { Chapter } from '../organisms/Chapter';
 import { VersionSelector } from '../molecules/VersionSelector';
 import { useSettingsContext } from '../../../core/contexts/SettingsContext';
+import { useBibleContextLoader } from '../hooks/useBibleContextLoader';
+import { useSearchDb } from '../hooks/useSearchDb';
+import { SearchBar } from '../molecules/SearchBar';
+import Typeahead from 'react-bootstrap-typeahead/types/core/Typeahead';
 
 type RouteParams = {
   versionId?: string;
@@ -26,7 +27,11 @@ type RouteParams = {
 
 export function BiblePage() {
   const params = useParams<RouteParams>();
+  const searchRef = createRef<Typeahead>();
+  const focusSearch = () => searchRef.current?.focus();
+
   const { settings } = useSettingsContext();
+  const [strongId, setStrongId] = useState<string>();
 
   const selectedVerses = getSelectedVersesFromHash(window.location.hash);
 
@@ -34,43 +39,22 @@ export function BiblePage() {
     params.versionId ||
     settings.general.defaultBibleVersionId ||
     config.defaultVersionId;
+
   const bookId: BibleBookId = (params.bookId && parseInt(params.bookId)) || 1;
+
   const chapter: BibleChapterId =
     (params.chapter && parseInt(params.chapter)) || 1;
 
-  const versionsQuery = useQuery('versions', fetchBibleVersions);
-  const [strongId, setStrongId] = useState<string | null>(null);
+  const { versions, books, version, book, verses } = useBibleContextLoader({
+    versionId,
+    bookId,
+    chapter,
+  });
 
-  const booksQuery = useQuery(['books', versionId], () =>
-    fetchBibleBooks(versionId)
-  );
+  const chapterRef: IBibleChapterRef | undefined =
+    version && book && chapter ? { version, book, chapter } : undefined;
 
-  const versesQuery = useQuery(['verses', versionId, bookId, chapter], () =>
-    fetchVerses(versionId, bookId, chapter)
-  );
-
-  const isError =
-    versionsQuery.isError || booksQuery.isError || versesQuery.isError;
-  if (isError) {
-    throw [versionsQuery.error, booksQuery.error, versesQuery.error].filter(
-      (e) => e !== null
-    );
-  }
-
-  const versions = versionsQuery.data || null;
-  const books = booksQuery.data || null;
-  const verses = versesQuery.data || null;
-
-  const version = versionsQuery.data
-    ? versionsQuery.data.find((v) => v.id === versionId)
-    : null;
-  const book = booksQuery.data
-    ? booksQuery.data.find((b) => b.id === bookId) || null
-    : null;
-
-  const chapterRef: IBibleChapterRef | null = useMemo(() => {
-    return version && book && chapter ? { version, book, chapter } : null;
-  }, [version, book, chapter]);
+  const searchDb = useSearchDb(versionId, version?.langId);
 
   return (
     <StandardLayout>
@@ -93,11 +77,20 @@ export function BiblePage() {
         ),
         main: (
           <>
+            {searchDb && (
+              <SearchBar
+                key={versionId}
+                searchDb={searchDb}
+                ref={searchRef}
+              />
+            )}
+
             <Chapter
               chapterRef={chapterRef}
               verses={verses}
               selectedVerses={selectedVerses}
               setStrongId={setStrongId}
+              focusSearch={focusSearch}
             />
           </>
         ),
@@ -114,6 +107,4 @@ export function BiblePage() {
       }}
     </StandardLayout>
   );
-
-  //return <div>Something went wrong</div>;
 }

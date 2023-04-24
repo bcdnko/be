@@ -4,7 +4,7 @@ import { SimplePlaceholder } from '../../shared/atoms/SimplePlaceholder';
 import './PagetopChapterSelector.scss';
 
 type PagetopChapterSelectorProps = {
-  chapterRef: IBibleChapterRef | null;
+  chapterRef?: IBibleChapterRef;
 };
 
 function Skeleton() {

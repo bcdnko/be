@@ -20,8 +20,8 @@ import { useBibleNavigate } from '../hooks/useBibleNavigate';
 import styles from './ChapterToolbar.module.scss';
 
 type Props = {
-  chapterRef: IBibleChapterRef | null;
-  verses: IBibleVerse[] | null;
+  chapterRef?: IBibleChapterRef;
+  verses?: IBibleVerse[];
   selectedVerses: IVerseRange;
   copySelectedVerses: () => void;
 };
@@ -84,7 +84,7 @@ export const ChapterToolbar: React.FC<Props> = ({
               title="Unselect Verses (esc)"
               disabled={!(verses && selectedVerses.length)}
               variant="primary"
-              onClick={() => changeActiveVerse(null)}
+              onClick={() => changeActiveVerse()}
             >
               <FontAwesomeIcon icon={faRectangleXmark} />
             </Button>

@@ -14,14 +14,18 @@ import { url } from '../../../core/util/url';
 function chapterUrl(
   versionId: BibleVersionId,
   bookId: BibleBookId,
-  chapter: BibleChapterId
+  chapter: BibleChapterId,
+  verse?: number
 ): string {
-  return url(['bible', versionId, bookId.toString(), chapter.toString()]);
+  return url(
+    ['bible', versionId, bookId.toString(), chapter.toString()],
+    verse?.toString()
+  );
 }
 
 type Props = {
-  chapterRef: IBibleChapterRef | null;
-  verses?: IBibleVerse[] | null; // TODO move outside
+  chapterRef?: IBibleChapterRef;
+  verses?: IBibleVerse[]; // TODO move outside
 };
 
 export function useBibleNavigate({ chapterRef, verses }: Props) {
@@ -31,9 +35,10 @@ export function useBibleNavigate({ chapterRef, verses }: Props) {
     const goTo = (
       versionId: BibleVersionId,
       bookId: BibleBookId,
-      chapter: BibleChapterId
+      chapter: BibleChapterId,
+      verse?: number
     ) => {
-      navigate(chapterUrl(versionId, bookId, chapter), {
+      navigate(chapterUrl(versionId, bookId, chapter, verse), {
         preventScrollReset: true,
       });
     };
@@ -42,9 +47,9 @@ export function useBibleNavigate({ chapterRef, verses }: Props) {
       chapterRef && goTo(chapterRef.version.id, chapterRef.book.id, chapter);
     };
 
-    const getPrevChapterUrl = (): string | null => {
+    const getPrevChapterUrl = (): string | undefined => {
       if (!chapterRef || chapterRef.chapter <= 1) {
-        return null;
+        return undefined;
       }
 
       return chapterUrl(
@@ -54,9 +59,9 @@ export function useBibleNavigate({ chapterRef, verses }: Props) {
       );
     };
 
-    const getNextChapterUrl = (): string | null => {
+    const getNextChapterUrl = (): string | undefined => {
       if (!chapterRef || chapterRef.chapter >= chapterRef.book.chapters) {
-        return null;
+        return undefined;
       }
 
       return chapterUrl(
@@ -84,8 +89,8 @@ export function useBibleNavigate({ chapterRef, verses }: Props) {
       },
 
       // TODO move outside
-      changeActiveVerse: (num: BibleVerseId | null) => {
-        if (num === null) {
+      changeActiveVerse: (num?: BibleVerseId) => {
+        if (num === undefined) {
           navigate('#', { preventScrollReset: true });
           return;
         }

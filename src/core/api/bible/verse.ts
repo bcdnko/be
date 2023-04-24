@@ -11,9 +11,9 @@ import { url } from '../../util/url';
 function parseVerseText(verseText: string): IBibleTextToken[] {
   const markers: string[] = [];
 
-  function parseToken(rawToken: string): IBibleTextToken | null {
+  function parseToken(rawToken: string): IBibleTextToken | undefined {
     if (rawToken === '') {
-      return null;
+      return undefined;
     }
 
     const strongNumber = rawToken.match(/^\s*([GH]*\d+)$/);
@@ -38,7 +38,7 @@ function parseVerseText(verseText: string): IBibleTextToken[] {
         markers.push(marker[1]);
       }
 
-      return null;
+      return undefined;
     } else if (punctuation) {
       return {
         type: 'punctuation',

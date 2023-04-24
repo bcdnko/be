@@ -13,8 +13,8 @@ import listStyles from '../molecules/SideList.module.scss';
 
 type Props = {
   testament: IBibleBooksByTestament;
-  chapterRef: IBibleChapterRef | null;
-  book: IBibleBook | null;
+  chapterRef?: IBibleChapterRef;
+  book?: IBibleBook;
 };
 
 export const BookSelectorListItem: React.FC<Props> = ({
@@ -34,7 +34,9 @@ export const BookSelectorListItem: React.FC<Props> = ({
       key={`${testament.title}_${book.id}`}
       className={[
         'sideListItem',
-        chapterRef.book.id === book.id ? 'active ' + listStyles.active : null,
+        chapterRef.book.id === book.id
+          ? 'active ' + listStyles.active
+          : undefined,
       ].join(' ')}
     >
       {settings.bookSelector.showChaptersDropDown && (

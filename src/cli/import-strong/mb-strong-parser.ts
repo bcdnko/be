@@ -76,7 +76,7 @@ export abstract class MbStrongParser {
   async parseStrong(): Promise<IStrongWord> {
     const row: any = await this.getRow();
     if (!row) {
-      return null;
+      return undefined;
     }
 
     return {

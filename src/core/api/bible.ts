@@ -1,3 +1,4 @@
+import { RawData } from '@orama/orama';
 import {
   BibleVersionId,
   IBibleBook,
@@ -18,4 +19,14 @@ export async function fetchBibleBooks(
   );
 
   return fetchedBooks.json();
+}
+
+export async function fetchBibleSearchDb(
+  versionId: BibleVersionId
+): Promise<RawData> {
+  const db = await fetch(
+    url(['bible', 'versions', versionId, 'search-db.json'])
+  );
+
+  return db.json();
 }

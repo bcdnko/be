@@ -1,9 +1,10 @@
-export function url(paths: string[]): string {
+export function url(paths: string[], hash?: string): string {
   return (
     '/' +
     paths
       .filter((c) => c.length)
       .map((c) => encodeURIComponent(c))
-      .join('/')
+      .join('/') +
+    (hash === undefined ? '' : '#' + hash)
   );
 }

@@ -20,7 +20,7 @@ export interface IBibleVersionStored {
   strongId?: string;
 }
 
-export interface IBibleVersion extends IBibleVersionStored {}
+export interface IBibleVersion extends IBibleVersionStored { }
 
 export interface IBibleBookStored {
   id: BibleBookId;
@@ -35,12 +35,12 @@ export interface IBibleBookStored {
   aliases: BibleBookAlias[];
 }
 
-export interface IBibleBook extends IBibleBookStored {}
+export interface IBibleBook extends IBibleBookStored { }
 
 export type IBibleBooksByTestament = {
   testament: 'old' | 'new';
   title: string;
-  books: (IBibleBook | null)[];
+  books: (IBibleBook | undefined)[];
 };
 
 export interface IBibleVerseStored {

@@ -24,7 +24,7 @@ function Skeleton() {
 
 type Props = {
   strongId: string;
-  setStrongId: (strongId: string | null) => void;
+  setStrongId: (strongId?: string) => void;
 };
 
 export const StrongCard: React.FC<Props> = ({ strongId, setStrongId }) => {
@@ -86,7 +86,7 @@ export const StrongCard: React.FC<Props> = ({ strongId, setStrongId }) => {
 
         <CloseButton
           className="btn-close float-end"
-          onClick={() => setStrongId(null)}
+          onClick={() => setStrongId()}
         />
       </div>
       <div

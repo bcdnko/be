@@ -1,9 +1,14 @@
+import { create, insert, Orama, search, stemmers } from '@orama/orama';
+import { persistToFile } from '@orama/plugin-data-persistence';
 import { parseArguments } from './helper/parse-arguments';
 import {
   IBibleVersionStored,
   IBibleBookStored,
   IBibleVerseStored,
 } from 'core/interfaces/Bible.interfaces';
+import { BibleParser, IBibleParser } from './import/parser';
+import { bibleSearchDbSchema } from '../core/search/BibleSearch';
+import { mapToSearchLanguage } from '../core/search/helpers';
 
 const fs = require('fs');
 const fsExtra = require('fs-extra');
@@ -58,48 +63,82 @@ function saveChapter(
   fs.writeFileSync(chapterPath, JSON.stringify(verses));
 }
 
+function saveSearchDb(version: IBibleVersionStored, db: Orama): void {
+  const versionPath = path.join(paths.bibleVersions, version.id);
+  const dbPath = path.join(versionPath, 'search-db.json');
+
+  persistToFile(db, 'json', dbPath);
+}
+
 console.log('\n===[ Bible translation import ]===\n');
 
-try {
-  const args = parseArguments();
-  if (!args['t'] || typeof args['t'] !== 'string' || !args['t'].length) {
-    throw new Error(
-      'Translation ID was not provided. Please specify it by using -t ID'
-    );
-  }
-
-  const importId = args['t'];
-  const parserDir = path.join(paths.importScripts, importId);
-  const parserPath = path.join(parserDir, importId + '-parser');
-
-  import(parserPath).then((Parser) => {
-    const dataPath = path.join(paths.bibleImportsSource, importId);
-
-    console.log('Importing from: ' + dataPath);
-    const parser = new Parser.default(dataPath, parserDir);
-
-    const version = parser.parseVersion();
-    const books = parser.parseBooks();
-    const bar = new ProgressBar('[:bar]', { total: books.length + 1 });
-
-    saveVersion(version);
-    saveBooks(version, books);
-    bar.tick();
-
-    for (const book of books) {
-      const verses = parser.parseBookVerses(book);
-      for (let chapter = 1; chapter <= book.chapters; chapter++) {
-        const data = verses.filter(
-          (_: IBibleVerseStored) => _.chapter === chapter
-        );
-        saveChapter(book, chapter, data);
-      }
-      bar.tick();
+(async function() {
+  try {
+    const args = parseArguments();
+    if (!args['t'] || typeof args['t'] !== 'string' || !args['t'].length) {
+      throw new Error(
+        'Translation ID was not provided. Please specify it by using -t ID'
+      );
     }
 
-    console.log('done\n');
-  });
-} catch (e) {
-  console.log(`Error: ${e.message}`);
-  console.log('Usage example: npm run import-version -- -t bq-kjv');
-}
+    const importId = args['t'];
+    const parserDir = path.join(paths.importScripts, importId);
+    const parserPath = path.join(parserDir, importId + '-parser');
+
+    await import(parserPath).then(async (Parser) => {
+      const dataPath = path.join(paths.bibleImportsSource, importId);
+
+      console.log('Importing from: ' + dataPath);
+      const parser = new Parser.default(dataPath, parserDir) as IBibleParser;
+
+      const version = parser.parseVersion();
+      const books = parser.parseBooks();
+      const bar = new ProgressBar('[:bar]', { total: books.length + 2 });
+
+      saveVersion(version);
+      saveBooks(version, books);
+      bar.tick();
+
+      const searchDb = await create({
+        schema: bibleSearchDbSchema,
+        language: mapToSearchLanguage(version.langId),
+        // components: {
+        //   tokenizer: {
+        //     stemmer: stemmers.russian,
+        //   },
+        // },
+      });
+
+      for (const book of books) {
+        const verses = parser.parseBookVerses(book);
+        for (const verse of verses) {
+          await insert(searchDb, {
+            versionId: version.id,
+            bookId: book.id,
+            ref: `${book.aliases[0]} ${verse.chapter}:${verse.no}`,
+            chapter: verse.chapter,
+            no: verse.no,
+            text: verse.text,
+          });
+        }
+
+        for (let chapter = 1; chapter <= book.chapters; chapter++) {
+          const data = verses.filter(
+            (_: IBibleVerseStored) => _.chapter === chapter
+          );
+          saveChapter(book, chapter, data);
+        }
+        bar.tick();
+      }
+
+      saveSearchDb(version, searchDb);
+
+      bar.tick();
+
+      console.log('done\n');
+    });
+  } catch (e) {
+    console.log(`Error: ${e.message}`);
+    console.log('Usage example: npm run import-version -- -t bq-kjv');
+  }
+})();

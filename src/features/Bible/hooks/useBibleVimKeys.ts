@@ -14,15 +14,17 @@ interface KeyMap {
 }
 
 type Props = {
-  chapterRef: IBibleChapterRef | null;
-  verses: IBibleVerse[] | null;
+  chapterRef?: IBibleChapterRef;
+  verses?: IBibleVerse[];
   selectedVerses: IVerseRange;
+  focusSearch: () => void;
 };
 
 export function useBibleVimKeys({
   chapterRef,
   verses,
   selectedVerses,
+  focusSearch,
 }: Props): void {
   const { settings, updateSettings } = useSettingsContext();
   const { copySelectedVerses } = useBibleClipboard({
@@ -38,12 +40,18 @@ export function useBibleVimKeys({
         return;
       }
 
+      const activeTag = document.activeElement?.tagName;
+
+      if (activeTag && ['INPUT', 'TEXTAREA'].includes(activeTag)) {
+        return;
+      }
+
       const currentVerseNumber = selectedVerses[0] || 0;
 
       const keymap: KeyMap[] = [
         {
           key: (e) => e.key === 'Escape',
-          action: () => nav.changeActiveVerse(null),
+          action: () => nav.changeActiveVerse(),
         },
         {
           key: (e) => e.key === 'j' || e.key === 'ArrowDown',
@@ -85,6 +93,10 @@ export function useBibleVimKeys({
           key: (e) => e.key === 'G',
           action: () => verses && nav.changeActiveVerse(verses.length),
         },
+        {
+          key: (e) => e.key === '/',
+          action: () => focusSearch(),
+        },
 
         {
           key: (e) => e.key === 's',
@@ -123,5 +135,6 @@ export function useBibleVimKeys({
     settings,
     updateSettings,
     verses,
+    focusSearch,
   ]);
 }

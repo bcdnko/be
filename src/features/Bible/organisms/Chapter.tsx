@@ -19,10 +19,11 @@ import { useBibleVimKeys } from '../hooks/useBibleVimKeys';
 import styles from './Chapter.module.scss';
 
 type Props = {
-  chapterRef: IBibleChapterRef | null;
-  verses: IBibleVerse[] | null;
+  chapterRef?: IBibleChapterRef;
+  verses?: IBibleVerse[];
   selectedVerses: IVerseRange;
   setStrongId: (strongId: string) => void;
+  focusSearch: () => void;
 };
 
 function scrollToTheFirstSelectedVerse(
@@ -33,7 +34,9 @@ function scrollToTheFirstSelectedVerse(
     return;
   }
 
-  const firstVerse = selectedVerses.length ? Math.min(...selectedVerses) : null;
+  const firstVerse = selectedVerses.length
+    ? Math.min(...selectedVerses)
+    : undefined;
 
   if (!firstVerse) {
     const el = document.querySelector('.scroll-anchor');
@@ -53,6 +56,7 @@ export const Chapter: React.FC<Props> = ({
   verses,
   selectedVerses,
   setStrongId,
+  focusSearch,
 }) => {
   const { settings } = useSettingsContext();
   const { copySelectedVerses } = useBibleClipboard({
@@ -62,7 +66,7 @@ export const Chapter: React.FC<Props> = ({
   });
   const nav = useBibleNavigate({ chapterRef, verses });
 
-  useBibleVimKeys({ chapterRef, selectedVerses, verses });
+  useBibleVimKeys({ chapterRef, selectedVerses, verses, focusSearch });
 
   const prevChapterLink = nav.getPrevChapterUrl();
   const nextChapterLink = nav.getNextChapterUrl();
@@ -74,7 +78,7 @@ export const Chapter: React.FC<Props> = ({
 
   const chapters = settings.chapter.showChapterList ? (
     <PagetopChapterSelector chapterRef={chapterRef} />
-  ) : null;
+  ) : undefined;
 
   const bookHeader =
     chapterRef &&

@@ -3,7 +3,7 @@ import { CloseButton, Placeholder } from 'react-bootstrap';
 import { useQuery } from 'react-query';
 import { config } from '../../../config';
 import { fetchStrongWord } from '../../../core/api/strong';
-import { useSettingsContext } from '../../../core/contexts/SettingsContext';
+import { useSettingsContext } from '../../shared/contexts/SettingsContext';
 
 function Skeleton() {
   return (

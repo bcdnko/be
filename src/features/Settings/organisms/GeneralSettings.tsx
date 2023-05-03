@@ -1,5 +1,5 @@
 import { faArrowUp } from '@fortawesome/free-solid-svg-icons';
-import { useSettingsContext } from '../../../core/contexts/SettingsContext';
+import { useSettingsContext } from '../../shared/contexts/SettingsContext';
 import { SwitchSettingRow } from '../molecules/SwitchSettingRow';
 
 export function GeneralSettings() {

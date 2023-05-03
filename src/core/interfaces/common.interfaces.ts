@@ -1,12 +1,5 @@
 import { BibleVersionId } from './Bible.interfaces';
 
-export interface Config {
-  projectName: string;
-  defaultVersionId: BibleVersionId;
-  defaultLanguage: string;
-  defaultDictionaryId: string;
-}
-
 export interface IChapterSettings {
   showVerseNumber: boolean;
   showChapterList: boolean;

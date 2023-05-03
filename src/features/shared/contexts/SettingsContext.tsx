@@ -1,8 +1,8 @@
 import React from 'react';
-import { config } from '../../config';
+import { config } from '../../../config';
+import { ISettings } from '../../../core/interfaces/common.interfaces';
+import { cloneDeepJson } from '../../../core/util/serialization';
 import { useLocalStorage } from '../hooks/useLocalStorage';
-import { ISettings } from '../interfaces/common.interfaces';
-import { cloneDeepJson } from '../util/serialization';
 
 export const defaultSettings: ISettings = {
   version: 1,

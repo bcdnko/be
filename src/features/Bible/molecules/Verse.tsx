@@ -1,21 +1,17 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
-import { useSettingsContext } from '../../../core/contexts/SettingsContext';
 import {
   IBibleTextToken,
   IBibleVerse,
   IVerseRange,
 } from '../../../core/interfaces/Bible.interfaces';
 import { ISettings } from '../../../core/interfaces/common.interfaces';
+import { Marks } from '../../Marks/molecules/Marks';
+import { useSettingsContext } from '../../shared/contexts/SettingsContext';
+import { useBibleVerseMarks } from '../../shared/hooks/userStorage/idb/useBibleVerseMarks';
 import { StrongWord } from '../../StrongDictionary/atoms/StrongWord';
 import { VerseNumber } from '../atoms/VerseNumber';
 import styles from './Verse.module.scss';
-
-type Props = {
-  verse: IBibleVerse;
-  selectedVerses: IVerseRange;
-  setStrongId: (strongId: string) => void;
-};
 
 function markersToClassNames(markers?: string[]) {
   return (markers || [])
@@ -43,10 +39,18 @@ function highlightedClassNames(settings: ISettings): string {
     .join(' ');
 }
 
+type Props = {
+  verse: IBibleVerse;
+  selectedVerses: IVerseRange;
+  setStrongId: (strongId: string) => void;
+  marks: ReturnType<typeof useBibleVerseMarks>;
+};
+
 export const Verse: React.FC<Props> = ({
   verse,
   selectedVerses,
   setStrongId,
+  marks,
 }) => {
   const { settings } = useSettingsContext();
   const navigate = useNavigate();
@@ -88,7 +92,7 @@ export const Verse: React.FC<Props> = ({
   const isSelected = selectedVerses.includes(verse.no);
 
   return (
-    <p
+    <div
       id={'v-' + verse.no}
       className={[
         styles.verse,
@@ -107,7 +111,18 @@ export const Verse: React.FC<Props> = ({
         />
       )}
 
-      <span>{verse.textParsed.map((token, i) => mapToken(token, i))}</span>
-    </p>
+      <div>
+        <p>{verse.textParsed.map((token, i) => mapToken(token, i))}</p>
+        <Marks
+          verseRef={{
+            versionId: undefined,
+            bookId: verse.bookId,
+            chapter: verse.chapter,
+            verseNum: verse.no,
+          }}
+          marks={marks}
+        />
+      </div>
+    </div>
   );
 };

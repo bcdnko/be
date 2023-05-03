@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom';
-import { useSettingsContext } from '../../../core/contexts/SettingsContext';
+import { useSettingsContext } from '../../shared/contexts/SettingsContext';
 import { PageHeader } from '../../shared/atoms/PageHeader';
 import { ChapterToolbar } from '../molecules/ChapterToolbar';
 import { Verse } from '../molecules/Verse';
@@ -17,14 +17,7 @@ import { useBibleClipboard } from '../hooks/useBibleClipboard';
 import { useBibleNavigate } from '../hooks/useBibleNavigate';
 import { useBibleVimKeys } from '../hooks/useBibleVimKeys';
 import styles from './Chapter.module.scss';
-
-type Props = {
-  chapterRef?: IBibleChapterRef;
-  verses?: IBibleVerse[];
-  selectedVerses: IVerseRange;
-  setStrongId: (strongId: string) => void;
-  focusSearch: () => void;
-};
+import { useBibleVerseMarks } from '../../shared/hooks/userStorage/idb/useBibleVerseMarks';
 
 function scrollToTheFirstSelectedVerse(
   selectedVerses: IVerseRange,
@@ -51,12 +44,22 @@ function scrollToTheFirstSelectedVerse(
   }
 }
 
+type Props = {
+  chapterRef?: IBibleChapterRef;
+  verses?: IBibleVerse[];
+  selectedVerses: IVerseRange;
+  setStrongId: (strongId: string) => void;
+  focusSearch: () => void;
+  marks: ReturnType<typeof useBibleVerseMarks>;
+};
+
 export const Chapter: React.FC<Props> = ({
   chapterRef,
   verses,
   selectedVerses,
   setStrongId,
   focusSearch,
+  marks,
 }) => {
   const { settings } = useSettingsContext();
   const { copySelectedVerses } = useBibleClipboard({
@@ -133,6 +136,7 @@ export const Chapter: React.FC<Props> = ({
                 verse={verse}
                 selectedVerses={selectedVerses}
                 setStrongId={setStrongId}
+                marks={marks}
               />
             ))
           )}

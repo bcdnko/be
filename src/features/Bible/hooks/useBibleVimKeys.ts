@@ -1,10 +1,10 @@
 import { useEffect } from 'react';
-import { useSettingsContext } from '../../../core/contexts/SettingsContext';
 import {
   IBibleChapterRef,
   IBibleVerse,
   IVerseRange,
 } from '../../../core/interfaces/Bible.interfaces';
+import { useSettingsContext } from '../../shared/contexts/SettingsContext';
 import { useBibleClipboard } from './useBibleClipboard';
 import { useBibleNavigate } from './useBibleNavigate';
 

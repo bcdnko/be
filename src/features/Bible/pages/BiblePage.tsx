@@ -1,4 +1,4 @@
-import { createRef, useState } from 'react';
+import { createRef, useMemo, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { config } from '../../../config';
 import {
@@ -13,11 +13,14 @@ import { StrongCard } from '../../StrongDictionary/molecules/StrongCard';
 import { BookSelector } from '../molecules/BookSelector';
 import { Chapter } from '../organisms/Chapter';
 import { VersionSelector } from '../molecules/VersionSelector';
-import { useSettingsContext } from '../../../core/contexts/SettingsContext';
+import { useSettingsContext } from '../../shared/contexts/SettingsContext';
 import { useBibleContextLoader } from '../hooks/useBibleContextLoader';
 import { useSearchDb } from '../hooks/useSearchDb';
 import { SearchBar } from '../molecules/SearchBar';
 import Typeahead from 'react-bootstrap-typeahead/types/core/Typeahead';
+import { useUserStorageContext } from '../../shared/contexts/UserStorageContext';
+import { useBibleVerseMarks } from '../../shared/hooks/userStorage/idb/useBibleVerseMarks';
+import { ChapterRef } from '../../shared/hooks/userStorage/types/refs';
 
 type RouteParams = {
   versionId?: string;
@@ -56,6 +59,13 @@ export function BiblePage() {
 
   const searchDb = useSearchDb(versionId, version?.langId);
 
+  const db = useUserStorageContext();
+
+  const marks = useBibleVerseMarks(
+    db,
+    useMemo<ChapterRef>(() => ({ bookId, chapter }), [bookId, chapter])
+  );
+
   return (
     <StandardLayout>
       {{
@@ -91,6 +101,7 @@ export function BiblePage() {
               selectedVerses={selectedVerses}
               setStrongId={setStrongId}
               focusSearch={focusSearch}
+              marks={marks}
             />
           </>
         ),

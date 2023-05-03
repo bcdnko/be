@@ -1,13 +1,13 @@
 import React from 'react';
 import { Button, Modal } from 'react-bootstrap';
-import {
-  defaultSettings,
-  useSettingsContext,
-} from '../../../core/contexts/SettingsContext';
 import { cloneDeepJson } from '../../../core/util/serialization';
 import { GeneralSettings } from '../organisms/GeneralSettings';
 import { ChapterSettings } from '../organisms/ChapterSettings';
 import { BookSelectorSettings } from '../organisms/BookSelectorSettings';
+import {
+  defaultSettings,
+  useSettingsContext,
+} from '../../shared/contexts/SettingsContext';
 
 type Props = {
   show: boolean;

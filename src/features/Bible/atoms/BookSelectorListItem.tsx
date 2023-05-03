@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { useSettingsContext } from '../../../core/contexts/SettingsContext';
+import { useSettingsContext } from '../../shared/contexts/SettingsContext';
 import { useBibleNavigate } from '../hooks/useBibleNavigate';
 import { SidebarChapterSelector } from '../molecules/SidebarChapterSelector';
 import { SimplePlaceholder } from '../../shared/atoms/SimplePlaceholder';

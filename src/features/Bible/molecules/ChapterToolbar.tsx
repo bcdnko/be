@@ -8,7 +8,6 @@ import {
   faShare,
 } from '@fortawesome/free-solid-svg-icons';
 import { faCopy } from '@fortawesome/free-regular-svg-icons';
-import { useSettingsContext } from '../../../core/contexts/SettingsContext';
 import { useState } from 'react';
 import { SettingsModal } from '../../Settings/pages/SettingsModal';
 import {
@@ -18,6 +17,7 @@ import {
 } from '../../../core/interfaces/Bible.interfaces';
 import { useBibleNavigate } from '../hooks/useBibleNavigate';
 import styles from './ChapterToolbar.module.scss';
+import { useSettingsContext } from '../../shared/contexts/SettingsContext';
 
 type Props = {
   chapterRef?: IBibleChapterRef;

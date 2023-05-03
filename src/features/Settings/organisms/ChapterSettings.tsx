@@ -1,4 +1,3 @@
-import { useSettingsContext } from '../../../core/contexts/SettingsContext';
 import { SwitchSettingRow } from '../molecules/SwitchSettingRow';
 import {
   faListOl,
@@ -9,6 +8,7 @@ import {
   faA,
   faV,
 } from '@fortawesome/free-solid-svg-icons';
+import { useSettingsContext } from '../../shared/contexts/SettingsContext';
 
 export function ChapterSettings() {
   const { settings, updateSettings } = useSettingsContext();

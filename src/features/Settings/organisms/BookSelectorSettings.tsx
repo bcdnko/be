@@ -1,6 +1,6 @@
-import { useSettingsContext } from '../../../core/contexts/SettingsContext';
 import { SwitchSettingRow } from '../molecules/SwitchSettingRow';
 import { faListAlt } from '@fortawesome/free-regular-svg-icons';
+import { useSettingsContext } from '../../shared/contexts/SettingsContext';
 
 export function BookSelectorSettings() {
   const { settings, updateSettings } = useSettingsContext();

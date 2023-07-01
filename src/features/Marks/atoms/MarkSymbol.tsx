@@ -12,7 +12,10 @@ export function MarkSymbol({ symbol, state, toggle }: Props) {
       style={{
         color: state ? 'black' : 'silver',
       }}
-      onClick={() => toggle(symbol, state)}
+      onClick={(e) => {
+        toggle(symbol, state);
+        e.stopPropagation();
+      }}
     >
       {symbol}
     </button>

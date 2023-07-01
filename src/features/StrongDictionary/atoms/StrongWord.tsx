@@ -1,9 +1,9 @@
-import React from 'react';
+import React, { MouseEventHandler } from 'react';
 import styles from './StrongWord.module.scss';
 
 type Props = {
   strongId: string;
-  onClick: () => void;
+  onClick: MouseEventHandler | undefined;
 };
 
 export const StrongWord: React.FC<Props> = ({ strongId, onClick }) => {

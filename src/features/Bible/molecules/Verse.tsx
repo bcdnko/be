@@ -66,7 +66,6 @@ export const Verse: React.FC<Props> = ({
       );
     } else if (token.type === 'strong') {
       const strongId = token.text;
-      const handleClick = () => setStrongId(strongId);
 
       if (!settings.chapter.showStrong) {
         return;
@@ -76,7 +75,10 @@ export const Verse: React.FC<Props> = ({
         <StrongWord
           key={key}
           strongId={strongId}
-          onClick={handleClick}
+          onClick={(e) => {
+            setStrongId(strongId);
+            e.stopPropagation();
+          }}
         />
       );
     } else if (token.type === 'space') {
@@ -96,7 +98,8 @@ export const Verse: React.FC<Props> = ({
         isSelected && styles.selected,
         highlightedClassNames(settings),
       ].join(' ')}
-      onMouseDown={() => {
+      onClick={() => {
+        // TODO change to the native function
         navigate('#' + verse.no, { preventScrollReset: true });
       }}
     >

@@ -1,11 +1,10 @@
 import { create, load, Orama, Stemmer, stemmers } from '@orama/orama';
 import { useEffect, useState } from 'react';
 import { useQuery } from 'react-query';
-import { fetchBibleSearchDb } from '../../../core/api/bible';
-import { BibleVersionId } from '../../../core/interfaces/Bible.interfaces';
-import { LanguageId } from '../../../core/interfaces/Language.interfaces';
 import { bibleSearchDbSchema } from '../../../core/search/BibleSearch';
 import { mapToSearchLanguage } from '../../../core/search/helpers';
+import { useBibleContext } from '../../shared/contexts/BibleChapterContext';
+import { fetchBibleSearchDb } from '../../shared/hooks/data/api/loaders/fetchSearchDb';
 
 function getStemmer(langId: string) {
   const map: { [key: string]: Stemmer } = {
@@ -16,15 +15,21 @@ function getStemmer(langId: string) {
   return map[langId];
 }
 
-export function useSearchDb(
-  versionId: BibleVersionId,
-  langId?: LanguageId
-): Orama | undefined {
+export function useSearchDb(): Orama | undefined {
   const [db, setDb] = useState<Orama | undefined>();
+  const { chapterContext } = useBibleContext();
+  const versionId = chapterContext?.version.id;
+  const langId = chapterContext?.version.langId;
 
   const searchDbQuery = useQuery(
     [versionId],
-    () => fetchBibleSearchDb(versionId),
+    () => {
+      if (!versionId) {
+        return;
+      }
+
+      return fetchBibleSearchDb(versionId);
+    },
     {
       refetchOnMount: false,
       refetchOnWindowFocus: false,

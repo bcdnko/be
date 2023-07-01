@@ -6,9 +6,8 @@ import {
   IVerseRange,
 } from '../../../core/interfaces/Bible.interfaces';
 import { ISettings } from '../../../core/interfaces/common.interfaces';
-import { Marks } from '../../Marks/molecules/Marks';
+import { VerseMarksSymbol } from '../../Marks/molecules/Marks';
 import { useSettingsContext } from '../../shared/contexts/SettingsContext';
-import { useBibleVerseMarks } from '../../shared/hooks/userStorage/idb/useBibleVerseMarks';
 import { StrongWord } from '../../StrongDictionary/atoms/StrongWord';
 import { VerseNumber } from '../atoms/VerseNumber';
 import styles from './Verse.module.scss';
@@ -43,14 +42,12 @@ type Props = {
   verse: IBibleVerse;
   selectedVerses: IVerseRange;
   setStrongId: (strongId: string) => void;
-  marks: ReturnType<typeof useBibleVerseMarks>;
 };
 
 export const Verse: React.FC<Props> = ({
   verse,
   selectedVerses,
   setStrongId,
-  marks,
 }) => {
   const { settings } = useSettingsContext();
   const navigate = useNavigate();
@@ -113,14 +110,13 @@ export const Verse: React.FC<Props> = ({
 
       <div>
         <p>{verse.textParsed.map((token, i) => mapToken(token, i))}</p>
-        <Marks
+        <VerseMarksSymbol
           verseRef={{
             versionId: undefined,
             bookId: verse.bookId,
             chapter: verse.chapter,
             verseNum: verse.no,
           }}
-          marks={marks}
         />
       </div>
     </div>

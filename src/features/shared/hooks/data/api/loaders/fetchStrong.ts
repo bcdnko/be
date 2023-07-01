@@ -1,5 +1,5 @@
-import { IStrongWord } from '../interfaces/Bible.interfaces';
-import { url } from '../util/url';
+import { IStrongWord } from '../../../../../../core/interfaces/Bible.interfaces';
+import { url } from '../../../../../../core/util/url';
 
 export function fetchStrongWord(
   dictionaryId: string,

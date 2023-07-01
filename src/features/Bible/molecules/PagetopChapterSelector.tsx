@@ -1,11 +1,7 @@
 import { ChapterSelector } from './ChapterSelector';
-import { IBibleChapterRef } from '../../../core/interfaces/Bible.interfaces';
 import { SimplePlaceholder } from '../../shared/atoms/SimplePlaceholder';
 import './PagetopChapterSelector.scss';
-
-type PagetopChapterSelectorProps = {
-  chapterRef?: IBibleChapterRef;
-};
+import { useBibleContext } from '../../shared/contexts/BibleChapterContext';
 
 function Skeleton() {
   return (
@@ -15,11 +11,11 @@ function Skeleton() {
   );
 }
 
-export const PagetopChapterSelector: React.FC<PagetopChapterSelectorProps> = ({
-  chapterRef,
-}) => {
-  return chapterRef ? (
-    <ChapterSelector chapterRef={chapterRef} />
+export const PagetopChapterSelector: React.FC = () => {
+  const { chapterContext } = useBibleContext();
+
+  return chapterContext ? (
+    <ChapterSelector chapterContext={chapterContext} />
   ) : (
     <Skeleton />
   );

@@ -1,11 +1,12 @@
 import { useQuery } from 'react-query';
-import { fetchBibleBooks, fetchBibleVersions } from '../../../core/api/bible';
-import { fetchVerses } from '../../../core/api/bible/verse';
 import {
   BibleBookId,
   BibleChapterId,
   BibleVersionId,
-} from '../../../core/interfaces/Bible.interfaces';
+} from '../../../../../core/interfaces/Bible.interfaces';
+import { fetchBibleBooks } from './loaders/fetchBibleBooks';
+import { fetchVerses } from './loaders/fetchBibleVerses';
+import { fetchBibleVersions } from './loaders/fetchBibleVersions';
 
 type Props = {
   versionId: BibleVersionId;

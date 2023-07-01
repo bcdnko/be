@@ -10,31 +10,20 @@ import {
 import { faCopy } from '@fortawesome/free-regular-svg-icons';
 import { useState } from 'react';
 import { SettingsModal } from '../../Settings/pages/SettingsModal';
-import {
-  IBibleChapterRef,
-  IBibleVerse,
-  IVerseRange,
-} from '../../../core/interfaces/Bible.interfaces';
 import { useBibleNavigate } from '../hooks/useBibleNavigate';
 import styles from './ChapterToolbar.module.scss';
 import { useSettingsContext } from '../../shared/contexts/SettingsContext';
+import { useBibleContext } from '../../shared/contexts/BibleChapterContext';
+import { useVerseSelectionActions } from '../../shared/actions/useVerseSelectionActions';
 
-type Props = {
-  chapterRef?: IBibleChapterRef;
-  verses?: IBibleVerse[];
-  selectedVerses: IVerseRange;
-  copySelectedVerses: () => void;
-};
+type Props = {};
 
-export const ChapterToolbar: React.FC<Props> = ({
-  chapterRef,
-  verses,
-  selectedVerses,
-  copySelectedVerses,
-}) => {
+export function ChapterToolbar({ }: Props) {
   const { settings, updateSettings } = useSettingsContext();
-  const { changeActiveVerse } = useBibleNavigate({ chapterRef });
+  const { chapterContext, verses } = useBibleContext();
   const [showSettingsModal, setShowSettingsModal] = useState(false);
+  const { copySelectedVersesAction } = useVerseSelectionActions();
+  const { changeActiveVerse } = useBibleNavigate();
 
   return (
     <>
@@ -62,16 +51,28 @@ export const ChapterToolbar: React.FC<Props> = ({
           <ButtonGroup>
             <Button
               title="Copy Selected Verses (y)"
-              disabled={!(chapterRef && verses && selectedVerses.length)}
+              disabled={
+                !(
+                  chapterContext &&
+                  verses &&
+                  chapterContext.selectedVerses.length
+                )
+              }
               variant="primary"
-              onClick={() => copySelectedVerses()}
+              onClick={() => copySelectedVersesAction()}
             >
               <FontAwesomeIcon icon={faCopy} />
             </Button>
 
             <Button
               title="Share Selected Verses"
-              disabled={!(chapterRef && verses && selectedVerses.length)}
+              disabled={
+                !(
+                  chapterContext &&
+                  verses &&
+                  chapterContext.selectedVerses.length
+                )
+              }
               variant="primary"
               onClick={() => {
                 navigator.clipboard.writeText(window.location.href);
@@ -82,7 +83,13 @@ export const ChapterToolbar: React.FC<Props> = ({
 
             <Button
               title="Unselect Verses (esc)"
-              disabled={!(verses && selectedVerses.length)}
+              disabled={
+                !(
+                  chapterContext &&
+                  verses &&
+                  chapterContext.selectedVerses.length
+                )
+              }
               variant="primary"
               onClick={() => changeActiveVerse()}
             >
@@ -99,4 +106,4 @@ export const ChapterToolbar: React.FC<Props> = ({
       </div>
     </>
   );
-};
+}

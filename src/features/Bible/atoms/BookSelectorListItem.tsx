@@ -1,31 +1,26 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { useSettingsContext } from '../../shared/contexts/SettingsContext';
-import { useBibleNavigate } from '../hooks/useBibleNavigate';
+import { chapterUrl } from '../hooks/useBibleNavigate';
 import { SidebarChapterSelector } from '../molecules/SidebarChapterSelector';
 import { SimplePlaceholder } from '../../shared/atoms/SimplePlaceholder';
 import {
   IBibleBooksByTestament,
   IBibleBook,
-  IBibleChapterRef,
 } from '../../../core/interfaces/Bible.interfaces';
 import listStyles from '../molecules/SideList.module.scss';
+import { useBibleContext } from '../../shared/contexts/BibleChapterContext';
 
 type Props = {
   testament: IBibleBooksByTestament;
-  chapterRef?: IBibleChapterRef;
   book?: IBibleBook;
 };
 
-export const BookSelectorListItem: React.FC<Props> = ({
-  testament,
-  chapterRef,
-  book,
-}) => {
+export function BookSelectorListItem({ testament, book }: Props) {
   const { settings } = useSettingsContext();
-  const { chapterUrl } = useBibleNavigate({ chapterRef });
+  const { chapterContext } = useBibleContext();
 
-  if (!book || !chapterRef) {
+  if (!book || !chapterContext) {
     return <SimplePlaceholder xs={12} />;
   }
 
@@ -34,17 +29,25 @@ export const BookSelectorListItem: React.FC<Props> = ({
       key={`${testament.title}_${book.id}`}
       className={[
         'sideListItem',
-        chapterRef.book.id === book.id
+        chapterContext.book.id === book.id
           ? 'active ' + listStyles.active
           : undefined,
       ].join(' ')}
     >
       {settings.bookSelector.showChaptersDropDown && (
-        <SidebarChapterSelector chapterRef={chapterRef} />
+        /* TODO check renders */
+        <SidebarChapterSelector chapterContext={{ ...chapterContext, book }} />
       )}
-      <Link to={chapterUrl(chapterRef.version.id, book.id, 1)}>
+
+      <Link
+        to={chapterUrl({
+          versionId: chapterContext.version.id,
+          bookId: book.id,
+          chapter: 1,
+        })}
+      >
         {book.titleShort}
       </Link>
     </li>
   );
-};
+}

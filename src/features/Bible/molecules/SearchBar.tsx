@@ -1,22 +1,36 @@
 import { Orama, search } from '@orama/orama';
-import { forwardRef, useState } from 'react';
+import { forwardRef, useEffect, useRef, useState } from 'react';
 import { AsyncTypeahead } from 'react-bootstrap-typeahead';
 import Typeahead from 'react-bootstrap-typeahead/types/core/Typeahead';
+import { useBibleContext } from '../../shared/contexts/BibleChapterContext';
+import { useBibleSearchContext } from '../../shared/contexts/BibleSearchContext';
 import { useBibleNavigate } from '../hooks/useBibleNavigate';
 
 // TODO
 type Item = any;
 
-type Props = {
-  searchDb: Orama;
-};
+type Props = {};
 
-export const SearchBar = forwardRef<Typeahead, Props>(({ searchDb }, ref) => {
+export const SearchBar = forwardRef<Typeahead, Props>(() => {
   const [isLoading, setIsLoading] = useState(false);
   const [options, setOptions] = useState<Item[]>([]);
-  const { goTo } = useBibleNavigate({});
+  const { navigateBible } = useBibleNavigate();
+  const { isSearchFocused, searchDb } = useBibleSearchContext();
+  const { chapterContext } = useBibleContext();
+
+  const ref = useRef<Typeahead>(null);
+
+  useEffect(() => {
+    if (isSearchFocused && ref.current) {
+      ref.current.focus();
+    }
+  }, [isSearchFocused]);
 
   const handleSearch = (query: string) => {
+    if (!searchDb) {
+      return;
+    }
+
     setIsLoading(true);
 
     search(searchDb, {
@@ -46,11 +60,14 @@ export const SearchBar = forwardRef<Typeahead, Props>(({ searchDb }, ref) => {
 
     const { versionId, bookId, chapter, no } = result[0];
 
-    goTo(versionId, bookId, chapter, no);
+    navigateBible({ versionId, bookId, chapter, verse: no });
   };
+
+  // TODO !!!! the key prop does not work here properly
 
   return (
     <AsyncTypeahead
+      key={chapterContext?.version.id}
       filterBy={filterBy}
       id="bible-search"
       ref={ref}

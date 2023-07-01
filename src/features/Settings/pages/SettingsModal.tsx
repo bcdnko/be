@@ -34,7 +34,7 @@ export const SettingsModal: React.FC<Props> = ({ show, onHide }) => {
         <Button
           variant="danger"
           onClick={() =>
-            window.confirm('Are yo shure?') &&
+            window.confirm('Are yo sure?') &&
             setSettings(cloneDeepJson(defaultSettings))
           }
         >

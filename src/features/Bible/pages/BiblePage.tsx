@@ -1,121 +1,45 @@
-import { createRef, useMemo, useState } from 'react';
-import { useParams } from 'react-router-dom';
-import { config } from '../../../config';
-import {
-  BibleBookId,
-  BibleChapterId,
-  BibleVersionId,
-  IBibleChapterRef,
-} from '../../../core/interfaces/Bible.interfaces';
-import { getSelectedVersesFromHash } from '../../../core/service/VerseHighlightService';
+import { useState } from 'react';
 import { StandardLayout } from '../../shared/templates/StandardLayout';
 import { StrongCard } from '../../StrongDictionary/molecules/StrongCard';
-import { BookSelector } from '../molecules/BookSelector';
 import { Chapter } from '../organisms/Chapter';
-import { VersionSelector } from '../molecules/VersionSelector';
-import { useSettingsContext } from '../../shared/contexts/SettingsContext';
-import { useBibleContextLoader } from '../hooks/useBibleContextLoader';
-import { useSearchDb } from '../hooks/useSearchDb';
 import { SearchBar } from '../molecules/SearchBar';
-import Typeahead from 'react-bootstrap-typeahead/types/core/Typeahead';
-import { useUserStorageContext } from '../../shared/contexts/UserStorageContext';
-import { useBibleVerseMarks } from '../../shared/hooks/userStorage/idb/useBibleVerseMarks';
-import { ChapterRef } from '../../shared/hooks/userStorage/types/refs';
-
-type RouteParams = {
-  versionId?: string;
-  bookId?: string;
-  chapter?: string;
-};
+import { MarksContextProvider } from '../../shared/contexts/MarksContext';
+import { BibleContextProvider } from '../../shared/contexts/BibleChapterContext';
+import { LeftSidebar } from '../organisms/LeftSidebar';
+import { BibleSearchContextProvider } from '../../shared/contexts/BibleSearchContext';
 
 export function BiblePage() {
-  const params = useParams<RouteParams>();
-  const searchRef = createRef<Typeahead>();
-  const focusSearch = () => searchRef.current?.focus();
-
-  const { settings } = useSettingsContext();
+  // TODO refactor
   const [strongId, setStrongId] = useState<string>();
 
-  const selectedVerses = getSelectedVersesFromHash(window.location.hash);
-
-  const versionId: BibleVersionId =
-    params.versionId ||
-    settings.general.defaultBibleVersionId ||
-    config.defaultVersionId;
-
-  const bookId: BibleBookId = (params.bookId && parseInt(params.bookId)) || 1;
-
-  const chapter: BibleChapterId =
-    (params.chapter && parseInt(params.chapter)) || 1;
-
-  const { versions, books, version, book, verses } = useBibleContextLoader({
-    versionId,
-    bookId,
-    chapter,
-  });
-
-  const chapterRef: IBibleChapterRef | undefined =
-    version && book && chapter ? { version, book, chapter } : undefined;
-
-  const searchDb = useSearchDb(versionId, version?.langId);
-
-  const db = useUserStorageContext();
-
-  const marks = useBibleVerseMarks(
-    db,
-    useMemo<ChapterRef>(() => ({ bookId, chapter }), [bookId, chapter])
-  );
-
   return (
-    <StandardLayout>
-      {{
-        leftSidebar: (
-          <div>
-            <VersionSelector
-              currentVersionId={versionId}
-              currentBookId={bookId}
-              currentChapter={chapter}
-              versions={versions}
-              chapterRef={chapterRef}
-            />
+    <BibleContextProvider>
+      <BibleSearchContextProvider>
+        <StandardLayout>
+          {{
+            leftSidebar: <LeftSidebar />,
+            main: (
+              <>
+                <SearchBar />
 
-            <BookSelector
-              books={books}
-              chapterRef={chapterRef}
-            />
-          </div>
-        ),
-        main: (
-          <>
-            {searchDb && (
-              <SearchBar
-                key={versionId}
-                searchDb={searchDb}
-                ref={searchRef}
-              />
-            )}
-
-            <Chapter
-              chapterRef={chapterRef}
-              verses={verses}
-              selectedVerses={selectedVerses}
-              setStrongId={setStrongId}
-              focusSearch={focusSearch}
-              marks={marks}
-            />
-          </>
-        ),
-        rightSidebar: (
-          <>
-            {strongId && (
-              <StrongCard
-                strongId={strongId}
-                setStrongId={setStrongId}
-              />
-            )}
-          </>
-        ),
-      }}
-    </StandardLayout>
+                <MarksContextProvider>
+                  <Chapter setStrongId={setStrongId} />
+                </MarksContextProvider>
+              </>
+            ),
+            rightSidebar: (
+              <>
+                {strongId && (
+                  <StrongCard
+                    strongId={strongId}
+                    setStrongId={setStrongId}
+                  />
+                )}
+              </>
+            ),
+          }}
+        </StandardLayout>
+      </BibleSearchContextProvider>
+    </BibleContextProvider>
   );
 }

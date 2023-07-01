@@ -1,16 +1,15 @@
 import React, { useCallback } from 'react';
-import { UserStorage } from '../hooks/userStorage/idb/schema';
-import { useUserStorage } from '../hooks/userStorage/idb/useUserStorage';
+import { useUserStorage } from '../hooks/userStorage/useUserStorage';
 
-const UserStorageContext = React.createContext<UserStorage | undefined>(
+const UserStorageContext = React.createContext<IDBDatabase | undefined>(
   undefined
 );
 
 export const UserStorageProvider: React.FC<React.PropsWithChildren<{}>> = ({
   children,
-}: any) => {
-  // TODO redirect
+}) => {
   const db = useUserStorage(
+    // TODO redirect
     useCallback(() => alert('Unable to save changes'), [])
   );
 

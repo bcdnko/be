@@ -3,12 +3,13 @@ import {
   BibleVersionId,
 } from '../../../../../core/interfaces/Bible.interfaces';
 
-export interface ChapterRef {
+// TODO move out
+export interface MarksChapterRef {
   versionId?: BibleVersionId;
   bookId: BibleBookId;
   chapter: number;
 }
 
-export interface VerseRef extends ChapterRef {
+export interface MarksVerseRef extends MarksChapterRef {
   verseNum: number;
 }

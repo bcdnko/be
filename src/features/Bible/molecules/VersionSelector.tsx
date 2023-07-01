@@ -1,15 +1,10 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import {
-  BibleBookId,
-  BibleChapterId,
-  BibleVersionId,
-  IBibleChapterRef,
-  IBibleVersion,
-} from '../../../core/interfaces/Bible.interfaces';
-import { useBibleNavigate } from '../hooks/useBibleNavigate';
+import { IBibleVersion } from '../../../core/interfaces/Bible.interfaces';
+import { chapterUrl } from '../hooks/useBibleNavigate';
 import { Placeholder } from 'react-bootstrap';
 import styles from './SideList.module.scss';
+import { useBibleContext } from '../../shared/contexts/BibleChapterContext';
 
 function skeleton() {
   return (
@@ -27,23 +22,12 @@ function skeleton() {
 }
 
 type Props = {
-  currentVersionId: BibleVersionId;
-  currentBookId: BibleBookId;
-  currentChapter: BibleChapterId;
   versions?: IBibleVersion[];
-  chapterRef?: IBibleChapterRef;
 };
 
-export const VersionSelector: React.FC<Props> = ({
-  currentVersionId,
-  currentBookId,
-  currentChapter,
-  versions,
-  chapterRef,
-}) => {
-  const { chapterUrl } = useBibleNavigate({ chapterRef });
-
-  const isLoading = !versions;
+export function VersionSelector({ versions }: Props) {
+  const { chapterContext } = useBibleContext();
+  const isLoading = !versions || !chapterContext;
 
   return (
     <section className={styles.sideList}>
@@ -56,15 +40,21 @@ export const VersionSelector: React.FC<Props> = ({
           {versions.map((version) => (
             <li
               className={[
-                currentVersionId === version.id ? styles.active : undefined,
+                chapterContext.version.id === version.id
+                  ? styles.active
+                  : undefined,
               ].join(' ')}
               key={version.id}
             >
               <Link
-                to={
-                  chapterUrl(version.id, currentBookId, currentChapter) +
-                  window.location.hash
-                }
+                to={chapterUrl(
+                  {
+                    versionId: version.id,
+                    bookId: chapterContext.book.id,
+                    chapter: chapterContext.chapter,
+                  },
+                  { preserveHash: true }
+                )}
               >
                 {version.title}
               </Link>
@@ -74,4 +64,4 @@ export const VersionSelector: React.FC<Props> = ({
       )}
     </section>
   );
-};
+}

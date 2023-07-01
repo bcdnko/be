@@ -1,11 +1,14 @@
+import { useMarksContext } from '../../shared/contexts/MarksContext';
 import { getVerseRefKey } from '../../shared/helpers/verse';
-import { useBibleVerseMarks } from '../../shared/hooks/userStorage/idb/useBibleVerseMarks';
-import { VerseRef } from '../../shared/hooks/userStorage/types/refs';
+import {
+  VerseMark,
+  VerseMarkValue,
+} from '../../shared/hooks/userStorage/types/marks';
+import { MarksVerseRef } from '../../shared/hooks/userStorage/types/refs';
 import { MarkSymbol } from '../atoms/MarkSymbol';
 
 interface Props {
-  verseRef: VerseRef;
-  marks: ReturnType<typeof useBibleVerseMarks>;
+  verseRef: MarksVerseRef;
 }
 
 const enum Symbols {
@@ -15,34 +18,59 @@ const enum Symbols {
   Star = '★',
 }
 
-export function Marks({ verseRef, marks: { marks, putMark } }: Props) {
+// TODO rename
+export function VerseMarksSymbol({ verseRef }: Props) {
+  const marksContext = useMarksContext();
+  if (!marksContext) {
+    return <></>;
+  }
+
+  const {
+    marks,
+    actions: { deleteMark, putMark },
+  } = marksContext;
+
   const key = getVerseRefKey(verseRef);
   const verseMarks = marks[key];
+
+  const toggleMark = (value: VerseMarkValue, currentState: boolean) => {
+    const mark: VerseMark = {
+      ...verseRef,
+      type: 'symbol',
+      value,
+    };
+
+    if (currentState) {
+      deleteMark(mark);
+    } else {
+      putMark(mark);
+    }
+  };
 
   return (
     <div>
       <MarkSymbol
         symbol={Symbols.Exclamation}
         state={Boolean(verseMarks && verseMarks[Symbols.Exclamation])}
-        toggle={() => putMark(verseRef.verseNum, Symbols.Exclamation)}
+        toggle={toggleMark}
       />
 
       <MarkSymbol
         symbol={Symbols.Question}
         state={Boolean(verseMarks && verseMarks[Symbols.Question])}
-        toggle={() => putMark(verseRef.verseNum, Symbols.Question)}
+        toggle={toggleMark}
       />
 
       <MarkSymbol
         symbol={Symbols.Heart}
         state={Boolean(verseMarks && verseMarks[Symbols.Heart])}
-        toggle={() => putMark(verseRef.verseNum, Symbols.Heart)}
+        toggle={toggleMark}
       />
 
       <MarkSymbol
         symbol={Symbols.Star}
         state={Boolean(verseMarks && verseMarks[Symbols.Star])}
-        toggle={() => putMark(verseRef.verseNum, Symbols.Star)}
+        toggle={toggleMark}
       />
     </div>
   );

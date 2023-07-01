@@ -5,8 +5,8 @@ import {
   IBibleTextToken,
   IBibleVerse,
   IBibleVerseStored,
-} from '../../interfaces/Bible.interfaces';
-import { url } from '../../util/url';
+} from '../../../../../../core/interfaces/Bible.interfaces';
+import { url } from '../../../../../../core/util/url';
 
 function parseVerseText(verseText: string): IBibleTextToken[] {
   const markers: string[] = [];

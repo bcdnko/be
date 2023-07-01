@@ -1,7 +1,11 @@
-import { BibleVerseId, IVerseRange } from '../interfaces/Bible.interfaces';
-import { cloneDeepJson } from '../util/serialization';
+import { useMemo } from 'react';
+import {
+  BibleVerseId,
+  IVerseRange,
+} from '../../../../core/interfaces/Bible.interfaces';
+import { cloneDeepJson } from '../../../../core/util/serialization';
 
-export function getSelectedVersesFromHash(hashString: string): IVerseRange {
+function getSelectedVersesFromHash(hashString: string): IVerseRange {
   const hash = hashString.slice(1);
 
   if (!hash.length) {
@@ -50,4 +54,13 @@ export function toggleVerse(
   selected.sort((a, b) => a - b);
 
   return selected;
+}
+
+export function useVersesFromHash() {
+  const hash = window.location.hash;
+  const selectedVerses = useMemo(() => getSelectedVersesFromHash(hash), [hash]);
+
+  return {
+    selectedVerses,
+  };
 }

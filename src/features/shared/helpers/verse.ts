@@ -3,13 +3,13 @@ import {
   IBibleVerse,
 } from '../../../core/interfaces/Bible.interfaces';
 import { VerseMark } from '../hooks/userStorage/types/marks';
-import { VerseRef } from '../hooks/userStorage/types/refs';
+import { MarksVerseRef } from '../hooks/userStorage/types/refs';
 
 function verseRef(bookId: BibleBookId, chapter: number, verseNum: number) {
   return `${bookId}_${chapter}_${verseNum}`;
 }
 
-export function getVerseRefKey({ bookId, chapter, verseNum }: VerseRef) {
+export function getVerseRefKey({ bookId, chapter, verseNum }: MarksVerseRef) {
   return verseRef(bookId, chapter, verseNum);
 }
 

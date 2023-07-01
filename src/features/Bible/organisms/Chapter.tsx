@@ -3,30 +3,21 @@ import { useSettingsContext } from '../../shared/contexts/SettingsContext';
 import { PageHeader } from '../../shared/atoms/PageHeader';
 import { ChapterToolbar } from '../molecules/ChapterToolbar';
 import { Verse } from '../molecules/Verse';
-import {
-  IBibleChapterRef,
-  IBibleVerse,
-  IVerseRange,
-} from '../../../core/interfaces/Bible.interfaces';
+import { IVerseRange } from '../../../core/interfaces/Bible.interfaces';
 import { PagetopChapterSelector } from '../molecules/PagetopChapterSelector';
 import { VersesSkeleton } from '../molecules/VersesSkeleton';
 import { SimplePlaceholder } from '../../shared/atoms/SimplePlaceholder';
 import { PageSubHeader } from '../../shared/atoms/PageSubHeader';
 import { useEffect } from 'react';
-import { useBibleClipboard } from '../hooks/useBibleClipboard';
-import { useBibleNavigate } from '../hooks/useBibleNavigate';
+import {
+  getNextChapterUrl,
+  getPrevChapterUrl,
+} from '../hooks/useBibleNavigate';
 import { useBibleVimKeys } from '../hooks/useBibleVimKeys';
 import styles from './Chapter.module.scss';
-import { useBibleVerseMarks } from '../../shared/hooks/userStorage/idb/useBibleVerseMarks';
+import { useBibleContext } from '../../shared/contexts/BibleChapterContext';
 
-function scrollToTheFirstSelectedVerse(
-  selectedVerses: IVerseRange,
-  verses: any
-) {
-  if (!verses) {
-    return;
-  }
-
+function scrollToTheFirstSelectedVerse(selectedVerses: IVerseRange) {
   const firstVerse = selectedVerses.length
     ? Math.min(...selectedVerses)
     : undefined;
@@ -45,53 +36,38 @@ function scrollToTheFirstSelectedVerse(
 }
 
 type Props = {
-  chapterRef?: IBibleChapterRef;
-  verses?: IBibleVerse[];
-  selectedVerses: IVerseRange;
-  setStrongId: (strongId: string) => void;
-  focusSearch: () => void;
-  marks: ReturnType<typeof useBibleVerseMarks>;
+  setStrongId: (strongId: string) => void; // TODO refactor
 };
 
-export const Chapter: React.FC<Props> = ({
-  chapterRef,
-  verses,
-  selectedVerses,
-  setStrongId,
-  focusSearch,
-  marks,
-}) => {
+export function Chapter({ setStrongId }: Props) {
+  const { chapterContext, verses } = useBibleContext();
   const { settings } = useSettingsContext();
-  const { copySelectedVerses } = useBibleClipboard({
-    chapterRef,
-    selectedVerses,
-    verses,
-  });
-  const nav = useBibleNavigate({ chapterRef, verses });
 
-  useBibleVimKeys({ chapterRef, selectedVerses, verses, focusSearch });
+  useBibleVimKeys();
 
-  const prevChapterLink = nav.getPrevChapterUrl();
-  const nextChapterLink = nav.getNextChapterUrl();
+  const prevChapterLink = chapterContext && getPrevChapterUrl(chapterContext);
+  const nextChapterLink = chapterContext && getNextChapterUrl(chapterContext);
 
   useEffect(() => {
     // TODO resolve dependency problem (can't depend on selectedVerses)
-    scrollToTheFirstSelectedVerse(selectedVerses, verses);
-  }, [chapterRef, verses]);
+    if (chapterContext && verses) {
+      scrollToTheFirstSelectedVerse(chapterContext.selectedVerses);
+    }
+  }, [chapterContext, verses]);
 
   const chapters = settings.chapter.showChapterList ? (
-    <PagetopChapterSelector chapterRef={chapterRef} />
+    <PagetopChapterSelector />
   ) : undefined;
 
   const bookHeader =
-    chapterRef &&
+    chapterContext &&
     (settings.chapter.fullBookHeader
-      ? chapterRef.book.title
-      : chapterRef.book.titleShort);
+      ? chapterContext.book.title
+      : chapterContext.book.titleShort);
 
-  const chapterHeader = chapterRef && (
+  const chapterHeader = chapterContext && (
     <>
-      {chapterRef.book.chapterTitle || 'Chapter'} {chapterRef.chapter}
+      {chapterContext.book.chapterTitle || 'Chapter'} {chapterContext.chapter}
     </>
   );
 
@@ -99,12 +75,7 @@ export const Chapter: React.FC<Props> = ({
     <>
       <div className="scroll-anchor"></div>
 
-      <ChapterToolbar
-        chapterRef={chapterRef}
-        verses={verses}
-        selectedVerses={selectedVerses}
-        copySelectedVerses={copySelectedVerses}
-      />
+      <ChapterToolbar />
 
       <div className={styles.wrapper}>
         {(settings.chapter.hugePrevNextChapterBtns && prevChapterLink && (
@@ -127,16 +98,15 @@ export const Chapter: React.FC<Props> = ({
             {chapterHeader || <SimplePlaceholder xs={3} />}
           </PageSubHeader>
 
-          {!(verses && chapterRef) ? (
+          {!verses || !chapterContext ? (
             <VersesSkeleton />
           ) : (
             verses.map((verse) => (
               <Verse
-                key={`${Object.values(chapterRef).join('_')}_${verse.no}`}
+                key={`${Object.values(chapterContext).join('_')}_${verse.no}`}
                 verse={verse}
-                selectedVerses={selectedVerses}
+                selectedVerses={chapterContext.selectedVerses}
                 setStrongId={setStrongId}
-                marks={marks}
               />
             ))
           )}
@@ -157,4 +127,4 @@ export const Chapter: React.FC<Props> = ({
       </div>
     </>
   );
-};
+}

@@ -1,41 +1,37 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { IBibleChapterRef } from '../../../core/interfaces/Bible.interfaces';
-import { useBibleNavigate } from '../hooks/useBibleNavigate';
+import { IBibleChapterContext } from '../../../core/interfaces/Bible.interfaces';
+import { chapterUrl } from '../hooks/useBibleNavigate';
 
 export type ChapterSelectorProps = {
-  chapterRef?: IBibleChapterRef;
+  chapterContext?: IBibleChapterContext;
 };
 
-export const ChapterSelector: React.FC<ChapterSelectorProps> = ({
-  chapterRef,
-}) => {
-  const { chapterUrl } = useBibleNavigate({ chapterRef });
-
-  if (!chapterRef) {
+export function ChapterSelector({ chapterContext }: ChapterSelectorProps) {
+  if (!chapterContext) {
     return <></>;
   }
+
+  const { book, chapter: currentChapter } = chapterContext;
 
   return (
     <div className="chapterList">
       {' '}
       <ul>
-        {[...Array(chapterRef.book.chapters)].map((_, i) => {
+        {[...Array(book.chapters)].map((_, i) => {
           const chapter = i + 1;
 
           return (
             <li
-              className={[chapterRef?.chapter === chapter ? 'active' : ''].join(
-                ' '
-              )}
-              key={`${chapterRef.book.id}_${chapter}`}
+              className={[currentChapter === chapter ? 'active' : ''].join(' ')}
+              key={`${book.id}_${chapter}`}
             >
               <Link
-                to={chapterUrl(
-                  chapterRef.version.id,
-                  chapterRef.book.id,
-                  chapter
-                )}
+                to={chapterUrl({
+                  versionId: chapterContext.version.id,
+                  bookId: chapterContext.book.id,
+                  chapter,
+                })}
               >
                 {chapter}
               </Link>{' '}
@@ -45,4 +41,4 @@ export const ChapterSelector: React.FC<ChapterSelectorProps> = ({
       </ul>
     </div>
   );
-};
+}

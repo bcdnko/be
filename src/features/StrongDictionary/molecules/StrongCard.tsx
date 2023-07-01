@@ -2,8 +2,8 @@ import React from 'react';
 import { CloseButton, Placeholder } from 'react-bootstrap';
 import { useQuery } from 'react-query';
 import { config } from '../../../config';
-import { fetchStrongWord } from '../../../core/api/strong';
 import { useSettingsContext } from '../../shared/contexts/SettingsContext';
+import { fetchStrongWord } from '../../shared/hooks/data/api/loaders/fetchStrong';
 
 function Skeleton() {
   return (

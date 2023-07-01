@@ -7,7 +7,7 @@ import {
 import {
   selectionToHash,
   toggleVerse,
-} from '../../../core/service/VerseHighlightService';
+} from '../../shared/hooks/hashParams/useVersesFromHash';
 import styles from './VerseNumber.module.scss';
 
 type Props = {
@@ -28,6 +28,7 @@ export const VerseNumber: React.FC<Props> = ({
       <span
         className={styles.verseNumber}
         onMouseDown={(e) => {
+          // TODO refactor
           navigate(
             selectionToHash(toggleVerse(selectedVerses, no, !isSelected)),
             { preventScrollReset: true }

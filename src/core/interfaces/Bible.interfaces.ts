@@ -76,8 +76,10 @@ export interface IStrongDictionary {
 
 export type IVerseRange = number[];
 
-export interface IBibleChapterRef {
+// TODO rename
+export interface IBibleChapterContext {
   version: IBibleVersion;
   book: IBibleBook;
   chapter: BibleChapterId;
+  selectedVerses: IVerseRange;
 }

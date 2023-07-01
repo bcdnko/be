@@ -2,8 +2,8 @@ import React, { useMemo } from 'react';
 import {
   IBibleBooksByTestament,
   IBibleBook,
-  IBibleChapterRef,
 } from '../../../core/interfaces/Bible.interfaces';
+import { useBibleContext } from '../../shared/contexts/BibleChapterContext';
 import { BookSelectorListItem } from '../atoms/BookSelectorListItem';
 import styles from './BookSelector.module.scss';
 import listStyles from './SideList.module.scss';
@@ -38,11 +38,13 @@ function groupBooksByTestament(books?: IBibleBook[]): IBibleBooksByTestament[] {
 }
 
 type Props = {
-  chapterRef?: IBibleChapterRef;
   books?: IBibleBook[];
 };
 
-export const BookSelector: React.FC<Props> = ({ books, chapterRef }) => {
+export function BookSelector({ books }: Props) {
+  const { chapterContext } = useBibleContext();
+
+  // TODO move to context
   const booksGrouped = useMemo(() => groupBooksByTestament(books), [books]);
 
   return (
@@ -57,9 +59,12 @@ export const BookSelector: React.FC<Props> = ({ books, chapterRef }) => {
           <ul>
             {testament.books.map((book, i) => (
               <BookSelectorListItem
-                key={chapterRef ? `${chapterRef?.version.id}_${book?.id}` : i}
+                key={
+                  chapterContext
+                    ? `${chapterContext?.version.id}_${book?.id}`
+                    : i
+                }
                 testament={testament}
-                chapterRef={chapterRef}
                 book={book}
               />
             ))}
@@ -68,4 +73,4 @@ export const BookSelector: React.FC<Props> = ({ books, chapterRef }) => {
       ))}
     </section>
   );
-};
+}

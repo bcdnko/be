@@ -1,11 +1,8 @@
 import { useEffect } from 'react';
-import {
-  IBibleChapterRef,
-  IBibleVerse,
-  IVerseRange,
-} from '../../../core/interfaces/Bible.interfaces';
+import { copySelectedVersesAction } from '../../shared/actions/useVerseSelectionActions';
+import { useBibleContext } from '../../shared/contexts/BibleChapterContext';
+import { useBibleSearchContext } from '../../shared/contexts/BibleSearchContext';
 import { useSettingsContext } from '../../shared/contexts/SettingsContext';
-import { useBibleClipboard } from './useBibleClipboard';
 import { useBibleNavigate } from './useBibleNavigate';
 
 interface KeyMap {
@@ -13,26 +10,13 @@ interface KeyMap {
   action: () => void;
 }
 
-type Props = {
-  chapterRef?: IBibleChapterRef;
-  verses?: IBibleVerse[];
-  selectedVerses: IVerseRange;
-  focusSearch: () => void;
-};
-
-export function useBibleVimKeys({
-  chapterRef,
-  verses,
-  selectedVerses,
-  focusSearch,
-}: Props): void {
+export function useBibleVimKeys(): void {
   const { settings, updateSettings } = useSettingsContext();
-  const { copySelectedVerses } = useBibleClipboard({
-    chapterRef,
-    verses,
-    selectedVerses,
-  });
-  const nav = useBibleNavigate({ chapterRef, verses });
+  const bibleContext = useBibleContext();
+  const { chapterContext, verses } = bibleContext;
+  const { focusSearch } = useBibleSearchContext();
+  const { changeActiveVerse, goToPrevChapter, goToNextChapter } =
+    useBibleNavigate();
 
   useEffect(() => {
     const keydownHandler = (e: KeyboardEvent) => {
@@ -46,52 +30,52 @@ export function useBibleVimKeys({
         return;
       }
 
-      const currentVerseNumber = selectedVerses[0] || 0;
+      const currentVerseNumber = chapterContext?.selectedVerses[0] || 0;
 
       const keymap: KeyMap[] = [
         {
           key: (e) => e.key === 'Escape',
-          action: () => nav.changeActiveVerse(),
+          action: () => changeActiveVerse(undefined, undefined),
         },
         {
           key: (e) => e.key === 'j' || e.key === 'ArrowDown',
-          action: () => nav.changeActiveVerse(currentVerseNumber + 1),
+          action: () => changeActiveVerse(currentVerseNumber + 1, verses),
         },
         {
           key: (e) => e.key === 'k' || e.key === 'ArrowUp',
-          action: () => nav.changeActiveVerse(currentVerseNumber - 1),
+          action: () => changeActiveVerse(currentVerseNumber - 1, verses),
         },
         {
           key: (e) => e.key === 'h' || e.key === 'ArrowLeft',
-          action: () => nav.goToPrevChapter(),
+          action: () => goToPrevChapter(),
         },
         {
           key: (e) => e.key === 'l' || e.key === 'ArrowRight',
-          action: () => nav.goToNextChapter(),
+          action: () => goToNextChapter(),
         },
         {
           key: (e) => e.key === 'b' && e.ctrlKey,
-          action: () => nav.changeActiveVerse(currentVerseNumber - 14),
+          action: () => changeActiveVerse(currentVerseNumber - 14, verses),
         },
         {
           key: (e) => e.key === 'f' && e.ctrlKey,
-          action: () => nav.changeActiveVerse(currentVerseNumber + 14),
+          action: () => changeActiveVerse(currentVerseNumber + 14, verses),
         },
         {
           key: (e) => e.key === 'u' && e.ctrlKey,
-          action: () => nav.changeActiveVerse(currentVerseNumber - 6),
+          action: () => changeActiveVerse(currentVerseNumber - 6, verses),
         },
         {
           key: (e) => e.key === 'd' && e.ctrlKey,
-          action: () => nav.changeActiveVerse(currentVerseNumber + 6),
+          action: () => changeActiveVerse(currentVerseNumber + 6, verses),
         },
         {
           key: (e) => e.key === 'g',
-          action: () => nav.changeActiveVerse(1),
+          action: () => changeActiveVerse(1, verses),
         },
         {
           key: (e) => e.key === 'G',
-          action: () => verses && nav.changeActiveVerse(verses.length),
+          action: () => verses && changeActiveVerse(verses.length, verses),
         },
         {
           key: (e) => e.key === '/',
@@ -109,7 +93,7 @@ export function useBibleVimKeys({
 
         {
           key: (e) => e.key.toLowerCase() === 'y',
-          action: () => copySelectedVerses(),
+          action: () => copySelectedVersesAction(bibleContext),
         },
       ];
 
@@ -129,12 +113,15 @@ export function useBibleVimKeys({
       document.removeEventListener('keydown', keydownHandler);
     };
   }, [
-    copySelectedVerses,
-    nav,
-    selectedVerses,
+    // TODO optimize
+    chapterContext?.selectedVerses,
     settings,
-    updateSettings,
     verses,
+    updateSettings,
+    changeActiveVerse,
+    goToPrevChapter,
+    goToNextChapter,
+    bibleContext,
     focusSearch,
   ]);
 }

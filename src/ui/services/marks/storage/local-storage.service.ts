@@ -26,13 +26,22 @@ export class MarksApiLocalStorage implements MarksApi {
     return marks;
   }
 
-  async addMark(symbol: VerseMarkSymbol, ref: VerseRef): Promise<void> {
+  private async _updateMark(
+    symbol: VerseMarkSymbol,
+    ref: VerseRef,
+    value: boolean
+  ): Promise<void> {
     const chapterKey = getChapterKey(ref);
 
     const allMarks = this._getAllMarks();
     const chapterMarks = allMarks[chapterKey] ?? {};
     const verseMarks = chapterMarks[ref.verseNum] ?? {};
-    verseMarks[symbol] = true;
+
+    if (value) {
+      verseMarks[symbol] = true;
+    } else {
+      delete verseMarks[symbol];
+    }
 
     const result = {
       ...allMarks,
@@ -45,23 +54,12 @@ export class MarksApiLocalStorage implements MarksApi {
     localStorage.setItem(STORAGE_KEY, JSON.stringify(result));
   }
 
+  async addMark(symbol: VerseMarkSymbol, ref: VerseRef): Promise<void> {
+    return this._updateMark(symbol, ref, true);
+  }
+
   async removeMark(symbol: VerseMarkSymbol, ref: VerseRef): Promise<void> {
-    const chapterKey = getChapterKey(ref);
-
-    const allMarks = this._getAllMarks();
-    const chapterMarks = allMarks[chapterKey] ?? {};
-    const verseMarks = chapterMarks[ref.verseNum] ?? {};
-    delete verseMarks[symbol];
-
-    const result = {
-      ...allMarks,
-      [chapterKey]: {
-        ...chapterMarks,
-        [ref.verseNum]: verseMarks,
-      },
-    };
-
-    localStorage.setItem(STORAGE_KEY, JSON.stringify(result));
+    return this._updateMark(symbol, ref, false);
   }
 
   async getChapterMarks(ref: ChapterRef): Promise<ChapterMarks> {

@@ -1,9 +1,8 @@
-import React from 'react';
 import { QueryClient, QueryClientProvider } from 'react-query';
 import { Outlet } from 'react-router-dom';
 import './App.scss';
-import { SettingsProvider } from './features/shared/contexts/SettingsContext';
-import { UserStorageProvider } from './features/shared/contexts/UserStorageContext';
+import { MarksStorageProvider } from './ui/context/MarksStorageContext';
+import { SettingsProvider } from './ui/context/SettingsContext';
 
 const queryClient = new QueryClient();
 
@@ -13,9 +12,9 @@ function App() {
       <QueryClientProvider client={queryClient}>
         <div className="App">
           <SettingsProvider>
-            <UserStorageProvider>
+            <MarksStorageProvider>
               <Outlet key={window.location.pathname} />
-            </UserStorageProvider>
+            </MarksStorageProvider>
           </SettingsProvider>
         </div>
       </QueryClientProvider>

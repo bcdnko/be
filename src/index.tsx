@@ -4,9 +4,9 @@ import './index.scss';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
-import { BiblePage } from './features/Bible/pages/BiblePage';
-import { NotFoundPage } from './features/shared/pages/NotFoundPage';
-import { ErrorPage } from './features/shared/pages/ErrorPage';
+import { BiblePage } from './ui/components/bible/pages/BiblePage';
+import { NotFoundPage } from './ui/components/core/pages/NotFoundPage';
+import { ErrorPage } from './ui/components/core/pages/ErrorPage';
 
 const errorElement = <ErrorPage />;
 const biblePage = <BiblePage key={window.location.href} />;

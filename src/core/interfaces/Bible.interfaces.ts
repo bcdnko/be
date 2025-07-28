@@ -20,7 +20,7 @@ export interface IBibleVersionStored {
   strongId?: string;
 }
 
-export interface IBibleVersion extends IBibleVersionStored { }
+export interface IBibleVersion extends IBibleVersionStored {}
 
 export interface IBibleBookStored {
   id: BibleBookId;
@@ -35,7 +35,7 @@ export interface IBibleBookStored {
   aliases: BibleBookAlias[];
 }
 
-export interface IBibleBook extends IBibleBookStored { }
+export interface IBibleBook extends IBibleBookStored {}
 
 export type IBibleBooksByTestament = {
   testament: 'old' | 'new';
@@ -82,4 +82,28 @@ export interface IBibleChapterContext {
   book: IBibleBook;
   chapter: BibleChapterId;
   selectedVerses: IVerseRange;
+}
+
+export interface VersionChapterRef {
+  versionId: BibleVersionId;
+  bookId: BibleBookId;
+  chapter: number;
+}
+
+export interface ChapterRef {
+  bookId: BibleBookId;
+  chapter: number;
+}
+
+export interface VersionVerseRef {
+  versionId: BibleVersionId;
+  bookId: BibleBookId;
+  chapter: number;
+  verseNum: number;
+}
+
+export interface VerseRef {
+  bookId: BibleBookId;
+  chapter: number;
+  verseNum: number;
 }

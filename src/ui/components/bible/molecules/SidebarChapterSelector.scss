@@ -1,0 +1,46 @@
+@import '../../../../variables.scss';
+
+.sideListItem {
+  position: relative;
+  overflow: visible;
+
+  .chapterList {
+    background: $hover-bg-color;
+    display: none;
+    position: absolute;
+    padding: 0.5rem;
+    left: 2.5rem;
+    width: 200px;
+    font-weight: normal;
+    padding-top: 1rem;
+
+    span {
+      margin: 0 0.5rem;
+    }
+
+    > ul {
+      display: inline;
+      padding: 0;
+
+      > li {
+        display: inline-block;
+      }
+    }
+  }
+}
+
+.sideListItem.active .chapterList {
+  background: $primary-color;
+}
+
+.sideListItem:hover {
+  > a {
+    z-index: 999;
+    position: relative;
+  }
+
+  .chapterList {
+    display: block;
+    z-index: 1;
+  }
+}

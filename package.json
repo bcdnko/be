@@ -33,6 +33,7 @@
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
+    "deploy": "npm run build && firebase deploy",
     "import-version": "ts-node --project src/cli/tsconfig.json src/cli/import-version.ts",
     "import-strong": "ts-node --project src/cli/tsconfig.json src/cli/import-strong.ts",
     "update-version-index": "ts-node --project src/cli/tsconfig.json src/cli/update-version-index.ts"

@@ -1,0 +1,45 @@
+@use 'sass:map';
+@import '../../../../../node_modules/bootstrap/scss/functions';
+@import '../../../../../node_modules/bootstrap/scss/variables';
+@import '../../../../variables.scss';
+
+.chapter {
+  .chapterList {
+    text-align: center;
+    margin: $heading-vertical-spacer calc(2rem + 2vw);
+    padding: 0;
+    // border: 1px solid #e0e0e0;
+
+    a {
+      text-decoration: none;
+    }
+
+    span {
+      margin: 0 0.25rem;
+    }
+
+    > ul {
+      display: inline;
+      padding: 0;
+
+      > li {
+        list-style: none;
+        display: inline-block;
+        margin: 0 0.25rem;
+      }
+    }
+
+    .active,
+    .active a {
+      color: $primary-color;
+      font-size: 1.3rem;
+      font-weight: bold;
+    }
+  }
+
+  @media (max-width: map.get($grid-breakpoints, 'sm')) {
+    .chapterList {
+      margin: 1rem 0;
+    }
+  }
+}

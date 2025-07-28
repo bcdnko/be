@@ -1,0 +1,58 @@
+@use 'sass:map';
+@import '../../../../../node_modules/bootstrap/scss/functions';
+@import '../../../../../node_modules/bootstrap/scss/variables';
+@import '../../../../variables.scss';
+
+.chapterNav {
+  display: block;
+  min-width: 2.25rem;
+  max-width: 2.25rem;
+  text-align: center;
+  text-decoration: none;
+  color: black;
+  user-select: none;
+  padding-top: 35vh;
+  z-index: 20;
+
+  span {
+    position: sticky;
+    top: 1rem;
+  }
+}
+
+a.chapterNav:hover {
+  color: black;
+}
+
+@media (hover: hover) {
+  a.chapterNav:hover {
+    background: $hover-bg-color;
+  }
+}
+
+.wrapper {
+  display: flex;
+}
+
+.content {
+  flex-grow: 2;
+
+  h1,
+  h2 {
+    margin: 0 calc(1em + 1vw);
+    text-align: center;
+  }
+
+  h2 {
+    color: $gray-600;
+    margin: calc($heading-vertical-spacer / 2) 0;
+    margin-bottom: $heading-vertical-spacer;
+  }
+
+  @media (max-width: map.get($grid-breakpoints, 'md')) {
+    h1,
+    h2 {
+      margin: 1rem 0;
+    }
+  }
+}

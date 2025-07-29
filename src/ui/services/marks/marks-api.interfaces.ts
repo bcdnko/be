@@ -14,21 +14,6 @@ export enum VerseMarkType {
   SYMBOL = 1,
 }
 
-export interface VerseMark {
-  type: VerseMarkType;
-  value: string;
-}
-
-export const MarkMap: Map<VerseMarkSymbol, VerseMark> = new Map([
-  [
-    VerseMarkSymbol.SYMBOL_EXCLAMATION,
-    { type: VerseMarkType.SYMBOL, value: '!' },
-  ],
-  [VerseMarkSymbol.SYMBOL_QUESTION, { type: VerseMarkType.SYMBOL, value: '?' }],
-  [VerseMarkSymbol.SYMBOL_HEART, { type: VerseMarkType.SYMBOL, value: '♡' }],
-  [VerseMarkSymbol.SYMBOL_STAR, { type: VerseMarkType.SYMBOL, value: '★' }],
-]);
-
 export interface VerseMarks {
   [verseMarkSymbol: string]: boolean;
 }

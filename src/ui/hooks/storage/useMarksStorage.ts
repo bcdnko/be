@@ -12,19 +12,33 @@ export function useMarksStorage(chapterRef?: ChapterRef) {
 
   useEffect(() => {
     if (chapterRef) {
+      console.log('load marks');
       storage.getChapterMarks(chapterRef).then(setMarks);
     }
   }, [storage, JSON.stringify(chapterRef)]);
 
-  const addMark = (...args: Parameters<MarksApi['addMark']>) => {
-    storage.addMark(...args);
-    storage.getChapterMarks(chapterRef!).then(setMarks);
+  const addMark = async (...args: Parameters<MarksApi['addMark']>) => {
+    return Promise.resolve()
+      .then(() => storage.addMark(...args))
+      .then(() => storage.getChapterMarks(chapterRef!))
+      .then(setMarks);
   };
 
   const removeMark = (...args: Parameters<MarksApi['addMark']>) => {
-    storage.removeMark(...args);
-    storage.getChapterMarks(chapterRef!).then(setMarks);
+    console.log(storage);
+    return Promise.resolve()
+      .then(() => storage.removeMark(...args))
+      .then(() => storage.getChapterMarks(chapterRef!))
+      .then(setMarks);
   };
 
-  return { marks, addMark, removeMark };
+  const setAllMarks = (...args: Parameters<MarksApi['setAllMarks']>) => {
+    console.log('setAllMarks', chapterRef, args);
+    return Promise.resolve()
+      .then(() => storage.setAllMarks(...args))
+      .then(() => storage.getChapterMarks(chapterRef!))
+      .then(setMarks);
+  };
+
+  return { marks, addMark, removeMark, setAllMarks, storage };
 }

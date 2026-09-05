@@ -26,7 +26,8 @@
     "react-scripts": "5.0.1",
     "sass": "^1.55.0",
     "typescript": "^4.8.4",
-    "web-vitals": "^2.1.4"
+    "web-vitals": "^2.1.4",
+    "zod": "^4.0.16"
   },
   "scripts": {
     "start": "react-scripts start",

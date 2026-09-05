@@ -1,3 +1,5 @@
+import { z } from 'zod';
+
 import {
   ChapterRef,
   VerseRef,
@@ -14,15 +16,28 @@ export enum VerseMarkType {
   SYMBOL = 1,
 }
 
-export interface VerseMarks {
-  [verseMarkSymbol: string]: boolean;
-}
+const VerseMarksSchema = z.record(
+  z.string().describe('verse mark symbol'),
+  z.boolean().describe('verse mark flag')
+);
 
-export interface ChapterMarks {
-  [verseNum: string]: VerseMarks;
-}
+const ChapterMarksSchema = z.record(
+  z.string().describe('verse number'),
+  VerseMarksSchema
+);
+
+export const AllMarksSchema = z.record(
+  z.string().describe('book_chapter'),
+  ChapterMarksSchema
+);
+
+export type VerseMarks = z.infer<typeof VerseMarksSchema>;
+export type ChapterMarks = z.infer<typeof ChapterMarksSchema>;
+export type AllMarks = z.infer<typeof AllMarksSchema>;
 
 export interface MarksApi {
+  getAllMarks(): Promise<AllMarks>;
+  setAllMarks(marks: AllMarks): Promise<void>;
   addMark(symbol: VerseMarkSymbol, verseRef: VerseRef): Promise<void>;
   removeMark(symbol: VerseMarkSymbol, verseRef: VerseRef): Promise<void>;
   getChapterMarks(chapterRef: ChapterRef): Promise<ChapterMarks>;

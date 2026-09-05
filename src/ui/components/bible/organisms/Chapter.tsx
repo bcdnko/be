@@ -41,16 +41,13 @@ type Props = {
 };
 
 export function Chapter({ setStrongId }: Props) {
-  const { chapterContext, verses } = useBibleContext();
+  const { chapterRef, chapterContext, verses } = useBibleContext();
   const { settings } = useSettingsContext();
-  const marks = useMarksStorage(
-    chapterContext
-      ? {
-          bookId: chapterContext.book.id,
-          chapter: chapterContext.chapter,
-        }
-      : undefined
-  );
+  const marks = useMarksStorage(chapterRef);
+
+  useEffect(() => {
+    console.log(111, marks.marks[1]);
+  }, [marks]);
 
   useBibleVimKeys();
 
@@ -84,7 +81,7 @@ export function Chapter({ setStrongId }: Props) {
     <>
       <div className="scroll-anchor"></div>
 
-      <ChapterToolbar />
+      <ChapterToolbar marks={marks} />
 
       <div className={styles.wrapper}>
         {(settings.chapter.hugePrevNextChapterBtns && prevChapterLink && (
@@ -116,7 +113,10 @@ export function Chapter({ setStrongId }: Props) {
                 verse={verse}
                 selectedVerses={chapterContext.selectedVerses}
                 setStrongId={setStrongId}
-                marks={{ ...marks, marks: marks.marks[verse.no] ?? {} }}
+                marks={{
+                  ...marks,
+                  marks: marks.marks[verse.no] ?? {},
+                }}
               />
             ))
           )}

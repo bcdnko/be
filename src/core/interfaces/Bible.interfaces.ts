@@ -1,3 +1,4 @@
+import { useMarksStorage } from '../../ui/hooks/storage/useMarksStorage';
 import { LanguageId } from './Language.interfaces';
 
 export type BibleVersionId = string;

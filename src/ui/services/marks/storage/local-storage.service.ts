@@ -3,21 +3,31 @@ import {
   VerseRef,
 } from '../../../../core/interfaces/Bible.interfaces';
 import {
+  AllMarks,
   ChapterMarks,
   MarksApi,
   VerseMarkSymbol,
 } from '../marks-api.interfaces';
 
-const STORAGE_KEY = 'marks';
+export const MARKS_STORAGE_KEY = 'marks';
 
 function getChapterKey(ref: ChapterRef) {
   return ref.bookId + '_' + ref.chapter;
 }
 
 export class MarksApiLocalStorage implements MarksApi {
-  private _getAllMarks() {
-    const rawMarks = localStorage.getItem(STORAGE_KEY);
-    const marks = rawMarks ? JSON.parse(rawMarks) : ({} as ChapterMarks);
+  getAllMarks(): Promise<AllMarks> {
+    return this._getAllMarks();
+  }
+
+  async setAllMarks(marks: AllMarks): Promise<void> {
+    // TODO prune
+    localStorage.setItem(MARKS_STORAGE_KEY, JSON.stringify(marks));
+  }
+
+  private async _getAllMarks() {
+    const rawMarks = localStorage.getItem(MARKS_STORAGE_KEY);
+    const marks = rawMarks ? JSON.parse(rawMarks) : ({} as AllMarks);
 
     if (!marks) {
       throw new Error('Can not read marks');
@@ -33,7 +43,7 @@ export class MarksApiLocalStorage implements MarksApi {
   ): Promise<void> {
     const chapterKey = getChapterKey(ref);
 
-    const allMarks = this._getAllMarks();
+    const allMarks = await this._getAllMarks();
     const chapterMarks = allMarks[chapterKey] ?? {};
     const verseMarks = chapterMarks[ref.verseNum] ?? {};
 
@@ -51,7 +61,7 @@ export class MarksApiLocalStorage implements MarksApi {
       },
     };
 
-    localStorage.setItem(STORAGE_KEY, JSON.stringify(result));
+    return this.setAllMarks(result);
   }
 
   async addMark(symbol: VerseMarkSymbol, ref: VerseRef): Promise<void> {
@@ -63,10 +73,10 @@ export class MarksApiLocalStorage implements MarksApi {
   }
 
   async getChapterMarks(ref: ChapterRef): Promise<ChapterMarks> {
-    const allMarks = this._getAllMarks();
+    const allMarks = await this._getAllMarks();
     const marks = allMarks[getChapterKey(ref)];
+    console.log('loaded marks', marks);
 
-    console.log(marks);
     return marks ?? {};
   }
 }

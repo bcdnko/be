@@ -6,6 +6,8 @@ import {
   faGear,
   faRectangleXmark,
   faShare,
+  faFileUpload,
+  faFileDownload,
 } from '@fortawesome/free-solid-svg-icons';
 import { faCopy } from '@fortawesome/free-regular-svg-icons';
 import { useState } from 'react';
@@ -15,15 +17,20 @@ import styles from './ChapterToolbar.module.scss';
 import { useSettingsContext } from '../../../context/SettingsContext';
 import { useBibleContext } from '../../../context/BibleChapterContext';
 import { useVerseSelectionActions } from '../../../hooks/actions/bible/useVerseSelectionActions';
+import { useUserStorage } from '../../../hooks/storage/useSaveUserStorage';
+import { useMarksStorage } from '../../../hooks/storage/useMarksStorage';
 
-type Props = {};
+type Props = {
+  marks: ReturnType<typeof useMarksStorage>;
+};
 
-export function ChapterToolbar({}: Props) {
+export function ChapterToolbar({ marks }: Props) {
   const { settings, updateSettings } = useSettingsContext();
   const { chapterContext, verses } = useBibleContext();
   const [showSettingsModal, setShowSettingsModal] = useState(false);
   const { copySelectedVersesAction } = useVerseSelectionActions();
   const { changeActiveVerse } = useBibleNavigate();
+  const { exportUserStorage, importUserStorage } = useUserStorage({ marks });
 
   return (
     <>
@@ -96,7 +103,21 @@ export function ChapterToolbar({}: Props) {
               <FontAwesomeIcon icon={faRectangleXmark} />
             </Button>
           </ButtonGroup>{' '}
-        </>
+        </>{' '}
+        <ButtonGroup>
+          <Button
+            title="Export your data"
+            onClick={() => exportUserStorage()}
+          >
+            <FontAwesomeIcon icon={faFileDownload} />
+          </Button>
+          <Button
+            title="Import your data"
+            onClick={() => importUserStorage()}
+          >
+            <FontAwesomeIcon icon={faFileUpload} />
+          </Button>
+        </ButtonGroup>{' '}
         <Button
           title="Settings"
           onClick={() => setShowSettingsModal(true)}

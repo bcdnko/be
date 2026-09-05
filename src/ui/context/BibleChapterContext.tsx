@@ -1,5 +1,6 @@
 import React, { useMemo } from 'react';
 import {
+  ChapterRef,
   IBibleBook,
   IBibleChapterContext,
   IBibleVerse,
@@ -9,15 +10,15 @@ import { useBibleContextLoader } from '../hooks/api/bible/useBibleContextLoader'
 import { useVersesFromHash } from '../hooks/actions/bible/useVersesFromHash';
 import { useBibleRouteParams } from '../hooks/actions/bible/useBibleParams';
 
-// TODO remove ?
 export interface IBibleContext {
+  chapterRef: ChapterRef;
   chapterContext?: IBibleChapterContext;
   versions?: IBibleVersion[];
   books?: IBibleBook[];
   verses?: IBibleVerse[];
 }
 
-export const BibleContext = React.createContext<IBibleContext>({});
+export const BibleContext = React.createContext<IBibleContext>(undefined!);
 
 export function BibleContextProvider({
   children,
@@ -25,11 +26,17 @@ export function BibleContextProvider({
   const { versionId, bookId, chapter } = useBibleRouteParams();
   const { selectedVerses } = useVersesFromHash();
 
-  const { versions, books, version, book, verses } = useBibleContextLoader({
-    versionId,
-    bookId,
-    chapter,
-  });
+  const chapterRef = useMemo(
+    () => ({
+      versionId,
+      bookId,
+      chapter,
+    }),
+    [versionId, bookId, chapter]
+  );
+
+  const { versions, books, version, book, verses } =
+    useBibleContextLoader(chapterRef);
 
   const chapterContext = useMemo(() => {
     if (!version || !book || !chapter || !selectedVerses) {
@@ -48,6 +55,7 @@ export function BibleContextProvider({
     <BibleContext.Provider
       value={{
         chapterContext,
+        chapterRef,
         versions,
         books,
         verses,
@@ -59,5 +67,9 @@ export function BibleContextProvider({
 }
 
 export function useBibleContext() {
+  if (BibleContext === undefined) {
+    throw new Error('BibleContext was not defined');
+  }
+
   return React.useContext(BibleContext);
 }

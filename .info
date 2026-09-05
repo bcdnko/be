@@ -1,0 +1,13 @@
+Marks
+  symbol
+  color
+  bold
+
+verseId
+  versionId?
+  bookId
+  chapter
+  verse
+
+type: symbol | color | isBold
+value: string

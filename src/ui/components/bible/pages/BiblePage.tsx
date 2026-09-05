@@ -6,6 +6,7 @@ import { SearchBar } from '../molecules/SearchBar';
 import { BibleContextProvider } from '../../../context/BibleChapterContext';
 import { LeftSidebar } from '../organisms/LeftSidebar';
 import { BibleSearchContextProvider } from '../../../context/BibleSearchContext';
+import { MarksStorageProvider } from '../../../context/MarksStorageContext';
 
 export function BiblePage() {
   const [strongId, setStrongId] = useState<string>();
@@ -13,27 +14,29 @@ export function BiblePage() {
   return (
     <BibleContextProvider>
       <BibleSearchContextProvider>
-        <StandardLayout>
-          {{
-            leftSidebar: <LeftSidebar />,
-            main: (
-              <>
-                <SearchBar />
-                <Chapter setStrongId={setStrongId} />
-              </>
-            ),
-            rightSidebar: (
-              <>
-                {strongId && (
-                  <StrongCard
-                    strongId={strongId}
-                    setStrongId={setStrongId}
-                  />
-                )}
-              </>
-            ),
-          }}
-        </StandardLayout>
+        <MarksStorageProvider>
+          <StandardLayout>
+            {{
+              leftSidebar: <LeftSidebar />,
+              main: (
+                <>
+                  <SearchBar />
+                  <Chapter setStrongId={setStrongId} />
+                </>
+              ),
+              rightSidebar: (
+                <>
+                  {strongId && (
+                    <StrongCard
+                      strongId={strongId}
+                      setStrongId={setStrongId}
+                    />
+                  )}
+                </>
+              ),
+            }}
+          </StandardLayout>
+        </MarksStorageProvider>
       </BibleSearchContextProvider>
     </BibleContextProvider>
   );

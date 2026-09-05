@@ -11,7 +11,7 @@ In order to know the word of the Lord better
 - [Select chapter](./select-chapter.story.md)
 - [Read chapter](./read-chapter.story.md)
 
+next/prev chapter
 select verse
 
-next/prev chapter
 

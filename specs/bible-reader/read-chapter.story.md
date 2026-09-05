@@ -4,7 +4,7 @@ As a **Bible researcher**\
 I want to read the Bible chapter\
 In order to know the word of God
 
-## Requirements
+## Acceptance Criteria
 
 ### R1: user can read the chapter content
 

@@ -4,7 +4,7 @@ As a **Bible researcher**\
 I want to be able to **pick** the Bible **version** to read\
 In order to compare different translations and corpuses
 
-## Requirements
+## Acceptance Criteria
 
 ### R1: user can see the list of the Bible versions to select from
 

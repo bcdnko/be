@@ -4,7 +4,7 @@ As a **Bible researcher**\
 I want to be able to **pick** the Bible **book** from the current version\
 In order to quckly navigate to the desired one
 
-## Requirements
+## Acceptance Criteria
 
 ### R1: user can see the list of the Bible version books to select from
 

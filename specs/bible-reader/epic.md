@@ -10,8 +10,10 @@ In order to know the word of the Lord better
 - [Select book](./select-book.story.md)
 - [Select chapter](./select-chapter.story.md)
 - [Read chapter](./read-chapter.story.md)
+- [Prev/Next chapter](./next-n-prev-chapter.story.md)
 
-next/prev chapter
+TODO:
+
 select verse
 
 

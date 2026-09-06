@@ -11,9 +11,9 @@ In order to know the word of the Lord better
 - [Select chapter](./select-chapter.story.md)
 - [Read chapter](./read-chapter.story.md)
 - [Prev/Next chapter](./next-n-prev-chapter.story.md)
-
-TODO:
-
-select verse
-
-
+- [Verse selection](./verse-selection.story.md)
+- [Readable URLs](./readable-urls.story.md)
+- Copy selection
+- Share selection
+- Strong
+- Responsive
